@@ -122,6 +122,10 @@ ul {
   margin: 0 auto;
 }
 
+.relative {
+  position: relative;
+}
+
 .visually-hidden {
   position: absolute;
   width: 1px;
