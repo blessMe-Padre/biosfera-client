@@ -39,6 +39,13 @@ export default function Home() {
         className="dsv-image"
         priority
       />
+
+    <p>
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Id adipisci,
+        temporibus nesciunt cumque deleniti, quas eligendi est esse,
+        reprehenderit aperiam quasi quo nisi accusantium aspernatur soluta
+        doloribus eos nemo molestiae!
+      </p>
     </main>
   );
 }

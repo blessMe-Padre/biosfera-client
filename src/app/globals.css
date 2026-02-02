@@ -1,16 +1,17 @@
 /*
-  20px - font-size: 1.25em;
-  18px - font-size: 1.125em;
-  16px - font-size: 1em;
-  14px - font-size: 0.875em;
-  12px - font-size: 0.75em;
-  10px - font-size: 0.625em;
+  20px - font-size: 1.25rem;
+  18px - font-size: 1.125rem;
+  16px - font-size: 1rem;
+  14px - font-size: 0.875rem;
+  12px - font-size: 0.75rem;
+  10px - font-size: 0.625rem;
 */
 
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #232527;
+  --text-gradient: linear-gradient(to right, #3170B4, #5CCCC2);
 
   /* Переменные для плагина */
   --light-yellow: #F7F3D6;
@@ -47,6 +48,40 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+body.theme_white {
+  --background: var(--white);
+  --foreground: var(--black);
+}
+
+body.theme_black {
+  --background: var(--black);
+  --foreground: var(--white);
+}
+
+body.theme_blue {
+  --background: var(--light-blue);
+  --foreground: var(--dark-blue);
+}
+
+body.theme_yellow {
+  --background: var(--light-yellow);
+  --foreground: var(--light-green);
+}
+
+body.theme_green {
+  --background: var(--light-green);
+  --foreground: var(--green);
+}
+
+/* Перебивает локальные color (например color: red) в Header */
+body.theme_white *,
+body.theme_black *,
+body.theme_blue *,
+body.theme_yellow *,
+body.theme_green * {
+  color: var(--foreground);
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -57,9 +92,3 @@ a {
   color: inherit;
   text-decoration: none;
 }
-
-/* @media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-} */

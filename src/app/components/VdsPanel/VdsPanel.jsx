@@ -6,6 +6,7 @@ import styles from "./vdspanel.module.css";
 
 export default function VdsPanel({ setPanel, setPanelBtn }) {
     const [filter, setFilter] = useState(false);
+    const themeClasses = ["theme_white", "theme_black", "theme_blue", "theme_yellow", "theme_green"];
 
     const images = document.querySelectorAll('.dsv-image');
     const sections = document.querySelectorAll('.section-dsv');
@@ -39,35 +40,29 @@ export default function VdsPanel({ setPanel, setPanelBtn }) {
     }
 
     // Функция для смены темы
-    function changeTheme(allStyles, newTheme) {
-        document.body.classList.remove(
-            allStyles.theme_white,
-            allStyles.theme_black,
-            allStyles.theme_blue,
-            allStyles.theme_yellow,
-            allStyles.theme_green
-        );
+    function changeTheme(newTheme) {
+        document.body.classList.remove(...themeClasses);
         document.body.classList.add(newTheme);
     }
 
     const changeThemeWhite = () => {
-        changeTheme(styles, styles.theme_white);
+        changeTheme("theme_white");
         speachtxt("цвет сайта черным по белому");
     }
     const changeThemeBlack = () => {
-        changeTheme(styles, styles.theme_black);
+        changeTheme("theme_black");
         speachtxt("цвет сайта белым по черному");
     }
     const changeThemeBlue = () => {
-        changeTheme(styles, styles.theme_blue);
+        changeTheme("theme_blue");
         speachtxt("цвет сайта темно синим по голубому");
     }
     const changeThemeYellow = () => {
-        changeTheme(styles, styles.theme_yellow);
+        changeTheme("theme_yellow");
         speachtxt("цвет сайта темно коричневым по бежевому");
     }
     const changeThemeGreen = () => {
-        changeTheme(styles, styles.theme_green);
+        changeTheme("theme_green");
         speachtxt("цвет сайта зеленым по темно коричневому");
     }
 
@@ -157,13 +152,7 @@ export default function VdsPanel({ setPanel, setPanelBtn }) {
             div.remove();
         });
 
-        document.body.classList.remove(
-            styles.theme_white,
-            styles.theme_black,
-            styles.theme_blue,
-            styles.theme_yellow,
-            styles.theme_green
-        );
+        document.body.classList.remove(...themeClasses);
         setPanel(false);
         setPanelBtn(true)
     }

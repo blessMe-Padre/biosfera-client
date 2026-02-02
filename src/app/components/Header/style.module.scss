@@ -8,6 +8,6 @@
 }
 
 .text {
-    color: blue;
-    @include adaptiv-value("font-size", 36, 16);
+    color: var(--text-gradient);
+    @include adaptiv-value("font-size", 72, 16);
 }
