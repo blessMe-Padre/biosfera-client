@@ -51,26 +51,31 @@ body {
 body.theme_white {
   --background: var(--white);
   --foreground: var(--black);
+  --text-gradient: var(--black);
 }
 
 body.theme_black {
   --background: var(--black);
   --foreground: var(--white);
+  --text-gradient: var(--white);
 }
 
 body.theme_blue {
   --background: var(--light-blue);
   --foreground: var(--dark-blue);
+  --text-gradient: var(--dark-blue);
 }
 
 body.theme_yellow {
   --background: var(--light-yellow);
   --foreground: var(--light-green);
+  --text-gradient: var(--light-green);
 }
 
 body.theme_green {
   --background: var(--light-green);
   --foreground: var(--green);
+  --text-gradient: var(--green);
 }
 
 /* Перебивает локальные color (например color: red) в Header */

@@ -8,6 +8,9 @@
 }
 
 .text {
-    color: var(--text-gradient);
+    background: var(--text-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     @include adaptiv-value("font-size", 72, 16);
 }
