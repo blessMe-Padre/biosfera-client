@@ -1,9 +1,21 @@
+"use client";
+import { useState, useEffect } from "react";
+
 import styles from "./style.module.scss";
 import Image from "next/image";
 import { Popup } from "@/app/components";
-import Link from "next/link";
 
 export default function Hero() {
+    const [popupOpened, setPopupOpened] = useState(false);
+    const [miniPopupClosed, setMiniPopupClosed] = useState(true);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setMiniPopupClosed(false);
+        }, 2000);
+    
+        return () => clearTimeout(timer);
+    }, []); 
 
     return (
         <section>
@@ -16,11 +28,69 @@ export default function Hero() {
                     className={`${styles.hero_bg} dsv-image}`}
                     priority
                 />
-                <div>
+                <div className={styles.hero_content}>
                     <h2 className={styles.hero_title}>«Биосфера ДВ» — забота о&nbsp;вашем здоровье на всех этапах</h2>
-                    <button>222222222</button>
+                    <button className={styles.hero_button} onClick={() => setPopupOpened(true)}>Записаться на прием</button>
                 </div>
+
+                <div className={`${styles.hero_ladel} ${styles.hero_ladel_1}`}>
+                    <Image
+                        src="/icons/plus-icon.svg"
+                        alt="plus-icon"
+                        width={30}
+                        height={30}
+                    />
+                    <p>Комфортный приём без очередей и потери времени</p>
+                </div>
+                <div className={`${styles.hero_ladel} ${styles.hero_ladel_2}`}>
+                    <Image
+                        src="/icons/plus-icon.svg"
+                        alt="plus-icon"
+                        width={30}
+                        height={30}
+                    />
+                    <p>Точная диагностика без лишних назначений</p>
+                </div>
+                <div className={`${styles.hero_ladel} ${styles.hero_ladel_3}`}>
+                    <Image
+                        src="/icons/plus-icon.svg"
+                        alt="plus-icon"
+                        width={30}
+                        height={30}
+                    />
+                    <p>Врачи, которые разбираются в причине, а не лечат симптомы</p>
+                </div>
+                <a className={styles.hero_link} href="#" target="_blank">Записаться онлайн</a>
             </div>
-        </section>
+
+            <Popup active={popupOpened} setActive={setPopupOpened} />
+
+            {!miniPopupClosed && (
+            <section className={styles.mini_popup}>
+                <button 
+                    onClick={() => setMiniPopupClosed(true)}
+                    className={styles.mini_popup_close_button}
+                >
+                    <Image
+                        src="/icons/close-small.svg"
+                        alt="bg-image"
+                        width={22}
+                        height={22}
+                    />
+                </button>
+                <div className={styles.mini_popup_content}>
+                    <h2>Есть вопросы?</h2>
+                    <p>Мы перезвоним вам в течение нескольких минут</p>
+                    <button 
+                        className={`${styles.hero_button} ${styles.hero_button_small}`} 
+                        onClick={() => setPopupOpened(true)}
+                    >
+                    Записаться на прием
+                    </button>
+                </div>
+                ыыыы
+            </section>
+            )}
+       </section>
     )
 } 
