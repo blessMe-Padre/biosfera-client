@@ -1,0 +1,43 @@
+// @include adaptiv-value("font-size", 16, 13);
+// @use "../../mixins" as *;
+@use "@app/mixins" as *;
+
+.gallery {
+    @include adaptiv-value("margin-top", 100, 50);
+    border-radius: 20px;
+    max-width: 1740px;
+    margin: 0 auto;
+    @include adaptiv-value("padding-top", 70, 30);
+    @include adaptiv-value("padding-bottom", 70, 30);
+    background:
+        url('/bg/gallery-bg.webp'),
+        linear-gradient(180deg, #e6ecf3 0%, #fff 100%);
+    background-size: cover;
+    background-position: center;
+
+}
+
+.gallery__wrapper {}
+
+.gallery__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    @include adaptiv-value("margin-bottom", 40, 20);
+
+    h2 {
+        @include adaptiv-value("font-size", 45, 26);
+    }
+
+    p {
+        font-weight: 600;
+        font-size: 18px;
+        color: var(--color-gray);
+        max-width: 525px;
+    }
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+    }
+}
