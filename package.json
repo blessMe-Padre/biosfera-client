@@ -11,8 +11,12 @@
   },
   "dependencies": {
     "next": "16.1.6",
+    "nodemailer": "^7.0.13",
+    "photoswipe": "^5.4.4",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "react-hook-form": "^7.71.1",
+    "swiper": "^12.1.0"
   },
   "devDependencies": {
     "@biomejs/biome": "2.2.0",

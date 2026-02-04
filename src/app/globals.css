@@ -1,29 +1,120 @@
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/*
+  20px - font-size: 1.25rem;
+  18px - font-size: 1.125rem;
+  16px - font-size: 1rem;
+  14px - font-size: 0.875rem;
+  12px - font-size: 0.75rem;
+  10px - font-size: 0.625rem;
+*/
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+
+:root {
+  --foreground: #171717;
+  --background: #ffffff;
+  --gradient: linear-gradient(to right, #3170B4, #5CCCC2);
+  --button-gradient: linear-gradient(to right, #3170B4, #5CCCC2);
+  --button-border: transparent;
+  --transition: 0.3s ease;
+
+  --hover: #5cccc2;
+
+  /*Цвета макета*/
+  --color-gray: #858f9c;
+  --color-light-gray: #dedce3;
+  /* добавлять как цвет текста для корректного изменения через плвгин */
+  --text-gray: #858f9c;
+
+  /* Переменные для плагина */
+  --light-yellow: #F7F3D6;
+  --light-green: #3B2716;
+  --black: #191830;
+  --black-toggle: #191830;
+  --dark-blue: #282646;
+  --white: #FFFFFF;
+  --gray: #EBEEF8;
+  --dark-gray: #e4e8f5;
+  --light-blue: #37A4DA;
+  --yellow: #FCCC05;
+  --green: #29A55C;
+  --violet: #433C8C;
+  --violet2: #474092;
+  --purple: #7B1FA2;
+  --orange: #FFB236;
+  --slate-gray: #757f99;
+  --violet-gradient: linear(from(#433C8C) to (#625AB6));
+  --purple-gradient: linear(from(#7B1FA2) to (#A340CD));
 }
 
 html,
 body {
   max-width: 100vw;
+  height: 100%;
   overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-family);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+body.theme_white {
+  --background: var(--white);
+  --foreground: var(--black);
+  --text-gray: var(--black);
+  --gradient: var(--black);
+  --button-gradient: var(--white);
+  --button-border: var(--black);
+}
+
+body.theme_black {
+  --background: var(--black);
+  --foreground: var(--white);
+  --text-gray: var(--white);
+  --gradient: var(--white);
+  --button-gradient: var(--black);
+  --button-border: var(--white);
+}
+
+body.theme_blue {
+  --background: var(--light-yellow);
+  --foreground: var(--dark-blue);
+  --text-gray: var(--dark-blue);
+  --gradient: var(--dark-blue);
+  --button-gradient: var(--light-yellow);
+  --button-border: var(--dark-blue);
+}
+
+body.theme_yellow {
+  --background: var(--light-yellow);
+  --foreground: var(--light-green);
+  --text-gray: var(--light-green);
+  --gradient: var(--light-green);
+  --button-gradient: var(--light-yellow);
+  --button-border: var(--light-green);
+}
+
+body.theme_green {
+  --background: var(--light-green);
+  --foreground: var(--green);
+  --text-gray: var(--green);
+  --gradient: var(--green);
+  --button-gradient: var(--light-green);
+  --button-border: var(--green);
+}
+
+body.theme_white *,
+body.theme_black *,
+body.theme_blue *,
+body.theme_yellow *,
+body.theme_green * {
+  color: var(--foreground);
+}
+
+/* Reset */
 * {
   box-sizing: border-box;
   padding: 0;
@@ -35,8 +126,55 @@ a {
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+ul {
+  list-style: none;
+}
+
+.container {
+  max-width: 1480px;
+  padding: 0 20px;
+  margin: 0 auto;
+}
+
+.relative {
+  position: relative;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+/* Utils */
+.flex {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.text-gradient {
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text {
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 3rem;
 }

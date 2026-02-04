@@ -2,7 +2,65 @@
 // @use "../../mixins" as *;
 @use "@app/mixins" as *;
 
-.color {
-    color: red;
-    @include adaptiv-value("font-size", 102, 32);
+.header__inner {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--gray);
+
+    flex-wrap: wrap;
+}
+
+.primary_button {
+    background: var(--button-gradient);
+    color: white;
+    padding: 10px 20px;
+    border: 1px solid var(--button-border);
+    border-radius: 30px;
+    cursor: pointer;
+}
+
+.item__button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--gray);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header_social {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.nav_wrapper {
+    padding: 20px 0;
+}
+
+.nav_list {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    flex-wrap: wrap;
+}
+
+.nav_item {
+
+    a {
+        font-weight: 600;
+        font-size: 1.25rem;
+        transition: color var(--transition);
+    }
+
+    a:hover {
+        color:var(--hover);
+    }
 }
