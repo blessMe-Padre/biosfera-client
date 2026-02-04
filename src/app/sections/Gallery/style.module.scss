@@ -9,6 +9,7 @@
     margin: 0 auto;
     @include adaptiv-value("padding-top", 70, 30);
     @include adaptiv-value("padding-bottom", 70, 30);
+    @include adaptiv-value("margin-top", 70, 30);
     background:
         url('/bg/gallery-bg.webp'),
         linear-gradient(180deg, #e6ecf3 0%, #fff 100%);
@@ -33,7 +34,7 @@
     p {
         font-weight: 600;
         font-size: 18px;
-        color: var(--color-gray);
+        color: var(--text-gray);
         max-width: 525px;
     }
 

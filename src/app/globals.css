@@ -21,6 +21,8 @@
   /*Цвета макета*/
   --color-gray: #858f9c;
   --color-light-gray: #dedce3;
+  /* добавлять как цвет текста для корректного изменения через плвгин */
+  --text-gray: #858f9c;
 
   /* Переменные для плагина */
   --light-yellow: #F7F3D6;
@@ -62,6 +64,7 @@ body {
 body.theme_white {
   --background: var(--white);
   --foreground: var(--black);
+  --text-gray: var(--black);
   --gradient: var(--black);
   --button-gradient: var(--white);
   --button-border: var(--black);
@@ -70,6 +73,7 @@ body.theme_white {
 body.theme_black {
   --background: var(--black);
   --foreground: var(--white);
+  --text-gray: var(--white);
   --gradient: var(--white);
   --button-gradient: var(--black);
   --button-border: var(--white);
@@ -78,6 +82,7 @@ body.theme_black {
 body.theme_blue {
   --background: var(--light-yellow);
   --foreground: var(--dark-blue);
+  --text-gray: var(--dark-blue);
   --gradient: var(--dark-blue);
   --button-gradient: var(--light-yellow);
   --button-border: var(--dark-blue);
@@ -86,6 +91,7 @@ body.theme_blue {
 body.theme_yellow {
   --background: var(--light-yellow);
   --foreground: var(--light-green);
+  --text-gray: var(--light-green);
   --gradient: var(--light-green);
   --button-gradient: var(--light-yellow);
   --button-border: var(--light-green);
@@ -94,6 +100,7 @@ body.theme_yellow {
 body.theme_green {
   --background: var(--light-green);
   --foreground: var(--green);
+  --text-gray: var(--green);
   --gradient: var(--green);
   --button-gradient: var(--light-green);
   --button-border: var(--green);

@@ -9,8 +9,8 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <Header />
-      {/* <Hero /> */}
-      {/* <Services /> */}
+      <Hero />
+      <Services />
       <Gallery />
       <Image
         src="/Item.png"
