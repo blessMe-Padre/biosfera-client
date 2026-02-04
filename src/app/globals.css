@@ -14,9 +14,13 @@
   --gradient: linear-gradient(to right, #3170B4, #5CCCC2);
   --button-gradient: linear-gradient(to right, #3170B4, #5CCCC2);
   --button-border: transparent;
+  --transition: 0.3s ease;
+
+  --hover:#5cccc2;
 
   /*Цвета макета*/
   --color-gray: #858f9c;
+  --color-light-gray: #dedce3;
 
   /* Переменные для плагина */
   --light-yellow: #F7F3D6;

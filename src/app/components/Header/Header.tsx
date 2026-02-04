@@ -3,6 +3,17 @@ import { useState, useRef, useEffect } from "react";
 import styles from "./style.module.scss";
 import Image from "next/image";
 import { VdsButton, VdsPanel, Search, Popup } from "@/app/components";
+import Link from "next/link";
+
+const menuLinks = [
+  {title: 'Услуги', url: '#'},
+  {title: 'Цены', url: '#'},
+  {title: 'Врачи', url: '#'},
+  {title: 'Акции ', url: '#'},
+  {title: 'Новости', url: '#'},
+  {title: 'О центре', url: '#'},
+  {title: 'Контакты', url: '#'},
+]
 
 export default function Header() {
   const [panel, setPanel] = useState(false);
@@ -74,6 +85,16 @@ export default function Header() {
               </button>
             </div>
         </div>
+
+        <nav className={styles.nav_wrapper}>
+          <ul className={styles.nav_list}>
+            {menuLinks.map((item, index) => (
+              <li  className={styles.nav_item} key={index}>
+                <Link href={item.url}>{item.title}</Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
 
         <div ref={searchContainerRef}>
           {searchOpened && <Search />}

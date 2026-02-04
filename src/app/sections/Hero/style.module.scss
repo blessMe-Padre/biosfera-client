@@ -1,0 +1,40 @@
+// @include adaptiv-value("font-size", 16, 13);
+// @use "../../mixins" as *;
+@use "@app/mixins" as *;
+
+
+.hero_wrapper {
+    position: relative;
+    max-width: 1740px;
+    width: 100%;
+    padding: 0 20px;
+    border-radius: 30px;
+    margin: 0 auto;
+
+    min-height: 766px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero_bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+.hero_title {
+    font-weight: 600;
+    @include adaptiv-value("font-size", 50, 26);
+    line-height: 120%;
+    text-align: center;
+    color: var(--color-light-gray);
+    max-width: 710px;
+    text-align: center;
+}
+

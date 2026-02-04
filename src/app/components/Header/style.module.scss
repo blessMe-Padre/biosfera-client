@@ -6,6 +6,10 @@
     display: flex;
     align-items: center;
     gap: 20px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--gray);
+
+    flex-wrap: wrap;
 }
 
 .primary_button {
@@ -35,7 +39,28 @@
     gap: 20px;
 }
 
-.color {
-    color: red;
-    @include adaptiv-value("font-size", 102, 32);
+.nav_wrapper {
+    padding: 20px 0;
+}
+
+.nav_list {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    flex-wrap: wrap;
+}
+
+.nav_item {
+
+    a {
+        font-weight: 600;
+        font-size: 1.25rem;
+        transition: color var(--transition);
+    }
+
+    a:hover {
+        color:var(--hover);
+    }
 }
