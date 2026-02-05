@@ -5,7 +5,7 @@ const data = [
     {
         id: 1,
         title: "Программы для поддержания здоровья в зимний период",
-        image: "/images/new-1.webp",
+        image: "/images/slide-1.webp",
         label: "1 января 2026",
         link: "#",
     },
