@@ -1,9 +1,7 @@
 "use client";
-import { useState, useEffect } from "react";
 import styles from "./style.module.scss";
 import Image from "next/image";
 import Link from "next/link";
-import { Slider } from "@/app/components";
 
 export default function DoctorCard({ data }: { data: any }) {
     return (

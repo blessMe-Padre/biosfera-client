@@ -38,6 +38,22 @@ const data = [
         description: "Врач-неврологт",
         link: "#",
     },
+    {
+        id: 5,
+        name: "2Бурдуковская Наталья Викторовна",
+        image: "/images/doctors/image-1.webp",
+        label: "Стаж 25 лет",
+        description: "Главный врач, Врач функциональной диагностики, Врач-терапевт",
+        link: "#",
+    },
+    {
+        id: 6,
+        name: "2Савинов Аркадий Александрович",
+        image: "/images/doctors/image-2.webp",
+        label: "Стаж 14 лет",
+        description: "Врач-неврологт",
+        link: "#",
+    },
 ]
 
 export default function Doctors() {
@@ -52,7 +68,7 @@ export default function Doctors() {
                     </div>
 
                     
-                    <Slider data={data} Card={DoctorCard} />
+                    <Slider data={data} Card={DoctorCard} slidesPerView={4}/>
                 </div>
             </div>
         </section>

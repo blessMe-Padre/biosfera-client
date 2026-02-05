@@ -32,11 +32,13 @@ const DEFAULT_BREAKPOINTS: SliderBreakpoints = {
     320: { slidesPerView: 1 },
     768: { slidesPerView: 2 },
     1023: { slidesPerView: 3 },
+    1440: { slidesPerView: 4 },
 };
 
 export default function Slider<TItem>({
     data,
     Card,
+    slidesPerView,
  }: SliderProps<TItem>) {
 
     console.log(data);
@@ -47,10 +49,10 @@ export default function Slider<TItem>({
                 spaceBetween={20}
                 loop={true}
                 modules={[Navigation]}
-                slidesPerView={3}
-                // breakpoints={DEFAULT_BREAKPOINTS}
+                slidesPerView={slidesPerView}
+                breakpoints={DEFAULT_BREAKPOINTS}
             >
-                {data.map((item, index) => (
+                {data?.length > 0 && data?.map((item, index) => (
                     <SwiperSlide
                         key={index}
                     >
