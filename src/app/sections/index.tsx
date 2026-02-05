@@ -3,3 +3,4 @@ export { default as Services } from "./Services/Services";
 export { default as Gallery } from "./Gallery/Gallery";
 export { default as About } from "./About/About";
 export { default as Doctors } from "./Doctors/Doctors";
+export { default as News } from "./News/News";
