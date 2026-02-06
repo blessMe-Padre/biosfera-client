@@ -1,8 +1,8 @@
 import {
   Hero,
   Services,
-  Gallery,
   About,
+  Gallery,
   Doctors,
   News,
   Owner,
@@ -17,11 +17,11 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <Header />
-      <Hero />
-      <Services />
+      {/* <Hero /> */}
+      {/* <Services /> */}
+      <About />
       <Gallery />
       <Owner />
-      <About />
       <Doctors />
       <News />
       <Map />
