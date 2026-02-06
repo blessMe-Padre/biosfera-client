@@ -10,12 +10,17 @@
     padding: 0 20px;
     border-radius: 30px;
     margin: 0 auto;
+    border-radius: 20px;
 
-    min-height: 766px;
+    min-height: 728px;
 
     display: flex;
     align-items: center;
     justify-content: center;
+
+    @media(max-width: 560px) {
+        min-height: 439px;
+    }
 }
 
 .hero_bg {
@@ -25,12 +30,14 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center;
     z-index: -1;
+    border-radius: 20px;
 }
 
 .hero_title {
     font-weight: 600;
-    @include adaptiv-value("font-size", 50, 26);
+    @include adaptiv-value("font-size", 50, 23);
     line-height: 120%;
     text-align: center;
     color: var(--color-light-gray);
@@ -45,6 +52,10 @@
     justify-content: center;
     gap: 20px;
     margin-top: -100px;
+
+    @media(max-width: 560px) {
+        margin-top: -50px;
+    }
 }
 
 .hero_button {
@@ -57,6 +68,11 @@
     font-weight: 700;
     font-size: 1.125rem;
     border: none;
+
+    @media(max-width: 560px) {
+        padding: 10px 30px;
+        font-size: 0.875rem
+    }
 }
 
 .hero_button_small {
@@ -73,17 +89,33 @@
     background: rgba(255, 255, 255, 0.1);
     border-radius: 100px;
     font-weight: 600;
-    font-size: 1.25rem;
+    @include adaptiv-value("font-size", 18, 9);
+
     color: var(--color-light-gray);
     max-width: 397px;
     line-height: 1.1;
 
     position: absolute;
+
+    @media(max-width: 560px) {
+        padding: 5px 10px;
+
+        img {
+            width: 15px;
+            height: 15px;
+        }
+    }
 }
 
 .hero_ladel_1 {
     top: 60%;
     left: 10%;
+
+    @media(max-width: 560px) {
+        max-width: 65%;
+        top: 65%;
+        left: 5%;
+    }
 }
 
 .hero_ladel_2 {
@@ -94,6 +126,12 @@
 .hero_ladel_3 {
     bottom: 20%;
     right: 20%;
+
+    @media(max-width: 560px) {
+        max-width: 46%;
+        bottom: 15%;
+        right: 5%;
+    }
 }
 
 .mini_popup {
@@ -101,6 +139,12 @@
     bottom: 40px;
     left: 40px;
     z-index: 9999;
+
+    @media(max-width: 560px) {
+        bottom: 20px;
+        left: 20px;
+        max-width: 90%;
+    }
 }
 
 .mini_popup_content {
@@ -145,4 +189,25 @@
     text-decoration: none;
     display: flex;
     align-items: center;
+}
+
+.scroll_down_button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    animation: scrollDown 0.5s infinite alternate;
+}
+
+@keyframes scrollDown {
+    0% {
+        transform: translateX(-28%) translateY(0);
+    }
+
+    100% {
+        transform: translateX(-28%) translateY(10px);
+    }
 }

@@ -28,6 +28,15 @@ export default function RootLayout({
     <html lang="ru">
       <body className={Involve.variable}>
         {children}
+        <div
+          id="medflexRoundWidgetData"
+          data-src="https://booking.medflex.ru?user=be54557cf76e37ed7e2b8308eecb3e44&isRoundWidget=true"
+        ></div>{" "}
+        <script
+          defer
+          src="https://booking.medflex.ru/components/round/round_widget_button.js"
+          charSet="utf-8"
+        ></script>
       </body>
     </html>
   );
