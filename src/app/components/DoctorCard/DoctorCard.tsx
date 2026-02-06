@@ -1,7 +1,7 @@
 "use client";
-import styles from "./style.module.scss";
 import Image from "next/image";
 import Link from "next/link";
+import styles from "./style.module.scss";
 
 export default function DoctorCard({ data }: { data: any }) {
   return (

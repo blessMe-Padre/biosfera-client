@@ -19,13 +19,13 @@ export default function Home() {
       <Header />
       {/* <Hero /> */}
       {/* <Services /> */}
-      <About />
-      <Gallery />
+      {/* <About /> */}
+      {/* <Gallery /> */}
       <Owner />
       <Doctors />
-      <News />
-      <Map />
-      <Footer />
+      {/* <News /> */}
+      {/* <Map /> */}
+      {/* <Footer />  */}
 
       <Image
         src="/Item.png"
