@@ -8,9 +8,10 @@ const menuLinks = [
     title: "Услуги",
     url: "#",
     submenu: [
-      { title: "Услуга 1", url: "#" },
-      { title: "Услуга 2", url: "#" },
-      { title: "Услуга 3", url: "#" },
+      { title: "Терапия", url: "#" },
+      { title: "Неврология", url: "#" },
+      { title: "Эндокринология", url: "#" },
+      { title: "Диагностика", url: "#" },
     ],
   },
   { title: "Цены", url: "#" },

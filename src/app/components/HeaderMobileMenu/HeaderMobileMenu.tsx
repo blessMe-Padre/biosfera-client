@@ -9,9 +9,10 @@ const menuLinks = [
     title: "Услуги",
     url: "/services",
     submenu: [
-      { title: "Услуга 1", url: "https://inside360.ru" },
-      { title: "Услуга 2", url: "#" },
-      { title: "Услуга 3", url: "#" },
+      { title: "Терапия", url: "#" },
+      { title: "Неврология", url: "#" },
+      { title: "Эндокринология", url: "#" },
+      { title: "Диагностика", url: "#" },
     ],
   },
   { title: "Цены", url: "#" },
