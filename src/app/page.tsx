@@ -17,15 +17,15 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <Header />
-      {/* <Hero /> */}
-      {/* <Services /> */}
-      {/* <About /> */}
-      {/* <Gallery /> */}
-      {/* <Owner /> */}
+      <Hero />
+      <Services />
+      <About />
+      <Gallery />
+      <Owner />
       <Doctors />
       <News />
-      {/* <Map /> */}
-      {/* <Footer />  */}
+      <Map />
+      <Footer />
 
       <Image
         src="/Item.png"

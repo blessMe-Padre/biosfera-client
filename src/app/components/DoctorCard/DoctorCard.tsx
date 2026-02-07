@@ -21,6 +21,7 @@ export default function DoctorCard({ data }: { data: any }) {
           alt={data?.name}
           width={136}
           height={136}
+          className="dsv-image"
         />
         <div className={styles.label}>
           <p className={`${styles.label_info} text-gradient`}>{data.label}</p>

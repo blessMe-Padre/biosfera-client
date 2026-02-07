@@ -1,5 +1,5 @@
-'use client'
-import { useEffect, useState, useRef } from 'react';
+"use client";
+import { useEffect, useState, useRef } from "react";
 
 import styles from "./style.module.css";
 
@@ -16,12 +16,11 @@ import styles from "./style.module.css";
  * @returns html тег с анимацией
  */
 
-
 const AnimateElement = ({
   element,
   animationName = styles.fadeUp,
   animationDelay = 100,
-  className = '',
+  className = "",
   children,
 }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -29,16 +28,16 @@ const AnimateElement = ({
   const elementRef = useRef(null);
 
   switch (animationName) {
-    case 'fadeUp':
+    case "fadeUp":
       animationName = styles.fadeUp;
       break;
-    case 'fadeRight':
+    case "fadeRight":
       animationName = styles.fadeRight;
       break;
-    case 'fadeLeft':
+    case "fadeLeft":
       animationName = styles.fadeLeft;
       break;
-    case 'fadeDown':
+    case "fadeDown":
       animationName = styles.fadeDown;
       break;
     default:
@@ -56,15 +55,15 @@ const AnimateElement = ({
           if (animationDelay > 0) {
             setTimeout(() => {
               setIsAnimationStarted(true);
-              elementRef.current?.classList.add('active');
+              elementRef.current?.classList.add("active");
             }, animationDelay);
           } else {
             setIsAnimationStarted(true);
-            elementRef.current?.classList.add('active');
+            elementRef.current?.classList.add("active");
           }
         }
       },
-      { threshold: 0.2 }
+      { threshold: 0.2 },
     );
 
     if (elementRef.current) {
@@ -78,9 +77,9 @@ const AnimateElement = ({
   return (
     <Tag
       ref={elementRef}
-      className={`${className} ${animationName} ${isAnimationStarted ? styles.active : ''}`}
+      className={`${className} ${animationName} ${isAnimationStarted ? styles.active : ""}`}
       style={{
-        '--animation-delay': `${animationDelay}ms`
+        "--animation-delay": `${animationDelay}ms`,
       }}
     >
       {children}

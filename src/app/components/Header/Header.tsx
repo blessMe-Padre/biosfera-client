@@ -100,6 +100,7 @@ export default function Header() {
           <button
             className={styles.primary_button}
             onClick={() => setPopupOpened(true)}
+            type="button"
           >
             Записаться на прием
           </button>
