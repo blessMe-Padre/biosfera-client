@@ -36,7 +36,7 @@ export default function SliderGallery() {
 
     return () => {
       lightbox.destroy();
-      lightbox = null;
+      // lightbox = null;
     };
   }, []);
 
