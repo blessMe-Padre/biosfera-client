@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { usePopupStore } from "@/app/store/popupStore";
+import { AnimateElement } from "@/app/components";
 import styles from "./style.module.scss";
 
 export default function Owner() {
@@ -22,35 +23,41 @@ export default function Owner() {
           </div>
 
           <div className={styles.owner__descriptions}>
-            <p>
+            <AnimateElement element="p">
               Каждый день я вижу, с какими сомнениями и вопросами люди приходят
               в клинику. Именно поэтому для нас так важно не просто поставить
               диагноз, а подробно объяснить, что происходит и какие шаги
               действительно помогут.
-            </p>
+            </AnimateElement>
 
-            <p>
+            <AnimateElement element="p" animationDelay={50}>
               В «Биосфере ДВ» мы работаем командой — врачи, диагностика,
               сопровождение. Мы не торопим пациента и не принимаем решений
               вслепую. Наша цель — чтобы после визита у вас осталось не чувство
               тревоги, а понимание и уверенность в дальнейших действиях.
-            </p>
+            </AnimateElement>
 
-            <p className="text-gradient">
+            <AnimateElement
+              element="p"
+              animationDelay={100}
+              className="text-gradient"
+            >
               Мы берём ответственность за рекомендации, которые даём, и за
               результат, к которому ведём пациента.
-            </p>
+            </AnimateElement>
           </div>
 
-          <div className={styles.owner__image}>
-            <Image
-              src="/images/image.webp"
-              className="dsv-image"
-              alt="Owner"
-              width={439}
-              height={439}
-            />
-          </div>
+          <AnimateElement animationName="fadeRight" animationDelay={150}>
+            <div className={styles.owner__image}>
+              <Image
+                src="/images/image.webp"
+                className="dsv-image"
+                alt="Owner"
+                width={439}
+                height={439}
+              />
+            </div>
+          </AnimateElement>
 
           <div className={styles.owner__content}>
             <h3 className={styles.owner__title}>

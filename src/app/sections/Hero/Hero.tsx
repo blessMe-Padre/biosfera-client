@@ -1,9 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 import { usePopupStore } from "@/app/store/popupStore";
+import { AnimateElement } from "@/app/components";
 import styles from "./style.module.scss";
 
 export default function Hero() {
@@ -35,16 +36,22 @@ export default function Hero() {
           priority
         />
         <div className={styles.hero_content}>
-          <h2 className={styles.hero_title}>
-            «Биосфера ДВ» — забота о&nbsp;вашем здоровье на всех этапах
-          </h2>
-          <button
-            className={styles.hero_button}
-            onClick={togglePopupState}
-            type="button"
+          <AnimateElement
+            element="h2"
+            animationName="fadeUp"
+            className={styles.hero_title}
           >
-            Записаться на прием
-          </button>
+            «Биосфера ДВ» — забота о&nbsp;вашем здоровье на всех этапах
+          </AnimateElement>
+          <AnimateElement animationDelay={100}>
+            <button
+              className={styles.hero_button}
+              onClick={togglePopupState}
+              type="button"
+            >
+              Записаться на прием
+            </button>
+          </AnimateElement>
         </div>
 
         <div className={`${styles.hero_ladel} ${styles.hero_ladel_1}`}>

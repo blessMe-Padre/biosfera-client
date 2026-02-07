@@ -1,8 +1,9 @@
 "use client";
-import { useState, useEffect } from "react";
-import styles from "./style.module.scss";
+
 import Image from "next/image";
 import Link from "next/link";
+import { AnimateElement } from "@/app/components";
+import styles from "./style.module.scss";
 
 const servicesList = [
   { image: "/images/services-1.webp", title: "Терапия", link: "#" },
@@ -17,15 +18,17 @@ export default function Services() {
       <div className="container">
         <div className={styles.services_wrapper}>
           <div className={styles.services__header}>
-            <h2 className={styles.services__title}>
-              <span className="text-gradient">Медицинские услуги,</span> которые
-              соответствуют вашим потребностям
-            </h2>
-            <p>
+            <AnimateElement>
+              <h2 className={styles.services__title}>
+                <span className="text-gradient">Медицинские услуги,</span>{" "}
+                которые соответствуют вашим потребностям
+              </h2>
+            </AnimateElement>
+            <AnimateElement element="p" animationName="fadeUp">
               Мы сосредоточены на результатах и вашем комфорте, предоставляя
               широкий спектр медицинских услуг, основанных на&nbsp;передовых
               технологиях
-            </p>
+            </AnimateElement>
           </div>
 
           <ul className={styles.services_list}>

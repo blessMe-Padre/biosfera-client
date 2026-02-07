@@ -17,9 +17,9 @@ import styles from "./style.module.css";
  */
 
 const AnimateElement = ({
-  element,
-  animationName = styles.fadeUp,
-  animationDelay = 100,
+  element="div",
+  animationName = "fadeUp",
+  animationDelay = 20,
   className = "",
   children,
 }) => {
@@ -27,23 +27,17 @@ const AnimateElement = ({
   const [isAnimationStarted, setIsAnimationStarted] = useState(false);
   const elementRef = useRef(null);
 
-  switch (animationName) {
-    case "fadeUp":
-      animationName = styles.fadeUp;
-      break;
-    case "fadeRight":
-      animationName = styles.fadeRight;
-      break;
-    case "fadeLeft":
-      animationName = styles.fadeLeft;
-      break;
-    case "fadeDown":
-      animationName = styles.fadeDown;
-      break;
-    default:
-      animationName = null;
-      break;
-  }
+  const animationClassMap = {
+    fadeUp: styles.fadeUp,
+    fadeRight: styles.fadeRight,
+    fadeLeft: styles.fadeLeft,
+    fadeDown: styles.fadeDown,
+  };
+
+  const resolvedAnimationClass =
+    typeof animationName === "string"
+      ? animationClassMap[animationName] ?? animationName
+      : "";
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -77,7 +71,7 @@ const AnimateElement = ({
   return (
     <Tag
       ref={elementRef}
-      className={`${className} ${animationName} ${isAnimationStarted ? styles.active : ""}`}
+      className={`${className} ${resolvedAnimationClass} ${isAnimationStarted ? styles.active : ""}`}
       style={{
         "--animation-delay": `${animationDelay}ms`,
       }}
