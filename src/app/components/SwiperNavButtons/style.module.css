@@ -7,11 +7,17 @@
     text-align: center;
     cursor: pointer;
     background-color: #5cccc2;
+    transition: background-color 0.3s ease;
 
     @media (max-width: 768px) {
         height: 40px;
         width: 40px;
     }
+}
+
+.btn_prev:hover,
+.btn_next:hover {
+    background-color: #3170b4;
 }
 
 .swiper_nav_btns {

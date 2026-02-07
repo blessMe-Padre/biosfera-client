@@ -21,9 +21,9 @@ export default function Home() {
       {/* <Services /> */}
       {/* <About /> */}
       {/* <Gallery /> */}
-      <Owner />
+      {/* <Owner /> */}
       <Doctors />
-      {/* <News /> */}
+      <News />
       {/* <Map /> */}
       {/* <Footer />  */}
 

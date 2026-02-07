@@ -1,7 +1,7 @@
 @use "@app/mixins" as *;
 
 .doctors {
-    @include adaptiv-value("margin-top", 100, 50);
+    @include adaptiv-value("margin-top", 100, 30);
 }
 
 .doctors_wrapper {
