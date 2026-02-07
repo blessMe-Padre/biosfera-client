@@ -4,7 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "./style.module.scss";
 import { Popup } from "@/app/components";
-import { useState } from "react";
+
+import { usePopupStore } from "@/app/store/popupStore";
 
 const FOOTER_NAV = [
   {
@@ -52,7 +53,7 @@ const DISCLAIMER =
   "Информация, представленная на данной странице сайта, носит исключительно информационный характер и предназначена только для образовательных целей. Посетители данного сайта не должны воспринимать её как медицинские рекомендации. Определение диагноза и выбор метода лечения должны быть осуществлены вашим лечащим врачом. «Биосфера ДВ» не несёт ответственности за возможные негативные последствия, возникшие в результате использования информации, представленной на данном сайте.";
 
 export default function Footer() {
-  const [popupOpened, setPopupOpened] = useState(false);
+  const { popupOpened, togglePopupState } = usePopupStore();
 
   return (
     <footer className={styles.footer}>
@@ -71,7 +72,7 @@ export default function Footer() {
               </Link>
               <div className={styles.footer__license}>
                 <span className={styles.footer__license_label}>Лицензия</span>
-                <a href="#" className={styles.footer__license_link}>
+                <a href="https://" className={styles.footer__license_link}>
                   №Л041-01023-25/04107306
                 </a>
                 <span className={styles.footer__license_date}>
@@ -136,7 +137,7 @@ export default function Footer() {
                 <button
                   type="button"
                   className={styles.footer__contact_action}
-                  onClick={() => setPopupOpened(true)}
+                  onClick={togglePopupState}
                 >
                   Заказать звонок
                 </button>
@@ -223,7 +224,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <Popup active={popupOpened} setActive={setPopupOpened} />
+      <Popup active={popupOpened} setActive={togglePopupState} />
     </footer>
   );
 }

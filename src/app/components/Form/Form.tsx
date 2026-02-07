@@ -108,7 +108,7 @@ export default function Form() {
         </div>
       </div>
 
-      <button className={styles.form__btn__submit}>
+      <button className={styles.form__btn__submit} type="submit">
         <p>Оставить заявку</p>
 
         {sending && (
@@ -118,6 +118,7 @@ export default function Form() {
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 200 200"
           >
+            <title>Loading...</title>
             <radialGradient
               id="a9"
               cx=".66"

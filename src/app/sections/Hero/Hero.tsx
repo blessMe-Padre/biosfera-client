@@ -3,12 +3,12 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-import { Popup } from "@/app/components";
+import { usePopupStore } from "@/app/store/popupStore";
 import styles from "./style.module.scss";
 
 export default function Hero() {
-  const [popupOpened, setPopupOpened] = useState(false);
   const [miniPopupClosed, setMiniPopupClosed] = useState(true);
+  const { togglePopupState } = usePopupStore();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -17,6 +17,11 @@ export default function Hero() {
 
     return () => clearTimeout(timer);
   }, []);
+
+  const miniPopupCloseHandler = () => {
+    setMiniPopupClosed(true);
+    togglePopupState();
+  };
 
   return (
     <section>
@@ -35,7 +40,7 @@ export default function Hero() {
           </h2>
           <button
             className={styles.hero_button}
-            onClick={() => setPopupOpened(true)}
+            onClick={togglePopupState}
             type="button"
           >
             Записаться на прием
@@ -86,8 +91,6 @@ export default function Hero() {
         </button>
       </div>
 
-      <Popup active={popupOpened} setActive={setPopupOpened} />
-
       {!miniPopupClosed && (
         <section className={styles.mini_popup}>
           <button
@@ -108,7 +111,7 @@ export default function Hero() {
             <button
               type="button"
               className={`${styles.hero_button} ${styles.hero_button_small}`}
-              onClick={() => setPopupOpened(true)}
+              onClick={miniPopupCloseHandler}
             >
               Записаться на прием
             </button>

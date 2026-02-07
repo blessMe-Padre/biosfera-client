@@ -1,12 +1,11 @@
 "use client";
 
-import styles from "./style.module.scss";
 import Image from "next/image";
-import { useState } from "react";
-import { Popup } from "@/app/components";
+import { usePopupStore } from "@/app/store/popupStore";
+import styles from "./style.module.scss";
 
 export default function Owner() {
-  const [popupOpened, setPopupOpened] = useState(false);
+  const { togglePopupState } = usePopupStore();
 
   return (
     <section className={styles.owner}>
@@ -62,15 +61,15 @@ export default function Owner() {
 
           <div className={styles.owner__button}>
             <button
+              type="button"
               className={styles.primary_button}
-              onClick={() => setPopupOpened(true)}
+              onClick={togglePopupState}
             >
               Задать вопрос главному врачу
             </button>
           </div>
         </div>
       </div>
-      <Popup active={popupOpened} setActive={setPopupOpened} />
     </section>
   );
 }
