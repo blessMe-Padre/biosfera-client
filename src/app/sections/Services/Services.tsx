@@ -53,7 +53,7 @@ export default function Services() {
                     />
                   </svg>
                   <Image
-                    className={styles.services_item_image}
+                    className={`${styles.services_item_image} dsv-image`}
                     src={item.image}
                     alt={item.title}
                     width={337}

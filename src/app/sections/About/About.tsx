@@ -64,7 +64,7 @@ export default function About() {
               лечение.
             </p>
             <Image
-              className={styles.about__item_info_img}
+              className={`${styles.about__item_info_img} dsv-image`}
               src={"/images/info.webp"}
               alt="icon"
               width={650}

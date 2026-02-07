@@ -31,7 +31,7 @@ export default function Hero() {
           alt="bg-image"
           width={1740}
           height={766}
-          className={`${styles.hero_bg} dsv-image}`}
+          className={`${styles.hero_bg} dsv-image`}
           priority
         />
         <div className={styles.hero_content}>
