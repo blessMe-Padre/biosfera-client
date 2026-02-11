@@ -1,6 +1,8 @@
-import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { Footer } from "./sections";
+import { Header } from "./components";
+import type { Metadata } from "next";
 
 // import "./nebo.css"; тут пока не используется
 
@@ -28,7 +30,9 @@ export default function RootLayout({
   return (
     <html lang="ru">
       <body className={Involve.variable}>
+        <Header />
         {children}
+        <Footer />
         <div
           id="medflexRoundWidgetData"
           data-src="https://booking.medflex.ru?user=be54557cf76e37ed7e2b8308eecb3e44&isRoundWidget=true"

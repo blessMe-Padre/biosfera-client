@@ -11,3 +11,4 @@ export { default as DoctorCard } from "./DoctorCard/DoctorCard";
 export { default as NewsCard } from "./NewsCard/NewsCard";
 export { default as HeaderMenu } from "./HeaderMenu/HeaderMenu";
 export { default as HeaderMobileMenu } from "./HeaderMobileMenu/HeaderMobileMenu";
+export { default as ContentRenderer } from "./ContentRenderer/ContentRenderer";
