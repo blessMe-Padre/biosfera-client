@@ -47,7 +47,7 @@ export default function Cookies() {
     <div className={`${styles.popup} ${open ? styles.popup_active : ""}`}>
       <p>
         Мы используем cookies, чтобы сайт был лучше.{" "}
-        <Link className={styles.link} href="/cookies">
+        <Link className={styles.link} href="/cookie">
           Что это?
         </Link>
       </p>
