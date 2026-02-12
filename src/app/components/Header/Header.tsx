@@ -123,6 +123,7 @@ export default function Header() {
               </button> */}
             <div className={styles.medtochka_button_wrapper}>
               <div
+                title="Личный кабинет Медточка"
                 id="medflexMedtochkaWidgetButton"
                 data-src="https://booking.medflex.ru/?user=be54557cf76e37ed7e2b8308eecb3e44"
               ></div>

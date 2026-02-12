@@ -1,3 +1,4 @@
+import Breadcrumbs from "@/app/components/Breadcrumbs/Breadcrumbs";
 import ContentPage from "./ContentPage";
 import styles from "./style.module.scss";
 
@@ -10,6 +11,7 @@ export default async function Price() {
   return (
     <main className={styles.main}>
       <div className="container">
+        <Breadcrumbs secondLabel="Цены" />
         <h1 className={styles.title}>Цены</h1>
 
         <ContentPage />

@@ -19,7 +19,7 @@ const menuLinks = [
   { title: "Акции ", url: "#" },
   { title: "Новости", url: "#" },
   { title: "О центре", url: "#" },
-  { title: "Контакты", url: "#" },
+  { title: "Контакты", url: "/contacts" },
 ];
 
 export default function HeaderMenu() {
