@@ -182,3 +182,22 @@ ul {
 .swiper-slide {
   height: auto !important;
 }
+
+
+.medflex-medtochka-widget {
+  font-size: 0 !important;
+  width: 40px;
+  height: 40px;
+
+  background-image: url("/icons/account-icon.svg");
+  background-size: 22px 22px;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 50% !important;
+  background-color: var(--gray) !important;
+  padding: 0 !important;
+
+  img {
+    display: none;
+  }
+}

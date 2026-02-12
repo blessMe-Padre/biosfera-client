@@ -10,6 +10,7 @@ import {
   HeaderMobileMenu,
 } from "@/app/components";
 import { usePopupStore } from "@/app/store/popupStore";
+import Script from "next/script";
 
 export default function Header() {
   const [panel, setPanel] = useState(false);
@@ -106,20 +107,31 @@ export default function Header() {
           </button>
 
           <div className={styles.header_social}>
-            <button
-              className={styles.item__button}
-              // title="Личный кабинет"
-              title="Недоступно в текущей версии"
-              type="button"
-            >
-              <Image
-                src="/icons/account-icon.svg"
-                className="dsv-image"
-                alt="logo"
-                width={22}
-                height={22}
-              />
-            </button>
+            {/* <button
+                className={styles.item__button}
+                // title="Личный кабинет"
+                title="Недоступно в текущей версии"
+                type="button"
+              >
+                <Image
+                  src="/icons/account-icon.svg"
+                  className="dsv-image"
+                  alt="logo"
+                  width={22}
+                  height={22}
+                />
+              </button> */}
+            <div className={styles.medtochka_button_wrapper}>
+              <div
+                id="medflexMedtochkaWidgetButton"
+                data-src="https://booking.medflex.ru/?user=be54557cf76e37ed7e2b8308eecb3e44"
+              ></div>
+              <Script
+                defer
+                src="https://booking.medflex.ru/components/medtochka-button/medtochka-widget-button.js"
+                charSet="utf-8"
+              ></Script>
+            </div>
 
             {panelBtn && (
               <VdsButton setPanel={setPanel} setPanelBtn={setPanelBtn} />
