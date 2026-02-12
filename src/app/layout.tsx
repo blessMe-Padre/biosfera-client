@@ -3,6 +3,7 @@ import "./globals.css";
 import { Footer } from "./sections";
 import { Header } from "./components";
 import type { Metadata } from "next";
+import { OpenGraph } from "next/dist/lib/metadata/types/opengraph-types";
 
 // import "./nebo.css"; тут пока не используется
 
@@ -20,6 +21,16 @@ const Involve = localFont({
 export const metadata: Metadata = {
   title: "Биосфера ДВ",
   description: "Биосфера ДВ",
+};
+
+const openGraph: OpenGraph = {
+  title: "Биосфера ДВ",
+  description: "Биосфера ДВ - забота о вашем здоровье на всех этапах",
+  images: ["/logo.svg"],
+  url: "https://biosphera.ru",
+  siteName: "Биосфера ДВ",
+  locale: "ru_RU",
+  type: "website",
 };
 
 export default function RootLayout({
