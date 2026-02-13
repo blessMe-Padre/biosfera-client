@@ -12,8 +12,9 @@ export default async function Price() {
     <main className={styles.main}>
       <div className="container">
         <Breadcrumbs secondLabel="Цены" />
-        <h1 className={styles.title}>Цены</h1>
-
+        <h1 className={styles.title}>
+          <span className="text-gradient">Цены</span> и услуги
+        </h1>
         <ContentPage />
       </div>
     </main>
