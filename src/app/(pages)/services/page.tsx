@@ -1,6 +1,7 @@
 import { Accordion, Breadcrumbs } from "@/app/components";
 import { Services } from "@/app/sections";
 import fetchData from "@/app/utils/fetchData";
+import styles from "./style.module.scss";
 
 export const metadata = {
   title: "Биосфера ДВ | Услуги",
@@ -35,7 +36,18 @@ export default async function ServicesPage() {
       <Breadcrumbs secondLabel="Услуги" />
       <h1 className="visually-hidden">Услуги</h1>
       <Services className={"mt-0"} />
-      <Accordion list={list} />
+      <section className={styles.faq}>
+        <header className={styles.faq__header}>
+          <h2 className={styles.title}>
+            Часто задаваемые <span className="text-gradient">вопросы</span>
+          </h2>
+          <p>
+            Если вы не нашли нужную информацию — вы всегда можете задать вопрос
+            администратору или врачу
+          </p>
+        </header>
+        <Accordion list={list} />
+      </section>
     </div>
   );
 }
