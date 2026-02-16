@@ -41,12 +41,14 @@ export default async function ServicesPage({
   );
 
   return (
-    <main className="container">
-      <Breadcrumbs
-        secondLink="/services"
-        secondLabel="Услуги"
-        thirdLabel="Терапия"
-      />
+    <main>
+      <div className="container">
+        <Breadcrumbs
+          secondLink="/services"
+          secondLabel="Услуги"
+          thirdLabel="Терапия"
+        />
+      </div>
       <h1 className="visually-hidden">Терапия</h1>
       <ContentPage data={page} />
     </main>
