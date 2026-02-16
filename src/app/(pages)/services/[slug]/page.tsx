@@ -36,9 +36,15 @@ export default async function ServicesPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const page = await fetchData(
-    `/api/shablon-uslugis?filters[slug][$eq]=${encodeURIComponent(slug)}&populate=*`,
-  );
+
+  const url =
+    `/api/shablon-uslugis?filters[slug][$eq]=${encodeURIComponent(slug)}` +
+    `&populate[prices][populate]=*` +
+    `&populate[hero_background][populate]=*
+    
+    `;
+
+  const page = await fetchData(url);
 
   return (
     <main>
