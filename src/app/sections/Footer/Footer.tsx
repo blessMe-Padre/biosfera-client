@@ -11,7 +11,7 @@ const FOOTER_NAV = [
   {
     title: "Услуги",
     links: [
-      { label: "Терапия", href: "#" },
+      { label: "Терапия", href: "/services/therapy" },
       { label: "Неврология", href: "#" },
       { label: "Эндокринология", href: "#" },
       { label: "Диагностика", href: "#" },

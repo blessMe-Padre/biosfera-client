@@ -6,7 +6,11 @@ import { AnimateElement } from "@/app/components";
 import styles from "./style.module.scss";
 
 const servicesList = [
-  { image: "/images/services-1.webp", title: "Терапия", link: "#" },
+  {
+    image: "/images/services-1.webp",
+    title: "Терапия",
+    link: "/services/therapy",
+  },
   { image: "/images/services-2.webp", title: "Неврология", link: "#" },
   { image: "/images/services-3.webp", title: "Эндокринология", link: "#" },
   { image: "/images/services-4.webp", title: "Диагностика", link: "#" },
