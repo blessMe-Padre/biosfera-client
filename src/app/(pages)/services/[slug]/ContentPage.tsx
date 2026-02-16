@@ -1,12 +1,14 @@
 "use client";
 import Image from "next/image";
-import { AnimateElement, ContentRenderer } from "@/app/components";
+import { AnimateElement, ContentRenderer, CostItem } from "@/app/components";
 import { usePopupStore } from "@/app/store/popupStore";
 import styles from "./style.module.scss";
+import type { CostItemType } from "@/app/types";
 
 export default function ContentPage({ data }: { data: any }) {
   const { togglePopupState } = usePopupStore();
   const hero = data?.data?.[0];
+  const prices = data?.data?.[0]?.prices?.[0]?.item;
 
   return (
     <>
@@ -71,6 +73,12 @@ export default function ContentPage({ data }: { data: any }) {
               врача и по медицинским показаниям.
             </p>
           </header>
+
+          <ul className={styles.costs__list}>
+            {prices.map((item: CostItemType) => (
+              <CostItem key={item.id} data={item} />
+            ))}
+          </ul>
         </div>
       </section>
     </>
