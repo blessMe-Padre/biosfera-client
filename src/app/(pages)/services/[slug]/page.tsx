@@ -37,7 +37,7 @@ export default async function ServicesPage({
 }) {
   const { slug } = await params;
   const page = await fetchData(
-    `/api/shablon-uslugis?filters[slug][$eq]=${encodeURIComponent(slug)}`,
+    `/api/shablon-uslugis?filters[slug][$eq]=${encodeURIComponent(slug)}&populate=*`,
   );
 
   return (
