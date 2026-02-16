@@ -4,8 +4,8 @@ import ContentPage from "./ContentPage";
 
 type ServicesMetadata = {
   data: {
-    hero_title: string;
-    hero_description: string;
+    meta_title: string;
+    meta_description: string;
     hero_image: string;
   }[];
 };
@@ -20,11 +20,12 @@ export async function generateMetadata({
     `/api/shablon-uslugis?filters[slug][$eq]=${encodeURIComponent(slug)}`,
   )) as ServicesMetadata;
   return {
-    title: `Биосфера ДВ - ${page?.data?.[0]?.hero_title}`,
-    description: "Услуги",
+    title: `Биосфера ДВ - ${page?.data?.[0]?.meta_title}`,
+    description: page?.data?.[0]?.meta_description,
     openGraph: {
       title: "Услуги",
       description: "Услуги",
+      image: page?.data?.[0]?.hero_image,
     },
   };
 }

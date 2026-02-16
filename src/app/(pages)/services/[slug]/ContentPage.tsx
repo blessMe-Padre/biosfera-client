@@ -3,6 +3,7 @@ import { ContentRenderer } from "@/app/components";
 import styles from "./style.module.scss";
 
 export default function ContentPage({ data }: { data: any }) {
+  console.log(data);
   const hero = data?.data?.[0];
 
   return (
