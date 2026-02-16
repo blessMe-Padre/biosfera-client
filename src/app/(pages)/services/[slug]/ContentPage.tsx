@@ -10,6 +10,8 @@ export default function ContentPage({ data }: { data: any }) {
   const hero = data?.data?.[0];
   const prices = data?.data?.[0]?.prices?.[0]?.item;
 
+  console.log(data);
+
   return (
     <>
       <section className={styles.services__hero}>

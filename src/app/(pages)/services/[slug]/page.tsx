@@ -40,6 +40,7 @@ export default async function ServicesPage({
   const url =
     `/api/shablon-uslugis?filters[slug][$eq]=${encodeURIComponent(slug)}` +
     `&populate[prices][populate]=*` +
+    `&populate[services_slider][populate]=*` +
     `&populate[hero_background][populate]=*
     
     `;
