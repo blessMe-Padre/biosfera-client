@@ -1,6 +1,11 @@
 "use client";
 import Image from "next/image";
-import { AnimateElement, ContentRenderer, CostItem } from "@/app/components";
+import {
+  AnimateElement,
+  ContentRenderer,
+  CostItem,
+  SliderServices,
+} from "@/app/components";
 import { usePopupStore } from "@/app/store/popupStore";
 import styles from "./style.module.scss";
 import type { CostItemType } from "@/app/types";
@@ -9,8 +14,9 @@ export default function ContentPage({ data }: { data: any }) {
   const { togglePopupState } = usePopupStore();
   const hero = data?.data?.[0];
   const prices = data?.data?.[0]?.prices?.[0]?.item;
+  const services_slider = data?.data?.[0]?.services_slider;
 
-  console.log(data);
+  console.log(services_slider);
 
   return (
     <>
@@ -82,6 +88,10 @@ export default function ContentPage({ data }: { data: any }) {
             ))}
           </ul>
         </div>
+      </section>
+
+      <section className={styles.slider}>
+        <SliderServices />
       </section>
     </>
   );
