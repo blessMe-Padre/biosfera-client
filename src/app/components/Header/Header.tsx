@@ -87,7 +87,7 @@ export default function Header() {
             <p>Пр-т 100-летия Владивостока, 84а</p>
           </div>
 
-          <a href="tel:+79243388189" className={styles.phone_link}>
+          <a href="tel:+79247229970" className={styles.phone_link}>
             <Image
               src="/icons/phone.svg"
               className="dsv-image"
@@ -95,7 +95,7 @@ export default function Header() {
               width={22}
               height={22}
             />
-            <span>+7 (924) 338-81-89</span>
+            <span>+7 (924) 722-99-70</span>
           </a>
 
           <button

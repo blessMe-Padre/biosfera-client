@@ -9,7 +9,7 @@ const servicesList = [
   {
     image: "/images/services-1.webp",
     title: "Терапия",
-    link: "/services/therapy",
+    link: "#",
   },
   { image: "/images/services-2.webp", title: "Неврология", link: "#" },
   { image: "/images/services-3.webp", title: "Эндокринология", link: "#" },

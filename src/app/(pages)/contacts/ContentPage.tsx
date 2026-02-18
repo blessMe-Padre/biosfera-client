@@ -47,7 +47,7 @@ export default function ContentPage() {
                     className={styles.map__contact_icon}
                   />
                   <div>
-                    <a href="tel:+79243388189">+7 (924) 338-81-89</a>
+                    <a href="tel:+79247229970">+7 (924)722 99 70</a>
                     <button
                       type="button"
                       className={`${styles.map__contact_link} text-gradient`}
