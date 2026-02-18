@@ -8,6 +8,6 @@ export interface CostItemType {
 export interface SliderItemType {
   id: number;
   content?: [];
-  image?: [];
+  image?: { url?: string }[];
   link?: string;
 }
