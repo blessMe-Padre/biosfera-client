@@ -2,6 +2,11 @@
 // @use "../../mixins" as *;
 @use "@app/mixins" as *;
 
+.costs,
+.slider_services {
+    @include adaptiv-value("margin-top", 100, 30);
+}
+
 .services__hero {
     position: relative;
     max-width: 1740px;
@@ -130,10 +135,6 @@
         align-items: flex-start;
         gap: 10px;
     }
-}
-
-.costs {
-    @include adaptiv-value("margin-top", 100, 30);
 }
 
 .costs__title {

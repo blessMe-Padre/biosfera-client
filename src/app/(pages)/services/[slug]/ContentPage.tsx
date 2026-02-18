@@ -8,15 +8,19 @@ import {
 } from "@/app/components";
 import { usePopupStore } from "@/app/store/popupStore";
 import styles from "./style.module.scss";
-import type { CostItemType } from "@/app/types";
+import type { CostItemType, SliderItemType } from "@/app/types";
+
+
+export interface SliderProps {
+  items: SliderItemType[];
+}
+
 
 export default function ContentPage({ data }: { data: any }) {
   const { togglePopupState } = usePopupStore();
   const hero = data?.data?.[0];
   const prices = data?.data?.[0]?.prices?.[0]?.item;
-  const services_slider = data?.data?.[0]?.services_slider;
-
-  console.log(services_slider);
+  const slider_items = data?.data?.[0]?.services_slider;
 
   return (
     <>
@@ -90,8 +94,8 @@ export default function ContentPage({ data }: { data: any }) {
         </div>
       </section>
 
-      <section className={styles.slider}>
-        <SliderServices />
+      <section className={styles.slider_services}>
+        <SliderServices items={(slider_items ?? []) as SliderItemType[]} />
       </section>
     </>
   );
