@@ -10,11 +10,9 @@ import { usePopupStore } from "@/app/store/popupStore";
 import styles from "./style.module.scss";
 import type { CostItemType, SliderItemType } from "@/app/types";
 
-
 export interface SliderProps {
   items: SliderItemType[];
 }
-
 
 export default function ContentPage({ data }: { data: any }) {
   const { togglePopupState } = usePopupStore();
@@ -96,6 +94,24 @@ export default function ContentPage({ data }: { data: any }) {
 
       <section className={styles.slider_services}>
         <SliderServices items={(slider_items ?? []) as SliderItemType[]} />
+      </section>
+
+      <section className={styles.includes}>
+        <div className="container">
+          <header className={styles.includes__header}>
+            <h2 className={styles.includes__title}>
+              <span className="text-gradient">Приём врача-терапевта </span>
+              включает:
+            </h2>
+            <p>
+              Мы не назначаем обследования «на всякий случай». Все рекомендации
+              даются только тогда, когда они действительно необходимы для
+              понимания ситуации и выбора тактики лечения.
+            </p>
+          </header>
+
+          <ul className={styles.includes__list}></ul>
+        </div>
       </section>
     </>
   );

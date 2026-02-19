@@ -3,7 +3,8 @@
 @use "@app/mixins" as *;
 
 .costs,
-.slider_services {
+.slider_services,
+.includes {
     @include adaptiv-value("margin-top", 100, 30);
 }
 
@@ -143,4 +144,19 @@
 
 .costs__list {
     margin-top: 30px;
+}
+
+.includes__header {
+    margin-bottom: 30px;
+
+    p {
+        color: var(--color-gray);
+        @include adaptiv-value("font-size", 16, 14);
+        max-width: 870px;
+    }
+}
+
+.includes__title {
+    @include adaptiv-value("font-size", 46, 26);
+    margin-bottom: 30px;
 }
