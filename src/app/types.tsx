@@ -11,3 +11,12 @@ export interface SliderItemType {
   image?: { url?: string }[];
   link?: string;
 }
+
+export interface IncludesListType {
+  items: IncludesItemType[];
+}
+
+export interface IncludesItemType {
+  id: number;
+  title?: string;
+}

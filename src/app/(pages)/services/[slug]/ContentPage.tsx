@@ -8,7 +8,12 @@ import {
 } from "@/app/components";
 import { usePopupStore } from "@/app/store/popupStore";
 import styles from "./style.module.scss";
-import type { CostItemType, SliderItemType } from "@/app/types";
+import type {
+  CostItemType,
+  SliderItemType,
+  IncludesListType,
+  IncludesItemType,
+} from "@/app/types";
 
 export interface SliderProps {
   items: SliderItemType[];
@@ -19,7 +24,9 @@ export default function ContentPage({ data }: { data: any }) {
   const hero = data?.data?.[0];
   const prices = data?.data?.[0]?.prices?.[0]?.item;
   const slider_items = data?.data?.[0]?.services_slider;
+  const includes_list = data?.data?.[0]?.items;
 
+  console.log(data);
   return (
     <>
       <section className={styles.services__hero}>
@@ -100,17 +107,29 @@ export default function ContentPage({ data }: { data: any }) {
         <div className="container">
           <header className={styles.includes__header}>
             <h2 className={styles.includes__title}>
-              <span className="text-gradient">Приём врача-терапевта </span>
-              включает:
+              <span className="text-gradient">
+                {data?.data?.[0]?.includes_title ?? ""}
+              </span>
+              {data?.data?.[0]?.includes_title ? " включает:" : ""}
             </h2>
-            <p>
-              Мы не назначаем обследования «на всякий случай». Все рекомендации
-              даются только тогда, когда они действительно необходимы для
-              понимания ситуации и выбора тактики лечения.
-            </p>
+            <p>{data?.data?.[0]?.includes_description ?? ""}</p>
           </header>
 
-          <ul className={styles.includes__list}></ul>
+          <ul className={`${styles.includes__list}`}>
+            {(includes_list ?? []).map((item: IncludesItemType) => {
+              const number = includes_list.indexOf(item) + 1;
+              return (
+                <li className={styles.includes__item} key={item.id}>
+                  <span
+                    className={`${styles.includes__item_number} text-gradient`}
+                  >
+                    {number}
+                  </span>
+                  <p>{item?.title ?? ""}</p>
+                </li>
+              );
+            })}
+          </ul>
         </div>
       </section>
     </>
