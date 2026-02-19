@@ -42,6 +42,7 @@ export default async function ServicesPage({
     `&populate[prices][populate]=*` +
     `&populate[services_slider][populate]=*` +
     `&populate[items][populate]=*` +
+    `&populate[section][populate]=*` +
     `&populate[hero_background][populate]=*
     
     `;
