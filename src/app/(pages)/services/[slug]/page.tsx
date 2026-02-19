@@ -43,8 +43,11 @@ export default async function ServicesPage({
     `&populate[services_slider][populate]=*` +
     `&populate[items][populate]=*` +
     `&populate[section][populate]=*` +
+    `&populate[faq][populate]=*` +
+    `&populate[seo_block][populate]=*` +
+    `&populate[gallery][populate]=*` +
     `&populate[hero_background][populate]=*
-    
+  
     `;
 
   const page = await fetchData(url);

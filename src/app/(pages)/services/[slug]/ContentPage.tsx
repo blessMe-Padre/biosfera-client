@@ -13,6 +13,8 @@ import type {
   SliderItemType,
   IncludesItemType,
 } from "@/app/types";
+import Accordion from "@/app/components/Accordion/Accordion";
+import Gallery from "@/app/sections/Gallery/Gallery";
 
 export interface SliderProps {
   items: SliderItemType[];
@@ -29,8 +31,10 @@ export default function ContentPage({ data }: { data: any }) {
   const slider_items = data?.data?.[0]?.services_slider;
   const includes_list = data?.data?.[0]?.items;
   const recomendations = data?.data?.[0]?.section;
+  const faq = data?.data?.[0]?.faq;
+  const seo_block = data?.data?.[0]?.seo_block;
+  const gallery = data?.data?.[0]?.gallery;
 
-  console.log(recomendations);
   return (
     <>
       <section className={`${styles.services__hero} ${styles.section}`}>
@@ -171,7 +175,7 @@ export default function ContentPage({ data }: { data: any }) {
             <div className={styles.recomendations__image}>
               <Image
                 src={`${process.env.NEXT_PUBLIC_API_SERVER}${recomendations?.image?.url}`}
-                alt={data?.data?.[0]?.recomendations_image?.alt}
+                alt={data?.data?.[0]?.recomendations_image?.alt ?? "alt text"}
                 width={704}
                 height={608}
                 className="dsv-image"
@@ -180,6 +184,34 @@ export default function ContentPage({ data }: { data: any }) {
               />
             </div>
           </div>
+        </div>
+      </section>
+
+      {gallery?.length > 0 && <Gallery images={gallery ?? []} />}
+
+      <section className={styles.section}>
+        <div className="container">
+          <header className={styles.faq__header}>
+            <h2 className={styles.secton_title}>
+              Часто задаваемые <span className="text-gradient">вопросы</span>
+            </h2>
+            <p>
+              Если вы не нашли нужную информацию — вы всегда можете задать
+              вопрос администратору или врачу
+            </p>
+          </header>
+          <Accordion list={faq?.list ?? []} />
+        </div>
+      </section>
+
+      <section className={`${styles.seo_block} ${styles.section}`}>
+        <div className="container">
+          <header className={styles.seo_block__header}>
+            <h2 className={styles.secton_title}>
+              <span className="text-gradient">SEO текст</span>
+            </h2>
+          </header>
+          <ContentRenderer content={seo_block?.content ?? []} />
         </div>
       </section>
     </>

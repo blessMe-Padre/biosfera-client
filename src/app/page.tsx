@@ -10,14 +10,27 @@ import {
 } from "./sections";
 
 import styles from "./page.module.css";
+import fetchData from "./utils/fetchData";
 
-export default function Home() {
+type GalleryImage = {
+  id: number;
+  image: { url: string };
+};
+
+export default async function Home() {
+  const url =
+    `/api/shablon-uslugis?filters[slug][$eq]=therapy` +
+    `&populate[gallery][populate]=*`;
+
+  const data = await fetchData(url);
+  const gallery = data?.data?.[0]?.gallery ?? ([] as GalleryImage[]);
+
   return (
     <main className={styles.main}>
       <Hero />
       <Services />
       <About />
-      <Gallery />
+      <Gallery images={gallery} />
       <Owner />
       <Doctors />
       <News />
