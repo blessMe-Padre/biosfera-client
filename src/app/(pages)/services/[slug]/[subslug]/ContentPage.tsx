@@ -32,6 +32,8 @@ export default function ContentPage({ data }: { data: any }) {
   const recomendations = data?.data?.[0]?.section;
   const how = data?.data?.[0]?.how;
 
+  console.log("how", how);
+
   return (
     <>
       <h1 className="visually-hidden">{hero?.hero_title}</h1>
@@ -88,7 +90,7 @@ export default function ContentPage({ data }: { data: any }) {
         <div className="container">
           <header className={styles.costs__header}>
             <h2 className={styles.costs__title}>
-              <span className="text-gradient">Стоимость</span>услуг
+              <span className="text-gradient">Стоимость </span>услуг
             </h2>
             <p>
               Точная стоимость услуг уточняется при записи.Назначение
@@ -107,7 +109,7 @@ export default function ContentPage({ data }: { data: any }) {
 
       <section className={`${styles.recomendations} ${styles.section}`}>
         <div className="container">
-          <h2 className={styles.secton_title}>{recomendations?.title}</h2>
+          <h2 className={styles.secton_title} dangerouslySetInnerHTML={{ __html: recomendations?.title ?? "" }}></h2>
 
           <div className={styles.recomendations__wrapper}>
             <div className={styles.recomendations__block}>
@@ -151,7 +153,7 @@ export default function ContentPage({ data }: { data: any }) {
       <section className={`${styles.section} ${styles.how}`}>
         <div className={styles.how_background}>
           <div className="container">
-            <h2 className={styles.secton_title}>{how?.title}</h2>
+            <h2 className={styles.secton_title} dangerouslySetInnerHTML={{ __html: how?.title ?? "" }}></h2>
             <div className={styles.how_content__wrapper}>
               <div className={styles.recomendations__image}>
                   <Image

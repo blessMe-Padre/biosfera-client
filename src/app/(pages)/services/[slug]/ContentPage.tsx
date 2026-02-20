@@ -92,7 +92,7 @@ export default function ContentPage({ data }: { data: any }) {
         <div className="container">
           <header className={styles.costs__header}>
             <h2 className={styles.costs__title}>
-              <span className="text-gradient">Стоимость</span>услуг
+              <span className="text-gradient">Стоимость </span>услуг
             </h2>
             <p>
               Точная стоимость услуг уточняется при записи.Назначение
@@ -116,12 +116,7 @@ export default function ContentPage({ data }: { data: any }) {
       <section className={`${styles.includes} ${styles.section}`}>
         <div className="container">
           <header className={styles.includes__header}>
-            <h2 className={styles.includes__title}>
-              <span className="text-gradient">
-                {data?.data?.[0]?.includes_title ?? ""}
-              </span>
-              {data?.data?.[0]?.includes_title ? " включает:" : ""}
-            </h2>
+              <h2 className={styles.includes__title} dangerouslySetInnerHTML={{ __html: data?.data?.[0]?.includes_title ?? "" }}></h2>
             <p>{data?.data?.[0]?.includes_description ?? ""}</p>
           </header>
 
@@ -145,10 +140,7 @@ export default function ContentPage({ data }: { data: any }) {
 
       <section className={`${styles.recomendations} ${styles.section}`}>
         <div className="container">
-          <h2 className={styles.secton_title}>
-            <span className="text-gradient">Рекомендации </span>
-            обратиться к терапевту, если вы{" "}
-          </h2>
+          <h2 className={styles.secton_title} dangerouslySetInnerHTML={{ __html: recomendations?.title ?? "" }}></h2>
 
           <div className={styles.recomendations__wrapper}>
             <div className={styles.recomendations__block}>
