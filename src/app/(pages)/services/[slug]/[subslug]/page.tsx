@@ -18,7 +18,7 @@ type ServicesPageResponse = {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ subslug: string }>;
+  params: Promise<{ slug: string; subslug: string }>;
 }) {
   const { subslug } = await params;
   const page = (await fetchData(
@@ -38,9 +38,9 @@ export async function generateMetadata({
 export default async function ServicesPage({
   params,
 }: {
-  params: Promise<{ subslug: string }>;
+  params: Promise<{ slug: string; subslug: string }>;
 }) {
-  const { subslug } = await params;
+  const { slug, subslug } = await params;
 
   const url =
     `/api/shablon-pod-uslugas?filters[slug][$eq]=${encodeURIComponent(subslug)}` +
@@ -57,13 +57,22 @@ export default async function ServicesPage({
     return notFound();
   }
 
+  const fourthLabel =
+    (typeof (page.data[0] as any)?.meta_title === "string" &&
+      (page.data[0] as any)?.meta_title) ||
+    (typeof (page.data[0] as any)?.hero_title === "string" &&
+      (page.data[0] as any)?.hero_title) ||
+    undefined;
+
   return (
     <main>
       <div className="container">
         <Breadcrumbs
           secondLink="/services"
           secondLabel="Услуги"
+          thirdLink={`/services/${encodeURIComponent(slug)}`}
           thirdLabel="Терапия"
+          fourthLabel={fourthLabel}
         />
       </div>
       <ContentPage data={page} />
