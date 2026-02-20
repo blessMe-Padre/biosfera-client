@@ -7,7 +7,6 @@ import {
   SliderServices,
 } from "@/app/components";
 import { usePopupStore } from "@/app/store/popupStore";
-import styles from "./style.module.scss";
 import type {
   CostItemType,
   SliderItemType,
@@ -15,6 +14,8 @@ import type {
 } from "@/app/types";
 import Accordion from "@/app/components/Accordion/Accordion";
 import Gallery from "@/app/sections/Gallery/Gallery";
+
+import styles from "../style.module.scss";
 
 export interface SliderProps {
   items: SliderItemType[];
@@ -28,20 +29,15 @@ export default function ContentPage({ data }: { data: any }) {
   const { togglePopupState } = usePopupStore();
   const hero = data?.data?.[0];
   const prices = data?.data?.[0]?.prices?.[0]?.item;
-  const slider_items = data?.data?.[0]?.services_slider;
   const includes_list = data?.data?.[0]?.items;
-  const recomendations = data?.data?.[0]?.section;
   const faq = data?.data?.[0]?.faq;
   const seo_block = data?.data?.[0]?.seo_block;
-  const gallery = data?.data?.[0]?.gallery;
-
-  const showGallery = data?.data?.[0]?.show_gallery;
-
-  console.log("data", data);
+  const recomendations = data?.data?.[0]?.section;
 
   return (
     <>
-      {/* <section className={`${styles.services__hero} ${styles.section}`}>
+      <h1 className="visually-hidden">{hero?.hero_title}</h1>
+      <section className={`${styles.services__hero} ${styles.section}`}>
         <div className={styles.services__hero_image}>
           <Image
             src={`${process.env.NEXT_PUBLIC_API_SERVER}${hero?.hero_background?.url}`}
@@ -88,8 +84,9 @@ export default function ContentPage({ data }: { data: any }) {
             </AnimateElement>
           </div>
         </div>
-      </section> */}
-      {/* <section className={`${styles.costs} ${styles.section}`}>
+      </section>
+
+      <section className={`${styles.costs} ${styles.section}`}>
         <div className="container">
           <header className={styles.costs__header}>
             <h2 className={styles.costs__title}>
@@ -109,44 +106,10 @@ export default function ContentPage({ data }: { data: any }) {
           </ul>
         </div>
       </section>
-      <section className={`${styles.slider_services} ${styles.section}`}>
-        <SliderServices items={(slider_items ?? []) as SliderItemType[]} />
-      </section>
-      <section className={`${styles.includes} ${styles.section}`}>
-        <div className="container">
-          <header className={styles.includes__header}>
-            <h2 className={styles.includes__title}>
-              <span className="text-gradient">
-                {data?.data?.[0]?.includes_title ?? ""}
-              </span>
-              {data?.data?.[0]?.includes_title ? " включает:" : ""}
-            </h2>
-            <p>{data?.data?.[0]?.includes_description ?? ""}</p>
-          </header>
 
-          <ul className={`${styles.includes__list}`}>
-            {(includes_list ?? []).map((item: IncludesItemType) => {
-              const number = includes_list.indexOf(item) + 1;
-              return (
-                <li className={styles.includes__item} key={item.id}>
-                  <span
-                    className={`${styles.includes__item_number} text-gradient`}
-                  >
-                    {number}
-                  </span>
-                  <p>{item?.title ?? ""}</p>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-      </section>
       <section className={`${styles.recomendations} ${styles.section}`}>
         <div className="container">
-          <h2 className={styles.secton_title}>
-            <span className="text-gradient">Рекомендации </span>
-            обратиться к терапевту, если вы{" "}
-          </h2>
+          <h2 className={styles.secton_title}>{recomendations?.title}</h2>
 
           <div className={styles.recomendations__wrapper}>
             <div className={styles.recomendations__block}>
@@ -186,7 +149,37 @@ export default function ContentPage({ data }: { data: any }) {
           </div>
         </div>
       </section>
-      {showGallery && gallery?.length > 0 && <Gallery images={gallery ?? []} />}
+
+      <section className={`${styles.includes} ${styles.section}`}>
+        <div className="container">
+          <header className={styles.includes__header}>
+            <h2 className={styles.includes__title}>
+              <span className="text-gradient">
+                {data?.data?.[0]?.includes_title ?? ""}
+              </span>
+              {data?.data?.[0]?.includes_title ? " включает:" : ""}
+            </h2>
+            <p>{data?.data?.[0]?.includes_description ?? ""}</p>
+          </header>
+
+          <ul className={`${styles.includes__list}`}>
+            {(includes_list ?? []).map((item: IncludesItemType) => {
+              const number = includes_list.indexOf(item) + 1;
+              return (
+                <li className={styles.includes__item} key={item.id}>
+                  <span
+                    className={`${styles.includes__item_number} text-gradient`}
+                  >
+                    {number}
+                  </span>
+                  <p>{item?.title ?? ""}</p>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </section>
+
       <section className={styles.section}>
         <div className="container">
           <header className={styles.faq__header}>
@@ -201,6 +194,7 @@ export default function ContentPage({ data }: { data: any }) {
           <Accordion list={faq?.list ?? []} />
         </div>
       </section>
+
       <section className={`${styles.seo_block} ${styles.section}`}>
         <div className="container">
           <header className={styles.seo_block__header}>
@@ -210,7 +204,7 @@ export default function ContentPage({ data }: { data: any }) {
           </header>
           <ContentRenderer content={seo_block?.content ?? []} />
         </div>
-      </section> */}
+      </section>
     </>
   );
 }

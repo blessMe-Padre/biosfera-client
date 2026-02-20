@@ -40,12 +40,9 @@ export default async function ServicesPage({
   const url =
     `/api/shablon-pod-uslugas?filters[slug][$eq]=${encodeURIComponent(subslug)}` +
     `&populate[prices][populate]=*` +
-    // `&populate[services_slider][populate]=*` +
-    // `&populate[items][populate]=*` +
     `&populate[section][populate]=*` +
     `&populate[faq][populate]=*` +
     `&populate[seo_block][populate]=*` +
-    // `&populate[gallery][populate]=*` +
     `&populate[hero_background][populate]=*`;
 
   const page = await fetchData(url);
@@ -59,7 +56,6 @@ export default async function ServicesPage({
           thirdLabel="Терапия"
         />
       </div>
-      <h1 className="visually-hidden">Терапия</h1>
       <ContentPage data={page} />
     </main>
   );
