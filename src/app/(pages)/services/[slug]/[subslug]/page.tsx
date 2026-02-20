@@ -1,6 +1,7 @@
 import { Breadcrumbs } from "@/app/components";
 import fetchData from "@/app/utils/fetchData";
 import ContentPage from "./ContentPage";
+import { notFound } from "next/navigation";
 
 type ServicesMetadata = {
   data: {
@@ -8,6 +9,10 @@ type ServicesMetadata = {
     meta_description: string;
     hero_image: string;
   }[];
+};
+
+type ServicesPageResponse = {
+  data?: Array<Record<string, unknown>> | null;
 };
 
 export async function generateMetadata({
@@ -41,11 +46,16 @@ export default async function ServicesPage({
     `/api/shablon-pod-uslugas?filters[slug][$eq]=${encodeURIComponent(subslug)}` +
     `&populate[prices][populate]=*` +
     `&populate[section][populate]=*` +
+    `&populate[how][populate]=*` +
     `&populate[faq][populate]=*` +
     `&populate[seo_block][populate]=*` +
     `&populate[hero_background][populate]=*`;
 
-  const page = await fetchData(url);
+  const page = await fetchData<ServicesPageResponse>(url);
+
+  if (!page?.data?.[0]) {
+    return notFound();
+  }
 
   return (
     <main>

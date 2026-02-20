@@ -1,6 +1,11 @@
 import { Breadcrumbs } from "@/app/components";
 import fetchData from "@/app/utils/fetchData";
 import ContentPage from "./ContentPage";
+import { notFound } from "next/navigation";
+
+type ServicesPageResponse = {
+  data?: Array<Record<string, unknown>> | null;
+};
 
 type ServicesMetadata = {
   data: {
@@ -48,7 +53,11 @@ export default async function ServicesPage({
     `&populate[gallery][populate]=*` +
     `&populate[hero_background][populate]=*`;
 
-  const page = await fetchData(url);
+  const page = await fetchData<ServicesPageResponse>(url);
+
+  if (!page?.data?.[0]) {
+    return notFound();
+  }
 
   return (
     <main>

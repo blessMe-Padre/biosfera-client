@@ -4,7 +4,6 @@ import {
   AnimateElement,
   ContentRenderer,
   CostItem,
-  SliderServices,
 } from "@/app/components";
 import { usePopupStore } from "@/app/store/popupStore";
 import type {
@@ -13,7 +12,6 @@ import type {
   IncludesItemType,
 } from "@/app/types";
 import Accordion from "@/app/components/Accordion/Accordion";
-import Gallery from "@/app/sections/Gallery/Gallery";
 
 import styles from "../style.module.scss";
 
@@ -29,10 +27,12 @@ export default function ContentPage({ data }: { data: any }) {
   const { togglePopupState } = usePopupStore();
   const hero = data?.data?.[0];
   const prices = data?.data?.[0]?.prices?.[0]?.item;
-  const includes_list = data?.data?.[0]?.items;
   const faq = data?.data?.[0]?.faq;
   const seo_block = data?.data?.[0]?.seo_block;
   const recomendations = data?.data?.[0]?.section;
+  const how = data?.data?.[0]?.how;
+
+  console.log("how", how);
 
   return (
     <>
@@ -150,33 +150,27 @@ export default function ContentPage({ data }: { data: any }) {
         </div>
       </section>
 
-      <section className={`${styles.includes} ${styles.section}`}>
-        <div className="container">
-          <header className={styles.includes__header}>
-            <h2 className={styles.includes__title}>
-              <span className="text-gradient">
-                {data?.data?.[0]?.includes_title ?? ""}
-              </span>
-              {data?.data?.[0]?.includes_title ? " включает:" : ""}
-            </h2>
-            <p>{data?.data?.[0]?.includes_description ?? ""}</p>
-          </header>
-
-          <ul className={`${styles.includes__list}`}>
-            {(includes_list ?? []).map((item: IncludesItemType) => {
-              const number = includes_list.indexOf(item) + 1;
-              return (
-                <li className={styles.includes__item} key={item.id}>
-                  <span
-                    className={`${styles.includes__item_number} text-gradient`}
-                  >
-                    {number}
-                  </span>
-                  <p>{item?.title ?? ""}</p>
-                </li>
-              );
-            })}
-          </ul>
+      <section className={`${styles.section} ${styles.how}`}>
+        <div className={styles.how_background}>
+          <div className="container">
+            <h2 className={styles.secton_title}>{how?.title}</h2>
+            <div className={styles.how_content__wrapper}>
+              <div className={styles.recomendations__image}>
+                  <Image
+                    src={`${process.env.NEXT_PUBLIC_API_SERVER}${how?.image?.url}`}
+                    alt={data?.data?.[0]?.how?.alt ?? "alt text"}
+                    width={528}
+                    height={375}
+                    className="dsv-image"
+                    placeholder="blur"
+                    blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQ0MiIgaGVpZ2h0PSIxMTg5IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiNjY2MiIC8+PC9zdmc+"
+                  />
+              </div>
+              <div className={styles.how_content__text}>
+                <ContentRenderer content={how?.content ?? []} />
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
