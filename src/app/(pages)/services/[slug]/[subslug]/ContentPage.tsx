@@ -37,9 +37,11 @@ export default function ContentPage({ data }: { data: any }) {
 
   const showGallery = data?.data?.[0]?.show_gallery;
 
+  console.log("data", data);
+
   return (
     <>
-      <section className={`${styles.services__hero} ${styles.section}`}>
+      {/* <section className={`${styles.services__hero} ${styles.section}`}>
         <div className={styles.services__hero_image}>
           <Image
             src={`${process.env.NEXT_PUBLIC_API_SERVER}${hero?.hero_background?.url}`}
@@ -86,9 +88,8 @@ export default function ContentPage({ data }: { data: any }) {
             </AnimateElement>
           </div>
         </div>
-      </section>
-
-      <section className={`${styles.costs} ${styles.section}`}>
+      </section> */}
+      {/* <section className={`${styles.costs} ${styles.section}`}>
         <div className="container">
           <header className={styles.costs__header}>
             <h2 className={styles.costs__title}>
@@ -102,17 +103,15 @@ export default function ContentPage({ data }: { data: any }) {
           </header>
 
           <ul className={styles.costs__list}>
-            {prices.map((item: CostItemType) => (
+            {prices?.map((item: CostItemType) => (
               <CostItem key={item.id} data={item} />
             ))}
           </ul>
         </div>
       </section>
-
       <section className={`${styles.slider_services} ${styles.section}`}>
         <SliderServices items={(slider_items ?? []) as SliderItemType[]} />
       </section>
-
       <section className={`${styles.includes} ${styles.section}`}>
         <div className="container">
           <header className={styles.includes__header}>
@@ -142,7 +141,6 @@ export default function ContentPage({ data }: { data: any }) {
           </ul>
         </div>
       </section>
-
       <section className={`${styles.recomendations} ${styles.section}`}>
         <div className="container">
           <h2 className={styles.secton_title}>
@@ -188,9 +186,7 @@ export default function ContentPage({ data }: { data: any }) {
           </div>
         </div>
       </section>
-
       {showGallery && gallery?.length > 0 && <Gallery images={gallery ?? []} />}
-
       <section className={styles.section}>
         <div className="container">
           <header className={styles.faq__header}>
@@ -205,7 +201,6 @@ export default function ContentPage({ data }: { data: any }) {
           <Accordion list={faq?.list ?? []} />
         </div>
       </section>
-
       <section className={`${styles.seo_block} ${styles.section}`}>
         <div className="container">
           <header className={styles.seo_block__header}>
@@ -215,7 +210,7 @@ export default function ContentPage({ data }: { data: any }) {
           </header>
           <ContentRenderer content={seo_block?.content ?? []} />
         </div>
-      </section>
+      </section> */}
     </>
   );
 }

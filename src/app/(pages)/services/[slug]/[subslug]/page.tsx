@@ -13,11 +13,11 @@ type ServicesMetadata = {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ subslug: string }>;
 }) {
-  const { slug } = await params;
+  const { subslug } = await params;
   const page = (await fetchData(
-    `/api/shablon-uslugis?filters[slug][$eq]=${encodeURIComponent(slug)}`,
+    `/api/shablon-pod-uslugas?filters[slug][$eq]=${encodeURIComponent(subslug)}`,
   )) as ServicesMetadata;
   return {
     title: `Биосфера ДВ - ${page?.data?.[0]?.meta_title}`,
@@ -33,19 +33,19 @@ export async function generateMetadata({
 export default async function ServicesPage({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ subslug: string }>;
 }) {
-  const { slug } = await params;
+  const { subslug } = await params;
 
   const url =
-    `/api/shablon-uslugis?filters[slug][$eq]=${encodeURIComponent(slug)}` +
+    `/api/shablon-pod-uslugas?filters[slug][$eq]=${encodeURIComponent(subslug)}` +
     `&populate[prices][populate]=*` +
-    `&populate[services_slider][populate]=*` +
-    `&populate[items][populate]=*` +
+    // `&populate[services_slider][populate]=*` +
+    // `&populate[items][populate]=*` +
     `&populate[section][populate]=*` +
     `&populate[faq][populate]=*` +
     `&populate[seo_block][populate]=*` +
-    `&populate[gallery][populate]=*` +
+    // `&populate[gallery][populate]=*` +
     `&populate[hero_background][populate]=*`;
 
   const page = await fetchData(url);
