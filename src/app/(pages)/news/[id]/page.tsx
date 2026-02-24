@@ -8,6 +8,7 @@ import { notFound } from "next/navigation";
 import { ContentRenderer } from "@/app/components";
 import { ContentItem } from "@/app/components/ContentRenderer/ContentRenderer";
 import Image from "next/image";
+import { Doctors } from "@/app/sections";
 
 interface ApiResponse {
   data: NewsItemType;
@@ -53,39 +54,42 @@ export default async function Page({ params }: { params: { id: string } }) {
   }
 
   return (
-    <div className="container">
-      <Breadcrumbs
-        secondLink="/news"
-        secondLabel="Новости"
-        thirdLabel={page?.data?.title}
-      />
-      <h1 className={styles.title}>{page?.data?.title}</h1>
-      <article className={styles.article}>
-        <div className="relative">
-          <div className={styles.article__image}>
-            <Image
-              className="dsv-image"
-              src={imageSrc}
-              alt="News"
-              width={500}
-              height={500}
-              loading="lazy"
-              placeholder="blur"
-              blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQ0MiIgaGVpZ2h0PSIxMTg5IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiNjY2MiIC8+PC9zdmc+"
+    <>
+      <div className="container">
+        <Breadcrumbs
+          secondLink="/news"
+          secondLabel="Новости"
+          thirdLabel={page?.data?.title}
+        />
+        <h1 className={styles.title}>{page?.data?.title}</h1>
+        <article className={styles.article}>
+          <div className="relative">
+            <div className={styles.article__image}>
+              <Image
+                className="dsv-image"
+                src={imageSrc}
+                alt="News"
+                width={500}
+                height={500}
+                loading="lazy"
+                placeholder="blur"
+                blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQ0MiIgaGVpZ2h0PSIxMTg5IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiNjY2MiIC8+PC9zdmc+"
+              />
+            </div>
+          </div>
+
+          <div className={styles.article__info}>
+            <div className={styles.article__date}>
+              {formatDate(page?.data?.publishedAt)}
+            </div>
+            <h2 className={styles.article__title}>{page?.data?.title}</h2>
+            <ContentRenderer
+              content={page?.data?.content as unknown as ContentItem[]}
             />
           </div>
-        </div>
-
-        <div className={styles.article__info}>
-          <div className={styles.article__date}>
-            {formatDate(page?.data?.publishedAt)}
-          </div>
-          <h2 className={styles.article__title}>{page?.data?.title}</h2>
-          <ContentRenderer
-            content={page?.data?.content as unknown as ContentItem[]}
-          />
-        </div>
-      </article>
-    </div>
+        </article>
+      </div>
+      <Doctors />
+    </>
   );
 }
