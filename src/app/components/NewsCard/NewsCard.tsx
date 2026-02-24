@@ -2,18 +2,22 @@
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./style.module.scss";
+import type { NewsItemType } from "@/app/types";
+import formatDate from "@/app/utils/formatDate";
 
-export default function DoctorCard({ data }: { data: any }) {
+export default function NewsCard({ data }: { data: NewsItemType }) {
+  const domain = process.env.NEXT_PUBLIC_API_SERVER ?? "";
+
   return (
-    <Link href="#" className={`${styles.news__item}`}>
+    <Link href={`/news/${data?.documentId}`} className={`${styles.news__item}`}>
       <Image
         className="dsv-image"
-        src={data?.image}
+        src={`${data?.image?.url ? `${domain}${data?.image?.url}` : "placeholder1.svg"}`}
         alt="News"
         width={460}
         height={425}
       />
-      <div className={styles.news_label}>{data?.label}</div>
+      <div className={styles.news_label}>{formatDate(data?.publishedAt)}</div>
       <h3 className={styles.news__title}>{data?.title}</h3>
 
       <svg

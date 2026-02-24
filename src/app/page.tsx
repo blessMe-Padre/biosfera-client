@@ -11,6 +11,7 @@ import {
 
 import styles from "./page.module.css";
 import fetchData from "./utils/fetchData";
+import type { NewsItemType } from "./types";
 
 type GalleryImage = {
   id: number;
@@ -25,6 +26,10 @@ export default async function Home() {
   const data = await fetchData(url);
   const gallery = data?.data?.[0]?.gallery ?? ([] as GalleryImage[]);
 
+  const newsUrl = `/api/novostis?populate=*`;
+  const newsData = await fetchData(newsUrl);
+  const news = newsData?.data ?? ([] as NewsItemType[]);
+
   return (
     <main className={styles.main}>
       <Hero />
@@ -33,7 +38,7 @@ export default async function Home() {
       <Gallery images={gallery} />
       <Owner />
       <Doctors />
-      <News />
+      <News data={news} />
       <Map />
 
       {/* <Image

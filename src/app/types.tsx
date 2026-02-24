@@ -20,3 +20,13 @@ export interface IncludesItemType {
   id: number;
   title?: string;
 }
+
+export interface NewsItemType {
+  id: number;
+  documentId: string;
+  title?: string;
+  description?: string;
+  label?: string;
+  image?: { url?: string };
+  publishedAt?: string;
+}
