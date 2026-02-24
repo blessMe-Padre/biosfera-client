@@ -29,4 +29,5 @@ export interface NewsItemType {
   label?: string;
   image?: { url?: string };
   publishedAt?: string;
+  content?: string[];
 }

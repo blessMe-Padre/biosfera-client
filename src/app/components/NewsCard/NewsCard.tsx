@@ -16,6 +16,9 @@ export default function NewsCard({ data }: { data: NewsItemType }) {
         alt="News"
         width={460}
         height={425}
+        loading="lazy"
+        placeholder="blur"
+        blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQ0MiIgaGVpZ2h0PSIxMTg5IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiNjY2MiIC8+PC9zdmc+"
       />
       <div className={styles.news_label}>{formatDate(data?.publishedAt)}</div>
       <h3 className={styles.news__title}>{data?.title}</h3>

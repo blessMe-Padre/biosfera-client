@@ -3,6 +3,7 @@ import ContentPage from "./ContentPage";
 import styles from "./style.module.scss";
 import type { NewsItemType } from "@/app/types";
 import { notFound } from "next/navigation";
+import Breadcrumbs from "@/app/components/Breadcrumbs/Breadcrumbs";
 
 type PageResponse = {
   data?: Array<Record<string, unknown>> | null;
@@ -30,6 +31,7 @@ export default async function News() {
 
   return (
     <div className="container">
+      <Breadcrumbs secondLink="/news" secondLabel="Новости" />
       <h1 className={styles.title}>Новости</h1>
       {page ? (
         <ContentPage data={page.data as unknown as NewsItemType[]} />
