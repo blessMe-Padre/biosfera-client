@@ -6,7 +6,7 @@ import {
   Doctors,
   News,
   Owner,
-  Map,
+  Map as MapSection,
 } from "./sections";
 
 import styles from "./page.module.css";
@@ -18,16 +18,22 @@ type GalleryImage = {
   image: { url: string };
 };
 
+interface ApiListResponse<T> {
+  data?: T[];
+}
+
 export default async function Home() {
   const url =
     `/api/shablon-uslugis?filters[slug][$eq]=therapy` +
     `&populate[gallery][populate]=*`;
 
-  const data = await fetchData(url);
+  const data = await fetchData<ApiListResponse<{ gallery?: GalleryImage[] }>>(
+    url,
+  );
   const gallery = data?.data?.[0]?.gallery ?? ([] as GalleryImage[]);
 
   const newsUrl = `/api/novostis?populate=*`;
-  const newsData = await fetchData(newsUrl);
+  const newsData = await fetchData<ApiListResponse<NewsItemType>>(newsUrl);
   const news = newsData?.data ?? ([] as NewsItemType[]);
 
   return (
@@ -39,7 +45,7 @@ export default async function Home() {
       <Owner />
       <Doctors />
       <News data={news} />
-      <Map />
+      <MapSection />
 
       {/* <Image
         src="/Item.png"
