@@ -8,7 +8,6 @@
 }
 
 .news {
-
     h2 {
         @include adaptiv-value("font-size", 18, 16);
         margin-bottom: 30px;
@@ -38,6 +37,7 @@
     gap: 50px;
 
     position: relative;
+    margin-top: 30px;
 
     @media(max-width: 1024px) {
         grid-template-columns: 1fr 1fr;
@@ -88,6 +88,16 @@
 
 .article__title {
     @include adaptiv-value("font-size", 36, 26);
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+.costs {
+    @include adaptiv-value("margin-top", 100, 30);
+}
+
+.costs__title {
+    @include adaptiv-value("font-size", 46, 26);
     font-weight: 600;
     margin-bottom: 30px;
 }

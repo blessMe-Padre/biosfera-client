@@ -1,4 +1,5 @@
 import fetchData from "@/app/utils/fetchData";
+import fetchMedflexData from "@/app/utils/fetchMedflexData";
 import formatDate from "@/app/utils/formatDate";
 
 import styles from "../style.module.scss";
@@ -7,8 +8,11 @@ import type { NewsItemType } from "@/app/types";
 import { notFound } from "next/navigation";
 import { ContentRenderer } from "@/app/components";
 import { ContentItem } from "@/app/components/ContentRenderer/ContentRenderer";
+import CostItemMed from "@/app/components/CostItemMed/CostItemMed";
+import { CostItemType } from "@/app/components/CostItem/CostItem";
 import Image from "next/image";
 import { Doctors } from "@/app/sections";
+import { log } from "console";
 
 interface ApiResponse {
   data: NewsItemType;
@@ -45,6 +49,16 @@ export default async function Page({ params }: { params: { id: string } }) {
   const page: ApiResponse = await fetchData(`/api/novostis/${id}?populate=*`);
   const domain = process.env.NEXT_PUBLIC_API_SERVER ?? "";
 
+  // тут получаем цены из медифлекса по клинике
+  // https://api.medflex.ru/services/prices/?lpu_id=112840
+
+  const prices = await fetchMedflexData(
+    `/services/prices/?lpu_id=${process.env.NEXT_PUBLIC_CLINIC_ID}`,
+  );
+  const services = prices?.data?.services;
+
+  console.log(services, "services");
+
   const imageSrc = page?.data?.image?.url
     ? `${domain}${page?.data?.image?.url}`
     : "/placeholder1.svg";
@@ -61,7 +75,7 @@ export default async function Page({ params }: { params: { id: string } }) {
           secondLabel="Новости"
           thirdLabel={page?.data?.title}
         />
-        <h1 className={styles.title}>{page?.data?.title}</h1>
+        {/* <h1 className={styles.title}>{page?.data?.title}</h1> */}
         <article className={styles.article}>
           <div className="relative">
             <div className={styles.article__image}>
@@ -82,13 +96,31 @@ export default async function Page({ params }: { params: { id: string } }) {
             <div className={styles.article__date}>
               {formatDate(page?.data?.publishedAt)}
             </div>
-            <h2 className={styles.article__title}>{page?.data?.title}</h2>
+            <h1 className={styles.article__title}>{page?.data?.title}</h1>
             <ContentRenderer
               content={page?.data?.content as unknown as ContentItem[]}
             />
           </div>
         </article>
       </div>
+
+      <section className={`${styles.costs} ${styles.section}`}>
+        <div className="container">
+          <header className={styles.costs__header}>
+            <h2 className={styles.costs__title}>
+              <span className="text-gradient">Услуги медицинского центра </span>
+              «Биосфера ДВ»
+            </h2>
+          </header>
+
+          <ul className={styles.costs__list}>
+            {services.map((item: any) => (
+              <CostItemMed key={item.id} data={item} />
+            ))}
+          </ul>
+        </div>
+      </section>
+
       <Doctors />
     </>
   );
