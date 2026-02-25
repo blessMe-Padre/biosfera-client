@@ -87,7 +87,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 
   return (
     <>
-      {/* <div className="container">
+      <div className="container">
         <Breadcrumbs
           secondLink="/news"
           secondLabel="Новости"
@@ -138,9 +138,9 @@ export default async function Page({ params }: { params: { id: string } }) {
         </div>
       </section>
 
-      <Doctors /> */}
+      <Doctors />
 
-      <section className={styles.news}>
+      <section className={`${styles.news} ${styles.section}`}>
         <div className="container">
           <h2 className={styles.costs__title}>
             Вам может быть <span className="text-gradient">интересно</span>

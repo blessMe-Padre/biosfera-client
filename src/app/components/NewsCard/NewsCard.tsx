@@ -10,7 +10,7 @@ export default function NewsCard({ data }: { data: NewsItemType }) {
 
   const imageUrl = data?.image?.url
     ? `${domain}${data?.image?.url}`
-    : "placeholder1.svg";
+    : "/placeholder1.svg";
 
   return (
     <Link href={`/news/${data?.documentId}`} className={`${styles.news__item}`}>

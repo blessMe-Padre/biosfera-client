@@ -7,6 +7,10 @@
     margin-bottom: 30px;
 }
 
+.section {
+    @include adaptiv-value("margin-top", 100, 30);
+}
+
 .news {
     .news__title {
         @include adaptiv-value("font-size", 18, 16);
