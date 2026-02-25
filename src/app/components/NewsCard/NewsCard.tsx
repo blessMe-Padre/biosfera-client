@@ -8,11 +8,15 @@ import formatDate from "@/app/utils/formatDate";
 export default function NewsCard({ data }: { data: NewsItemType }) {
   const domain = process.env.NEXT_PUBLIC_API_SERVER ?? "";
 
+  const imageUrl = data?.image?.url
+    ? `${domain}${data?.image?.url}`
+    : "placeholder1.svg";
+
   return (
     <Link href={`/news/${data?.documentId}`} className={`${styles.news__item}`}>
       <Image
         className="dsv-image"
-        src={`${data?.image?.url ? `${domain}${data?.image?.url}` : "placeholder1.svg"}`}
+        src={imageUrl}
         alt="News"
         width={460}
         height={425}

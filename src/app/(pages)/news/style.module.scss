@@ -8,7 +8,7 @@
 }
 
 .news {
-    h2 {
+    .news__title {
         @include adaptiv-value("font-size", 18, 16);
         margin-bottom: 30px;
         color: var(--color-gray);

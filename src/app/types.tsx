@@ -30,4 +30,5 @@ export interface NewsItemType {
   image?: { url?: string };
   publishedAt?: string;
   content?: string[];
+  isRecomended?: boolean;
 }

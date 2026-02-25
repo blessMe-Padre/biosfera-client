@@ -5,7 +5,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 20px;
+    gap: 40px;
 
     border-radius: 101px;
     padding: 12px 30px;
@@ -23,6 +23,7 @@
     align-items: center;
     justify-content: space-between;
     gap: 40px;
+    flex: 1;
 
     @media(max-width: 768px) {
         gap: 20px;

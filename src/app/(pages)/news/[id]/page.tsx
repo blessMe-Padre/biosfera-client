@@ -6,16 +6,30 @@ import styles from "../style.module.scss";
 import Breadcrumbs from "@/app/components/Breadcrumbs/Breadcrumbs";
 import type { NewsItemType } from "@/app/types";
 import { notFound } from "next/navigation";
-import { ContentRenderer } from "@/app/components";
-import { ContentItem } from "@/app/components/ContentRenderer/ContentRenderer";
+import { ContentRenderer, NewsCard } from "@/app/components";
+import type { ContentItem } from "@/app/components/ContentRenderer/ContentRenderer";
 import CostItemMed from "@/app/components/CostItemMed/CostItemMed";
-import { CostItemType } from "@/app/components/CostItem/CostItem";
 import Image from "next/image";
 import { Doctors } from "@/app/sections";
-import { log } from "console";
 
 interface ApiResponse {
   data: NewsItemType;
+}
+
+interface ApiListResponse<T> {
+  data?: T[];
+}
+
+type MedflexService = {
+  id: number | string;
+  name: string;
+  price?: number | string;
+};
+
+interface MedflexPricesResponse {
+  data?: {
+    services?: MedflexService[];
+  };
 }
 
 export async function generateMetadata({
@@ -47,18 +61,22 @@ export async function generateMetadata({
 export default async function Page({ params }: { params: { id: string } }) {
   const { id } = await params;
   const page: ApiResponse = await fetchData(`/api/novostis/${id}?populate=*`);
-  const domain = process.env.NEXT_PUBLIC_API_SERVER ?? "";
 
-  // тут получаем цены из медифлекса по клинике
-  // https://api.medflex.ru/services/prices/?lpu_id=112840
+  // тут получаем цены услуг из медифлекса по клинике (lpu_id)
+  // https://api.medflex.ru/services/prices/?lpu_id=**********
 
-  const prices = await fetchMedflexData(
+  const prices = await fetchMedflexData<MedflexPricesResponse>(
     `/services/prices/?lpu_id=${process.env.NEXT_PUBLIC_CLINIC_ID}`,
   );
-  const services = prices?.data?.services;
+  const services = prices.data?.services ?? [];
 
-  console.log(services, "services");
+  // Запрос на получение всех новостей отфильтрованных по isRecommended = true
+  const recommendedNews = await fetchData<ApiListResponse<NewsItemType>>(
+    `/api/novostis?filters[isRecomended][$eq]=true&populate=*`,
+  );
+  const recommendedNewsData = recommendedNews.data ?? [];
 
+  const domain = process.env.NEXT_PUBLIC_API_SERVER ?? "";
   const imageSrc = page?.data?.image?.url
     ? `${domain}${page?.data?.image?.url}`
     : "/placeholder1.svg";
@@ -69,13 +87,12 @@ export default async function Page({ params }: { params: { id: string } }) {
 
   return (
     <>
-      <div className="container">
+      {/* <div className="container">
         <Breadcrumbs
           secondLink="/news"
           secondLabel="Новости"
           thirdLabel={page?.data?.title}
         />
-        {/* <h1 className={styles.title}>{page?.data?.title}</h1> */}
         <article className={styles.article}>
           <div className="relative">
             <div className={styles.article__image}>
@@ -114,14 +131,29 @@ export default async function Page({ params }: { params: { id: string } }) {
           </header>
 
           <ul className={styles.costs__list}>
-            {services.map((item: any) => (
+            {services.map((item) => (
               <CostItemMed key={item.id} data={item} />
             ))}
           </ul>
         </div>
       </section>
 
-      <Doctors />
+      <Doctors /> */}
+
+      <section className={styles.news}>
+        <div className="container">
+          <h2 className={styles.costs__title}>
+            Вам может быть <span className="text-gradient">интересно</span>
+          </h2>
+          <div className={styles.list}>
+            {recommendedNewsData && recommendedNewsData.length > 0
+              ? recommendedNewsData.map((item: NewsItemType) => (
+                  <NewsCard key={item.id} data={item} />
+                ))
+              : "Не удалось загрузить новости"}
+          </div>
+        </div>
+      </section>
     </>
   );
 }
