@@ -60,7 +60,17 @@ export async function generateMetadata({
 
 export default async function Page({ params }: { params: { id: string } }) {
   const { id } = await params;
-  const page: ApiResponse = await fetchData(`/api/novostis/${id}?populate=*`);
+  let page: ApiResponse | null = null;
+
+  try {
+    page = await fetchData<ApiResponse>(`/api/novostis/${id}?populate=*`);
+  } catch {
+    return notFound();
+  }
+
+  if (!page?.data) {
+    return notFound();
+  }
 
   // тут получаем цены услуг из медифлекса по клинике (lpu_id)
   // https://api.medflex.ru/services/prices/?lpu_id=**********
@@ -80,10 +90,6 @@ export default async function Page({ params }: { params: { id: string } }) {
   const imageSrc = page?.data?.image?.url
     ? `${domain}${page?.data?.image?.url}`
     : "/placeholder1.svg";
-
-  if (!page) {
-    return notFound();
-  }
 
   return (
     <>
