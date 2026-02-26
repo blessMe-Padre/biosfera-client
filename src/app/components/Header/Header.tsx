@@ -100,8 +100,9 @@ export default function Header() {
 
           <button
             className={styles.primary_button}
-            onClick={togglePopupState}
+            // onClick={togglePopupState}
             type="button"
+            // data-src="https://booking.medflex.ru?user=be54557cf76e37ed7e2b8308eecb3e44&isRoundWidget=true"
           >
             Записаться на прием
           </button>
