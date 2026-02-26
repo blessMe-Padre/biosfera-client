@@ -6,6 +6,10 @@
     @include adaptiv-value("font-size", 40, 24);
     font-weight: 600;
     margin-bottom: 30px;
+
+    @media(max-width: 560px) {
+        margin-bottom: 20px;
+    }
 }
 
 .promo_description {
@@ -15,12 +19,20 @@
     max-width: 730px;
     line-height: 1.2;
     color: var(--color-gray);
+
+    @media(max-width: 560px) {
+        margin-bottom: 20px;
+    }
 }
 
 .promo_list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 337px));
     gap: 30px;
+
+    @media(max-width: 768px) {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
 
     @media(max-width: 560px) {
         gap: 20px;
