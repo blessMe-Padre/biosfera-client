@@ -38,7 +38,7 @@ const FOOTER_NAV = [
     links: [
       { label: "Контакты", href: "/contacts" },
       { label: "Отзывы", href: "#" },
-      { label: "Вакансии", href: "#" },
+      { label: "Вакансии", href: "/vacancies" },
     ],
   },
 ];
