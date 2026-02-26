@@ -34,6 +34,13 @@ export default function HeaderMobileMenu({
 }) {
   const [submenuOpen, setSubmenuOpen] = useState(false);
 
+  const handleButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setSubmenuOpen(!submenuOpen);
+    setPopupOpened(true);
+    setActive(false);
+  };
+
   return (
     <div
       className={`${styles.mobile_menu_wrapper} ${active ? styles.active : ""}`}
@@ -69,7 +76,11 @@ export default function HeaderMobileMenu({
         {menuLinks.map((item, idx) => (
           <li className={styles.nav_item} key={item.title}>
             <div className={styles.nav_item_inner}>
-              {!item.submenu && <Link href={item.url}>{item.title}</Link>}
+              {!item.submenu && (
+                <Link href={item.url} onClick={() => setActive(false)}>
+                  {item.title}
+                </Link>
+              )}
               {item.submenu && (
                 <Link
                   href={item.url}
@@ -105,11 +116,15 @@ export default function HeaderMobileMenu({
                 className={`${styles.submenu_list} ${submenuOpen ? styles.active : ""}`}
               >
                 <li className={styles.nav_item} key={item.title}>
-                  <Link href={item.url}>{item.title}</Link>
+                  <Link href={item.url} onClick={() => setActive(false)}>
+                    {item.title}
+                  </Link>
                 </li>
                 {item.submenu.map((subitem) => (
                   <li className={styles.submenu_item} key={subitem.title}>
-                    <Link href={subitem.url}>{subitem.title}</Link>
+                    <Link href={subitem.url} onClick={() => setActive(false)}>
+                      {subitem.title}
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -143,7 +158,7 @@ export default function HeaderMobileMenu({
       <button
         type="button"
         className={styles.primary_button}
-        onClick={() => setPopupOpened(true)}
+        onClick={handleButtonClick}
       >
         Записаться на прием
       </button>
