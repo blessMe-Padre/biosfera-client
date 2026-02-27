@@ -2,7 +2,7 @@
 // @use "../../mixins" as *;
 @use "@app/mixins" as *;
 
-.promo_title {
+.title {
     @include adaptiv-value("font-size", 40, 24);
     font-weight: 600;
     margin-bottom: 30px;
@@ -12,42 +12,45 @@
     }
 }
 
-.promo_description {
-    @include adaptiv-value("font-size", 18, 14);
-    font-weight: 600;
-    margin-bottom: 30px;
-    max-width: 730px;
-    line-height: 1.2;
+.content_wrapper {
     color: var(--color-gray);
-
-    @media(max-width: 560px) {
-        margin-bottom: 20px;
-    }
+    max-width: 900px;
+    margin-bottom: 30px;
 }
 
-.promo_list {
+.list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 337px));
+    grid-template-columns: repeat(3, 1fr);
     gap: 30px;
+    margin-bottom: 50px;
 
-    @media(max-width: 768px) {
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    @media(max-width: 930px) {
+        grid-template-columns: repeat(2, 1fr);
     }
 
     @media(max-width: 560px) {
+        grid-template-columns: 1fr;
         gap: 20px;
     }
 }
 
-.promo_item {
+.item {
     background: linear-gradient(180deg, #e6ecf3 0%, #fff 100%);
     border-radius: 20px;
-    padding: 20px;
+    padding: 35px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
     gap: 20px;
+
+    p:last-child {
+        color: var(--color-gray);
+    }
+
+    @media(max-width: 560px) {
+        padding: 25px;
+    }
 }
 
 .promo_image {

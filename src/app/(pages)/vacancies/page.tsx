@@ -3,40 +3,47 @@ import Breadcrumbs from "@/app/components/Breadcrumbs/Breadcrumbs";
 import styles from "./style.module.scss";
 import fetchData from "@/app/utils/fetchData";
 import { notFound } from "next/navigation";
-import Image from "next/image";
 import ContentRenderer, {
   type ContentItem,
 } from "@/app/components/ContentRenderer/ContentRenderer";
 import PromoButton from "./button";
 
-type PromoItem = {
+type Item = {
   id: number;
   title?: string;
-  description?: ContentItem[] | null;
+  descriptions?: ContentItem[] | null;
 };
 
-type PromoPageResponse = {
+type PageResponse = {
   data: {
     title?: string | null;
     content?: ContentItem[] | null;
     meta_title?: string | null;
-    meta_description?: string | null;
-    list?: PromoItem[] | null;
+    meta_descpiptions?: string | null;
+    list?: Item[] | null;
   };
-};
-
-export const metadata = {
-  title: "Биосфера ДВ | Вакансии ",
-  description: "Вакансии для сайта Биосфера ДВ",
 };
 
 const apiUrl = "/api/stranicza-vakansii?populate=*";
 
+export async function generateMetadata() {
+  const page = await fetchData<PageResponse>(apiUrl);
+
+  return {
+    title: `${page?.data?.meta_title}`,
+    description: page?.data?.meta_descpiptions ?? "",
+    openGraph: {
+      title: `${page?.data?.meta_title}`,
+      description: page?.data?.meta_descpiptions ?? "",
+    },
+  };
+}
+
 export default async function Vacancies() {
-  let page: PromoPageResponse | null = null;
-  const domain = process.env.NEXT_PUBLIC_API_SERVER ?? "";
+  let page: PageResponse | null = null;
+
   try {
-    page = await fetchData<PromoPageResponse>(apiUrl);
+    page = await fetchData<PageResponse>(apiUrl);
   } catch (error) {
     console.error("Ошибка при загрузке данных:", error);
   }
@@ -45,47 +52,28 @@ export default async function Vacancies() {
     return notFound();
   }
 
-  console.log(page.data);
-
   return (
     <div className="container">
-      <Breadcrumbs secondLabel={page?.data?.title ?? "2222"} />
+      <Breadcrumbs secondLabel={page?.data?.title ?? "Вакансии"} />
 
-      {/* <h1 className={styles.promo_title}>
-        <span className="text-gradient">Акции</span> и специальные предложения{" "}
-      </h1>
-      <p className={styles.promo_description}>
-        Мы регулярно предлагаем специальные условия на медицинские услуги, чтобы
-        качественная помощь была доступнее и удобнее для наших пациентов.
-      </p>
+      <h1 className={styles.title}>{page?.data?.title}</h1>
 
-      <ul className={styles.promo_list}>
-        {page.data.map((item) => (
-          <li key={item.id} className={styles.promo_item}>
+      <div className={styles.content_wrapper}>
+        <ContentRenderer content={page?.data?.content ?? []} />
+      </div>
+
+      <ul className={styles.list}>
+        {page?.data?.list?.map((item) => (
+          <li key={item.id} className={styles.item}>
             <div className={styles.promo_item_content}>
-              <div className={styles.promo_image}>
-                <Image
-                  className="dsv-image"
-                  src={
-                    item.image?.url
-                      ? `${domain}${item.image.url}`
-                      : "/placeholder1.svg"
-                  }
-                  alt="News"
-                  width={288}
-                  height={180}
-                />
-              </div>
-              <h3 className={`${styles.promo_item_title} text-gradient`}>
-                {item.title}
-              </h3>
-              <ContentRenderer content={item.description ?? []} />
+              <h3 className={`${styles.promo_item_title}`}>{item.title}</h3>
+              <ContentRenderer content={item?.descriptions ?? []} />
             </div>
 
             <PromoButton />
           </li>
         ))}
-      </ul> */}
+      </ul>
     </div>
   );
 }

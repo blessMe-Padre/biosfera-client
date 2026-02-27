@@ -12,7 +12,7 @@ export default function PromoButton() {
       className={styles.promo_item_button}
       onClick={togglePopupState}
     >
-      Записаться на прием
+      Откликнуться
     </button>
   );
 }
