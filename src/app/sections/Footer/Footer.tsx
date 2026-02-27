@@ -28,7 +28,7 @@ const FOOTER_NAV = [
   {
     title: "О центре",
     links: [
-      { label: "Врачи", href: "#" },
+      { label: "Врачи", href: "/doctors" },
       { label: "Цены", href: "/price" },
       { label: "Акции", href: "/promo" },
     ],

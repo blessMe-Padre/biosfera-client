@@ -16,7 +16,7 @@ const menuLinks = [
     ],
   },
   { title: "Цены", url: "/price" },
-  { title: "Врачи", url: "#" },
+  { title: "Врачи", url: "/doctors" },
   { title: "Акции ", url: "/promo" },
   { title: "Новости", url: "/news" },
   { title: "О центре", url: "/about" },
