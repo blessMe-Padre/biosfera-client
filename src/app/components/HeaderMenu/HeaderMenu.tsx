@@ -18,7 +18,7 @@ const menuLinks = [
   { title: "Врачи", url: "#" },
   { title: "Акции ", url: "/promo" },
   { title: "Новости", url: "/news" },
-  { title: "О центре", url: "#" },
+  { title: "О центре", url: "/about" },
   { title: "Контакты", url: "/contacts" },
 ];
 
