@@ -1,0 +1,22 @@
+// @include adaptiv-value("font-size", 16, 13)
+// @use "../../mixins" as *;
+@use "@app/mixins" as *;
+
+.side_bar_menu,
+.content {
+    padding: 35px;
+    background: linear-gradient(180deg, #e6ecf3 0%, #fff 100%);
+    ;
+    border-radius: 20px;
+}
+
+.menu__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu__item {
+    padding: 15px 0;
+    border-bottom: 1px solid #CFD7E0;
+}
