@@ -19,6 +19,7 @@ const apiUrl =
   `&populate[about_section][populate]=*` +
   `&populate[about_image_l][populate]=*` +
   `&populate[about_image_s][populate]=*` +
+  `&populate[licenses][populate]=*` +
   `&populate[gallery][populate]=*`;
 
 export async function generateMetadata() {

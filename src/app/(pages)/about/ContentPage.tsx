@@ -30,12 +30,15 @@ export default function ContentPage({ data }: { data: any }) {
   const { togglePopupState } = usePopupStore();
   const faq = data?.faq;
   const gallery = data?.gallery;
+  const licenses = data?.licenses;
 
   const { about_section, about_image_l, about_image_s } = data;
 
+  console.log("licenses", licenses);
+
   return (
     <>
-      <section className={`${styles.services__hero} ${styles.section}`}>
+      {/* <section className={`${styles.services__hero} ${styles.section}`}>
         <div className={styles.services__hero_image}>
           <Image
             src={`${process.env.NEXT_PUBLIC_API_SERVER}${data?.hero_background?.url}`}
@@ -82,19 +85,19 @@ export default function ContentPage({ data }: { data: any }) {
             </AnimateElement>
           </div>
         </div>
-      </section>
+      </section> */}
 
-      {gallery && gallery.length > 0 && <Gallery images={gallery ?? []} />}
+      {/* {gallery && gallery.length > 0 && <Gallery images={gallery ?? []} />} */}
 
-      <Owner />
+      {/* <Owner /> */}
 
-      <About
+      {/* <About
         data={about_section}
         image_l={about_image_l}
         image_s={about_image_s}
-      />
+      /> */}
 
-      <section className={styles.section}>
+      {/* <section className={styles.section}>
         <div className="container">
           <header className={styles.faq__header}>
             <h2 className={styles.secton_title}>
@@ -107,11 +110,67 @@ export default function ContentPage({ data }: { data: any }) {
           </header>
           <Accordion list={faq?.[0]?.list ?? []} />
         </div>
-      </section>
+      </section> */}
 
-      <section className={`${styles.price} ${styles.section}`}>
+      {/* <section className={`${styles.price} ${styles.section}`}>
         <div className="container">
           <PriceForm />
+        </div>
+      </section> */}
+
+      <section className={`${styles.section} ${styles.licenses}`}>
+        <div className="container">
+          <div className={styles.licenses_wrapper}>
+            <div className={styles.licenses_content}>
+              <h2 className={styles.secton_title}>
+                {licenses?.title ?? "Лицензии"}
+              </h2>
+              <p className={styles.description}>
+                {licenses?.description ?? ""}
+              </p>
+              <div className={styles.licenses_block}>
+                <p>
+                  Лицензия:{" "}
+                  <span className="text-gradient">
+                    {licenses?.number ?? ""}
+                  </span>
+                </p>
+                <p>
+                  Дата выдачи:{" "}
+                  <span className="text-gradient">{licenses?.data ?? ""}</span>
+                </p>
+
+                <a
+                  className={styles.licenses_button}
+                  href={
+                    licenses.view.url
+                      ? `${process.env.NEXT_PUBLIC_API_SERVER}${licenses?.view?.url}`
+                      : "#"
+                  }
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Ознакомиться с лицензией
+                </a>
+              </div>
+            </div>
+            <div className={styles.licenses_images}>
+              {licenses?.images?.length > 0 &&
+                licenses?.images?.map((image: any) => (
+                  <Image
+                    key={image.id}
+                    src={`${process.env.NEXT_PUBLIC_API_SERVER}${image?.url}`}
+                    alt={image?.name ?? "licenses_images"}
+                    width={335}
+                    height={510}
+                    className="dsv-image"
+                    priority
+                    placeholder="blur"
+                    blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQ0MiIgaGVpZ2h0PSIxMTg5IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiNjY2MiIC8+PC9zdmc+"
+                  />
+                ))}
+            </div>
+          </div>
         </div>
       </section>
     </>
