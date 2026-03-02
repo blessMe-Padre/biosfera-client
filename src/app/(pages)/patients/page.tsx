@@ -1,8 +1,9 @@
 import Breadcrumbs from "@/app/components/Breadcrumbs/Breadcrumbs";
-import styles from "./style.module.scss";
+import Image from "next/image";
 import fetchData from "@/app/utils/fetchData";
 import { notFound } from "next/navigation";
 import { SideBarMenu } from "@/app/components";
+import styles from "./style.module.scss";
 
 type PageResponse = {
   data: {
@@ -47,8 +48,22 @@ export default async function Patients() {
       <div className={styles.page_wrapper}>
         <SideBarMenu />
         <div className={styles.content}>
-          <h1>Документы</h1>
-          <p>Здесь пока ничего нет, но скоро будет.</p>
+          <h1 className={styles.content__title}>Документы</h1>
+          <ul className={styles.documents__list}>
+            <li className={styles.documents__item}>
+              <a href="#123">
+                <Image
+                  src="/icons/document_icon.svg"
+                  alt="icon"
+                  width={30}
+                  height={30}
+                />
+                <span>
+                  Закон РФ от 07.02.92 N 2300-I О защите прав потребителей
+                </span>
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
     </main>
