@@ -14,7 +14,7 @@ type PageResponse = {
   };
 };
 
-const apiUrl = `/api/stranicza-paczientam?populate=*`;
+const apiUrl = `/api/stranicza-paczientam?` + `populate[documents][populate]=*`;
 
 export async function generateMetadata() {
   const page = await fetchData<PageResponse>(apiUrl);
@@ -41,6 +41,9 @@ export default async function Patients() {
   if (!page?.data) {
     return notFound();
   }
+
+  const documents = page?.data?.documents;
+
   return (
     <main className="container">
       <Breadcrumbs secondLabel={page?.data?.title ?? "Пациентам"} />
@@ -50,19 +53,27 @@ export default async function Patients() {
         <div className={styles.content}>
           <h1 className={styles.content__title}>Документы</h1>
           <ul className={styles.documents__list}>
-            <li className={styles.documents__item}>
-              <a href="#123">
-                <Image
-                  src="/icons/document_icon.svg"
-                  alt="icon"
-                  width={30}
-                  height={30}
-                />
-                <span>
-                  Закон РФ от 07.02.92 N 2300-I О защите прав потребителей
-                </span>
-              </a>
-            </li>
+            {documents?.map((item: any) => (
+              <li className={styles.documents__item} key={item?.id}>
+                <a
+                  href={
+                    item?.document?.url
+                      ? `${process.env.NEXT_PUBLIC_API_SERVER}${item?.document?.url}`
+                      : "#"
+                  }
+                  target={item?.document?.url ? "_blank" : "_self"}
+                  rel="noopener noreferrer"
+                >
+                  <Image
+                    src="/icons/document_icon.svg"
+                    alt="icon"
+                    width={30}
+                    height={30}
+                  />
+                  <span>{item?.title}</span>
+                </a>
+              </li>
+            ))}
           </ul>
         </div>
       </div>

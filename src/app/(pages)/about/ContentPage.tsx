@@ -38,7 +38,7 @@ export default function ContentPage({ data }: { data: any }) {
 
   return (
     <>
-      {/* <section className={`${styles.services__hero} ${styles.section}`}>
+      <section className={`${styles.services__hero} ${styles.section}`}>
         <div className={styles.services__hero_image}>
           <Image
             src={`${process.env.NEXT_PUBLIC_API_SERVER}${data?.hero_background?.url}`}
@@ -85,19 +85,19 @@ export default function ContentPage({ data }: { data: any }) {
             </AnimateElement>
           </div>
         </div>
-      </section> */}
+      </section>
 
-      {/* {gallery && gallery.length > 0 && <Gallery images={gallery ?? []} />} */}
+      {gallery && gallery.length > 0 && <Gallery images={gallery ?? []} />}
 
-      {/* <Owner /> */}
+      <Owner />
 
-      {/* <About
+      <About
         data={about_section}
         image_l={about_image_l}
         image_s={about_image_s}
-      /> */}
+      />
 
-      {/* <section className={styles.section}>
+      <section className={styles.section}>
         <div className="container">
           <header className={styles.faq__header}>
             <h2 className={styles.secton_title}>
@@ -110,13 +110,13 @@ export default function ContentPage({ data }: { data: any }) {
           </header>
           <Accordion list={faq?.[0]?.list ?? []} />
         </div>
-      </section> */}
+      </section>
 
-      {/* <section className={`${styles.price} ${styles.section}`}>
+      <section className={`${styles.price} ${styles.section}`}>
         <div className="container">
           <PriceForm />
         </div>
-      </section> */}
+      </section>
 
       <section className={`${styles.section} ${styles.licenses}`}>
         <div className="container">
