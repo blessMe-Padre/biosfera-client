@@ -23,6 +23,7 @@ interface ControlItem {
   address?: string;
   phone?: string;
   email?: string;
+  fax?: string;
 }
 
 const apiUrl =
@@ -123,6 +124,19 @@ export default async function Patients() {
                         {item?.email ?? ""}
                       </a>
                     </li>
+                    {item?.fax && (
+                      <li className={styles.control_inner_item}>
+                        <Image
+                          src={"/icons/fax-icon.svg"}
+                          alt="Fax"
+                          width={24}
+                          height={24}
+                        />
+                        <a href={`mailto:${item?.fax ?? ""}`}>
+                          {item?.fax ?? ""}
+                        </a>
+                      </li>
+                    )}
                   </ul>
                 </div>
               </li>
