@@ -21,3 +21,4 @@ export { default as CostItemMed } from "./CostItemMed/CostItemMed";
 export { default as SliderServices } from "./SliderServices/SliderServices";
 export { default as Metrika } from "./Metrika/Metrika";
 export { default as SideBarMenu } from "./SideBarMenu/SideBarMenu";
+export { default as DogovorForm } from "./DogovorForm/DogovorForm";
