@@ -2,7 +2,8 @@ import Breadcrumbs from "@/app/components/Breadcrumbs/Breadcrumbs";
 import styles from "../style.module.scss";
 import fetchData from "@/app/utils/fetchData";
 import { notFound } from "next/navigation";
-import { SideBarMenu } from "@/app/components";
+import { ContentRenderer, SideBarMenu } from "@/app/components";
+import Image from "next/image";
 
 type PageResponse = {
   data: {
@@ -13,7 +14,7 @@ type PageResponse = {
   };
 };
 
-const apiUrl = `/api/stranicza-paczientam?populate=*`;
+const apiUrl = `/api/stranicza-paczientam-obsluzhivanie-po-dms?populate=*`;
 
 export async function generateMetadata() {
   const page = await fetchData<PageResponse>(apiUrl);
@@ -40,6 +41,10 @@ export default async function Patients() {
   if (!page?.data) {
     return notFound();
   }
+
+  const data = page?.data;
+  console.log(data);
+
   return (
     <main className="container">
       <Breadcrumbs secondLabel={page?.data?.title ?? "Пациентам"} />
@@ -47,8 +52,22 @@ export default async function Patients() {
       <div className={styles.page_wrapper}>
         <SideBarMenu />
         <div className={styles.content} id="section">
-          <h1>Обслуживание по ДМС</h1>
-          <p>Здесь пока ничего нет, но скоро будет.</p>
+          <h1 className={styles.content__title}>
+            {data?.title ?? "Обслуживание по ДМС"}
+          </h1>
+
+          <div className={styles.content_image_wrapper}>
+            {data?.image?.url && (
+              <Image
+                src={`${process.env.NEXT_PUBLIC_API_SERVER}${data?.image?.url}`}
+                className="dsv-image"
+                alt={data?.title ?? "Обслуживание по ДМС"}
+                width={935}
+                height={347}
+              />
+            )}
+          </div>
+          <ContentRenderer content={data?.content} />
         </div>
       </div>
     </main>
