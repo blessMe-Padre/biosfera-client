@@ -14,6 +14,12 @@ interface FormData {
   middle_name?: string | null;
   email?: string | null;
   contract_type?: string | null;
+  passport_issued_by?: string | null;
+  passport_issued_code?: string | null;
+  passport_issued_date?: string | null;
+  address_of_residence?: string | null;
+  policy1?: boolean;
+  policy2?: boolean;
 }
 
 export default function DogovorForm() {
@@ -34,6 +40,12 @@ export default function DogovorForm() {
       middle_name: "", // Инициализируем middle_name пустой строкой
       email: "", // Инициализируем email пустой строкой
       contract_type: "", // Инициализируем contract_type пустой строкой
+      passport_issued_by: "", // Инициализируем passport_issued_by пустой строкой
+      passport_issued_code: "", // Инициализируем passport_issued_code пустой строкой
+      passport_issued_date: "", // Инициализируем passport_issued_date пустой строкой
+      address_of_residence: "", // Инициализируем address_of_residence пустой строкой
+      policy1: false, // Инициализируем policy1 false
+      policy2: false, // Инициализируем policy1 false
     },
   });
 
@@ -224,93 +236,179 @@ export default function DogovorForm() {
         <div className={styles.form_step_2}>
           <p className={styles.subtitle}>Паспортные данные</p>
 
-          <div className={styles.input_wrapper}>
-            <input
-              placeholder="Серия и номер*"
-              {...register("passport_series", {
-                required: {
-                  value: true,
-                  message: "Введите серию и номер паспорта",
-                },
-              })}
-              className={styles.form__input}
-              type="text"
-            />
-            <div className={styles.input_text_error}>
-              {errors.passport_series?.message}
+          <div className={styles.wrapper_group}>
+            <div className={styles.input_wrapper}>
+              <input
+                placeholder="Серия и номер*"
+                {...register("passport_series", {
+                  required: {
+                    value: true,
+                    message: "Введите серию и номер паспорта",
+                  },
+                })}
+                className={styles.form__input}
+                type="text"
+              />
+              <div className={styles.input_text_error}>
+                {errors.passport_series?.message}
+              </div>
+            </div>
+
+            <div className={styles.input_wrapper}>
+              <input
+                placeholder="Кем выдан*"
+                {...register("passport_issued_by", {
+                  required: {
+                    value: true,
+                    message: "Введите кем выдан",
+                  },
+                })}
+                className={styles.form__input}
+                type="text"
+              />
+              <div className={styles.input_text_error}>
+                {errors.passport_issued_by?.message}
+              </div>
+            </div>
+
+            <div className={styles.input_wrapper}>
+              <input
+                placeholder="Код подразделения*"
+                {...register("passport_issued_code", {
+                  required: {
+                    value: true,
+                    message: "Введите код подразделения",
+                  },
+                })}
+                className={styles.form__input}
+                type="text"
+              />
+              <div className={styles.input_text_error}>
+                {errors.passport_issued_code?.message}
+              </div>
+            </div>
+
+            <div className={styles.input_wrapper}>
+              <input
+                placeholder="Дата выдачи*"
+                {...register("passport_issued_date", {
+                  required: {
+                    value: true,
+                    message: "Введите дату выдачи",
+                  },
+                })}
+                className={styles.form__input}
+                type="text"
+              />
+              <div className={styles.input_text_error}>
+                {errors.passport_issued_date?.message}
+              </div>
+            </div>
+
+            <div
+              className={`${styles.input_wrapper} ${styles.input_wrapper_full_width}`}
+            >
+              <input
+                placeholder="Адрес проживания*"
+                {...register("address_of_residence", {
+                  required: {
+                    value: true,
+                    message: "Введите адрес проживания",
+                  },
+                })}
+                className={styles.form__input}
+                type="text"
+              />
+              <div className={styles.input_text_error}>
+                {errors.address_of_residence?.message}
+              </div>
             </div>
           </div>
 
           {/* сабмит формы */}
-          <button
-            className={styles.form__btn__submit}
-            type="button"
-            onClick={() => setStep(1)}
-          >
-            <span>Назад</span>
-          </button>
-          <button className={styles.form__btn__submit} type="submit">
-            <p>Оставить заявку</p>
+          <div className={styles.buttons_wrapper}>
+            <button
+              className={styles.form__btn__submit}
+              type="button"
+              onClick={() => setStep(1)}
+            >
+              <span>Назад</span>
+            </button>
+            <button className={styles.form__btn__submit} type="submit">
+              <p>Оставить заявку</p>
 
-            {sending && (
-              <svg
-                width="25"
-                height="25"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 200 200"
-              >
-                <title>Loading...</title>
-                <radialGradient
-                  id="a9"
-                  cx=".66"
-                  fx=".66"
-                  cy=".3125"
-                  fy=".3125"
-                  gradientTransform="scale(1.5)"
+              {sending && (
+                <svg
+                  width="25"
+                  height="25"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 200 200"
                 >
-                  <stop offset="0" stopColor="#ffffff"></stop>
-                  <stop offset=".3" stopColor="#ffffff" stopOpacity=".9"></stop>
-                  <stop offset=".6" stopColor="#ffffff" stopOpacity=".6"></stop>
-                  <stop offset=".8" stopColor="#ffffff" stopOpacity=".3"></stop>
-                  <stop offset="1" stopColor="#ffffff" stopOpacity="0"></stop>
-                </radialGradient>
-                <circle
-                  style={{ transformOrigin: "center" }}
-                  fill="none"
-                  stroke="url(#a9)"
-                  strokeWidth="15"
-                  strokeLinecap="round"
-                  strokeDasharray="200 1000"
-                  strokeDashoffset="0"
-                  cx="100"
-                  cy="100"
-                  r="70"
-                >
-                  <animateTransform
-                    type="rotate"
-                    attributeName="transform"
-                    calcMode="spline"
-                    dur="2"
-                    values="360;0"
-                    keyTimes="0;1"
-                    keySplines="0 0 1 1"
-                    repeatCount="indefinite"
-                  ></animateTransform>
-                </circle>
-                <circle
-                  style={{ transformOrigin: "center" }}
-                  fill="none"
-                  opacity=".2"
-                  stroke="#ffffff"
-                  strokeWidth="15"
-                  strokeLinecap="round"
-                  cx="100"
-                  cy="100"
-                  r="70"
-                ></circle>
-              </svg>
-            )}
-          </button>
+                  <title>Loading...</title>
+                  <radialGradient
+                    id="a9"
+                    cx=".66"
+                    fx=".66"
+                    cy=".3125"
+                    fy=".3125"
+                    gradientTransform="scale(1.5)"
+                  >
+                    <stop offset="0" stopColor="#ffffff"></stop>
+                    <stop
+                      offset=".3"
+                      stopColor="#ffffff"
+                      stopOpacity=".9"
+                    ></stop>
+                    <stop
+                      offset=".6"
+                      stopColor="#ffffff"
+                      stopOpacity=".6"
+                    ></stop>
+                    <stop
+                      offset=".8"
+                      stopColor="#ffffff"
+                      stopOpacity=".3"
+                    ></stop>
+                    <stop offset="1" stopColor="#ffffff" stopOpacity="0"></stop>
+                  </radialGradient>
+                  <circle
+                    style={{ transformOrigin: "center" }}
+                    fill="none"
+                    stroke="url(#a9)"
+                    strokeWidth="15"
+                    strokeLinecap="round"
+                    strokeDasharray="200 1000"
+                    strokeDashoffset="0"
+                    cx="100"
+                    cy="100"
+                    r="70"
+                  >
+                    <animateTransform
+                      type="rotate"
+                      attributeName="transform"
+                      calcMode="spline"
+                      dur="2"
+                      values="360;0"
+                      keyTimes="0;1"
+                      keySplines="0 0 1 1"
+                      repeatCount="indefinite"
+                    ></animateTransform>
+                  </circle>
+                  <circle
+                    style={{ transformOrigin: "center" }}
+                    fill="none"
+                    opacity=".2"
+                    stroke="#ffffff"
+                    strokeWidth="15"
+                    strokeLinecap="round"
+                    cx="100"
+                    cy="100"
+                    r="70"
+                  ></circle>
+                </svg>
+              )}
+            </button>
+          </div>
 
           <div className={styles.form__policy}>
             <div className={styles.policy_checkbox_wrapper}>
@@ -339,6 +437,51 @@ export default function DogovorForm() {
             </div>
             <div className={styles.input_text_error}>
               {errors.policy?.message}
+            </div>
+          </div>
+
+          <div className={styles.form__policy}>
+            <div className={styles.policy_checkbox_wrapper}>
+              <input
+                {...register("policy1", {
+                  required: {
+                    value: true,
+                    message:
+                      "Вы должны согласиться с условиями договора, приложениями и правилами внутреннего распорядка",
+                  },
+                })}
+                type="checkbox"
+                className={styles.policy_checkbox}
+              />
+              <p className={styles.policy_text}>
+                Ознакомлен с условиями договора, приложениями и правилами
+                внутреннего распорядка
+              </p>
+            </div>
+            <div className={styles.input_text_error}>
+              {errors.policy1?.message}
+            </div>
+          </div>
+
+          <div className={styles.form__policy}>
+            <div className={styles.policy_checkbox_wrapper}>
+              <input
+                {...register("policy2", {
+                  required: {
+                    value: true,
+                    message:
+                      "Вы должны согласиться с ИДС на медицинское вмешательство",
+                  },
+                })}
+                type="checkbox"
+                className={styles.policy_checkbox}
+              />
+              <p className={styles.policy_text}>
+                ИДС на медицинское вмешательство
+              </p>
+            </div>
+            <div className={styles.input_text_error}>
+              {errors.policy1?.message}
             </div>
           </div>
         </div>
