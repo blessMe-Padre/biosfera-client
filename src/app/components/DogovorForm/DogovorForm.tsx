@@ -90,7 +90,10 @@ export default function DogovorForm() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          emailType: "passport",
+        }),
       });
 
       if (response.ok) {
@@ -213,8 +216,12 @@ export default function DogovorForm() {
                 <option value="" disabled>
                   Выберите тип договора*
                 </option>
-                <option value="1">Договор на оказание услуг 1*</option>
-                <option value="2">Договор на оказание услуг 2*</option>
+                <option value="Договор на оказание услуг">
+                  Договор на оказание услуг 1*
+                </option>
+                <option value="Договор на починку примусора">
+                  Договор на починку примусора
+                </option>
               </select>
               <div className={styles.input_text_error}>
                 {errors.contract_type?.message}

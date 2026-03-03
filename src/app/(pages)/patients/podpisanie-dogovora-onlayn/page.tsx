@@ -10,7 +10,7 @@ export const metadata = {
 export default async function Patients() {
   return (
     <main className="container">
-      <Breadcrumbs secondLabel="control_item_image" />
+      <Breadcrumbs secondLabel="Подписание договора онлайн" />
 
       <div className={styles.page_wrapper}>
         <SideBarMenu />

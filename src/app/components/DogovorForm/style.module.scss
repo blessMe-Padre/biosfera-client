@@ -43,6 +43,11 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
+
+    @media (max-width: 560px) {
+        gap: 10px;
+        grid-template-columns: 1fr;
+    }
 }
 
 .input_wrapper {
@@ -51,6 +56,10 @@
 
 .input_wrapper_full_width {
     grid-column: span 2;
+
+    @media (max-width: 560px) {
+        grid-column: span 1;
+    }
 }
 
 .form__input {
@@ -58,7 +67,7 @@
     font-size: 1.125rem;
     text-align: center;
     color: #858f9c;
-    background: #e6ecf3;
+    background: #ffffff;
     border: none;
     border-radius: 30px;
     padding: 10px;
@@ -101,6 +110,10 @@
     gap: 20px;
 
     margin-bottom: 30px;
+
+    @media (max-width: 560px) {
+        flex-direction: column;
+    }
 }
 
 .form__btn__submit {
