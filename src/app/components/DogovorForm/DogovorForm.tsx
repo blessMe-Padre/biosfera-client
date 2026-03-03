@@ -1,15 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { initPhoneMask } from "@/app/utils/phone-mask";
 import styles from "./style.module.scss";
 
 interface FormData {
   phone: string;
+  last_name: string;
   name: string;
   policy: boolean;
   passport_series?: string | null;
+  middle_name?: string | null;
+  email?: string | null;
+  contract_type?: string | null;
 }
 
 export default function DogovorForm() {
@@ -19,12 +23,17 @@ export default function DogovorForm() {
     formState: { errors },
     reset,
     setValue,
+    trigger,
     watch,
   } = useForm<FormData>({
     defaultValues: {
       phone: "", // Инициализируем phone пустой строкой
+      last_name: "", // Инициализируем last_name пустой строкой
       name: "", // Инициализируем name пустой строкой
       policy: false, // Инициализируем policy false
+      middle_name: "", // Инициализируем middle_name пустой строкой
+      email: "", // Инициализируем email пустой строкой
+      contract_type: "", // Инициализируем contract_type пустой строкой
     },
   });
 
@@ -34,6 +43,32 @@ export default function DogovorForm() {
   const [sending, setSending] = useState(false);
 
   const phoneValue = watch("phone"); // Отслеживаем значение поля phone
+
+  const step1Ref = useRef<HTMLDivElement | null>(null);
+
+  const goToStep2 = async () => {
+    const stepRoot = step1Ref.current;
+    if (!stepRoot) {
+      setStep(2);
+      return;
+    }
+
+    const fieldNames = Array.from(
+      stepRoot.querySelectorAll("input[name], textarea[name], select[name]"),
+    )
+      .map((el) => (el as HTMLInputElement).name)
+      .filter(Boolean);
+
+    if (fieldNames.length === 0) {
+      setStep(2);
+      return;
+    }
+
+    const isValid = await trigger(fieldNames as Parameters<typeof trigger>[0], {
+      shouldFocus: true,
+    });
+    if (isValid) setStep(2);
+  };
 
   const onSubmit = async (formData: FormData) => {
     setSending(true);
@@ -47,7 +82,7 @@ export default function DogovorForm() {
       });
 
       if (response.ok) {
-        const data = await response.json();
+        await response.json();
 
         setIsSuccess(true);
         setSending(false);
@@ -68,67 +103,117 @@ export default function DogovorForm() {
   return (
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
       {step === 1 && (
-        <div className={styles.form_step_1}>
+        <div className={styles.form_step_1} ref={step1Ref}>
           <p className={styles.subtitle}>
             Заполните Ваши данные, чтобы подписать договор
           </p>
-          <div className={styles.input_wrapper}>
-            <input
-              placeholder="Введите имя"
-              {...register("name", {
-                required: { value: true, message: "Введите имя" },
-              })}
-              className={styles.form__input}
-              type="text"
-            />
-            <div className={styles.input_text_error}>
-              {errors["name"] && errors["name"].message}
-            </div>
-          </div>
-          <div className={styles.input_wrapper}>
-            <input
-              placeholder="Введите имя"
-              {...register("name", {
-                required: { value: true, message: "Введите имя" },
-              })}
-              className={styles.form__input}
-              type="text"
-            />
-            <div className={styles.input_text_error}>
-              {errors["name"] && errors["name"].message}
-            </div>
-          </div>
 
-          <div className={`${styles.input_wrapper}`}>
-            {(() => {
-              const { ref: phoneRef, ...phoneRegister } = register("phone", {
-                required: { value: true, message: "Введите телефон" },
-              });
+          <div className={styles.wrapper_group}>
+            <div className={styles.input_wrapper}>
+              <input
+                placeholder="Введите фамилию*"
+                {...register("last_name", {
+                  required: { value: true, message: "Введите фамилию" },
+                })}
+                className={styles.form__input}
+                type="text"
+              />
+              <div className={styles.input_text_error}>
+                {errors.last_name?.message}
+              </div>
+            </div>
 
-              return (
-                <input
-                  placeholder="Введите телефон"
-                  {...phoneRegister}
-                  value={phoneValue || ""} // Убедимся, что значение никогда не undefined
-                  onChange={(e) => setValue("phone", e.target.value)} // Обновляем значение в react-hook-form
-                  ref={(el) => {
-                    phoneRef(el);
-                    if (el) initPhoneMask(el); // Инициализация маски
-                  }}
-                  className={styles.form__input}
-                  type="tel"
-                />
-              );
-            })()}
-            <div className={styles.input_text_error}>
-              {errors["phone"] && errors["phone"].message}
+            <div className={styles.input_wrapper}>
+              <input
+                placeholder="Введите имя*"
+                {...register("name", {
+                  required: { value: true, message: "Введите имя" },
+                })}
+                className={styles.form__input}
+                type="text"
+              />
+              <div className={styles.input_text_error}>
+                {errors.name?.message}
+              </div>
+            </div>
+
+            <div className={styles.input_wrapper}>
+              <input
+                placeholder="Введите отчество*"
+                {...register("middle_name", {
+                  required: { value: true, message: "Введите отчество" },
+                })}
+                className={styles.form__input}
+                type="text"
+              />
+              <div className={styles.input_text_error}>
+                {errors.middle_name?.message}
+              </div>
+            </div>
+
+            <div className={`${styles.input_wrapper}`}>
+              {(() => {
+                const { ref: phoneRef, ...phoneRegister } = register("phone", {
+                  required: { value: true, message: "Введите телефон" },
+                });
+
+                return (
+                  <input
+                    placeholder="Введите телефон*"
+                    {...phoneRegister}
+                    value={phoneValue || ""} // Убедимся, что значение никогда не undefined
+                    onChange={(e) => setValue("phone", e.target.value)} // Обновляем значение в react-hook-form
+                    ref={(el) => {
+                      phoneRef(el);
+                      if (el) initPhoneMask(el); // Инициализация маски
+                    }}
+                    className={styles.form__input}
+                    type="tel"
+                  />
+                );
+              })()}
+              <div className={styles.input_text_error}>
+                {errors.phone?.message}
+              </div>
+            </div>
+
+            <div className={styles.input_wrapper}>
+              <input
+                placeholder="Введите email*"
+                {...register("email", {
+                  required: { value: true, message: "Введите email" },
+                })}
+                className={styles.form__input}
+                type="email"
+              />
+              <div className={styles.input_text_error}>
+                {errors.email?.message}
+              </div>
+            </div>
+
+            <div className={styles.input_wrapper}>
+              <select
+                {...register("contract_type", {
+                  required: { value: true, message: "Выберите тип договора" },
+                })}
+                className={styles.form__input}
+              >
+                <option value="" disabled>
+                  Выберите тип договора*
+                </option>
+                <option value="1">Договор на оказание услуг 1*</option>
+                <option value="2">Договор на оказание услуг 2*</option>
+              </select>
+              <div className={styles.input_text_error}>
+                {errors.contract_type?.message}
+              </div>
             </div>
           </div>
 
           <button
             className={styles.form__btn__submit}
             type="button"
-            onClick={() => setStep(2)}
+            onClick={goToStep2}
           >
             <span>Далее</span>
           </button>
@@ -152,7 +237,7 @@ export default function DogovorForm() {
               type="text"
             />
             <div className={styles.input_text_error}>
-              {errors["passport_series"] && errors["passport_series"].message}
+              {errors.passport_series?.message}
             </div>
           </div>
 
@@ -253,7 +338,7 @@ export default function DogovorForm() {
               </p>
             </div>
             <div className={styles.input_text_error}>
-              {errors["policy"] && errors["policy"].message}
+              {errors.policy?.message}
             </div>
           </div>
         </div>
