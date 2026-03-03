@@ -153,3 +153,38 @@
         object-fit: cover;
     }
 }
+
+.control_item {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+
+    margin-bottom: 20px;
+
+    h2 {
+        @include adaptiv-value("font-size", 20, 16);
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
+}
+
+.control_inner_list {
+    margin-top: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.control_inner_item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    max-width: 250px;
+}
