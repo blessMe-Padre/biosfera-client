@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
+import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 import styles from "./style.module.scss";
-
 const items = [
   {
     label: "Документы",
@@ -43,8 +43,49 @@ const items = [
   },
 ];
 
+type MenuItem = {
+  label: string;
+  href: string;
+  scrollToId?: string; // ID блока для скролла на мобильном
+};
+
+// Функция плавного скролла
+const scrollToElement = (id: string) => {
+  const element = document.getElementById(id);
+  if (element) {
+    setTimeout(() => {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 50);
+  }
+};
+
 export default function SideBarMenu() {
   const pathname = usePathname();
+  const isMobileRef = useRef(false);
+  // Определяем мобильное устройство при монтировании и при ресайзе
+  useEffect(() => {
+    const checkMobile = () => {
+      isMobileRef.current = window.innerWidth < 767;
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  const handleLinkClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    item: MenuItem,
+  ) => {
+    // Работаем только на мобильном и только если ссылка на текущую страницу
+    if (isMobileRef.current && pathname === item.href && item.scrollToId) {
+      e.preventDefault(); // Отменяем переход, чтобы не менять URL
+
+      // Скроллим до блока (URL остаётся чистым, без hash)
+      scrollToElement(item.scrollToId);
+    }
+  };
+
   return (
     <div className={styles.side_bar_menu}>
       <ul className={styles.menu__list}>
@@ -53,6 +94,7 @@ export default function SideBarMenu() {
             <Link
               href={item.href}
               className={pathname === item.href ? "text-gradient" : ""}
+              onClick={(e) => handleLinkClick(e, item)}
             >
               <span>{item.label}</span>
               {pathname === item.href && (

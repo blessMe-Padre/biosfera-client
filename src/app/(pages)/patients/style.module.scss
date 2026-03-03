@@ -7,7 +7,11 @@
     display: grid;
     grid-template-columns: 330px 1fr;
     gap: 30px;
-    margin-bottom: 30px;
+    margin-bottom: 70px;
+
+    @media(max-width:767px) {
+        grid-template-columns: 1fr;
+    }
 }
 
 .content {
