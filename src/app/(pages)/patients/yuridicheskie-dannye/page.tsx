@@ -2,7 +2,7 @@ import Breadcrumbs from "@/app/components/Breadcrumbs/Breadcrumbs";
 import styles from "../style.module.scss";
 import fetchData from "@/app/utils/fetchData";
 import { notFound } from "next/navigation";
-import { SideBarMenu } from "@/app/components";
+import { ContentRenderer, SideBarMenu } from "@/app/components";
 
 type PageResponse = {
   data: {
@@ -13,7 +13,7 @@ type PageResponse = {
   };
 };
 
-const apiUrl = `/api/stranicza-paczientam?populate=*`;
+const apiUrl = `/api/stranicza-paczientam-yuridicheskie-dannye?populate=*`;
 
 export async function generateMetadata() {
   const page = await fetchData<PageResponse>(apiUrl);
@@ -40,6 +40,9 @@ export default async function Patients() {
   if (!page?.data) {
     return notFound();
   }
+
+  const data = page?.data;
+  console.log("data", data);
   return (
     <main className="container">
       <Breadcrumbs secondLabel={page?.data?.title ?? "Пациентам"} />
@@ -47,8 +50,10 @@ export default async function Patients() {
       <div className={styles.page_wrapper}>
         <SideBarMenu />
         <div className={styles.content}>
-          <h1>Юридические данные</h1>
-          <p>Здесь пока ничего нет, но скоро будет.</p>
+          <h1 className={styles.content__title}>
+            {data?.title ?? "Юридические данные"}
+          </h1>
+          <ContentRenderer content={data?.content ?? []} />
         </div>
       </div>
     </main>
