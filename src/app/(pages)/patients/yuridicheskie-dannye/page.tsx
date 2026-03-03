@@ -49,7 +49,7 @@ export default async function Patients() {
 
       <div className={styles.page_wrapper}>
         <SideBarMenu />
-        <div className={styles.content}>
+        <div className={styles.content} id="section">
           <h1 className={styles.content__title}>
             {data?.title ?? "Юридические данные"}
           </h1>

@@ -50,7 +50,7 @@ export default async function Patients() {
 
       <div className={styles.page_wrapper}>
         <SideBarMenu />
-        <div className={styles.content} id="documents">
+        <div className={styles.content} id="section">
           <h1 className={styles.content__title}>Документы</h1>
           <ul className={styles.documents__list}>
             {documents?.map((item: any) => (

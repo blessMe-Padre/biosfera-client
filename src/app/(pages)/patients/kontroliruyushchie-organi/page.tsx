@@ -46,7 +46,7 @@ export default async function Patients() {
 
       <div className={styles.page_wrapper}>
         <SideBarMenu />
-        <div className={styles.content}>
+        <div className={styles.content} id="section">
           <h1>Контролирующие органы</h1>
           <p>Здесь пока ничего нет, но скоро будет.</p>
         </div>

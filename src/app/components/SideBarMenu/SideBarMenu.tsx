@@ -4,59 +4,79 @@ import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import styles from "./style.module.scss";
-const items = [
-  {
-    label: "Документы",
-    href: "/patients",
-  },
-  {
-    label: "Юридические данные",
-    href: "/patients/yuridicheskie-dannye",
-  },
-  {
-    label: "Лицензии",
-    href: "/patients/licenzii",
-  },
-  {
-    label: "Контролирующие органы",
-    href: "/patients/kontroliruyushchie-organi",
-  },
-  {
-    label: "Подписание договора онлайн",
-    href: "/patients/podpisanie-dogovora-onlayn",
-  },
-  {
-    label: "Карта парковок",
-    href: "/patients/karta-parkovok",
-  },
-  {
-    label: "Обслуживание по ДМС",
-    href: "/patients/obsluzhivanie-po-dms",
-  },
-  {
-    label: "Документы на налоговый вычет",
-    href: "/patients/dokumenty-na-nalogovyy-vychet",
-  },
-  {
-    label: "Отзывы",
-    href: "/patients/otzyvy",
-  },
-];
+
+const PENDING_SCROLL_TO_ID_KEY = "SideBarMenu:pendingScrollToId";
 
 type MenuItem = {
   label: string;
   href: string;
-  scrollToId?: string; // ID блока для скролла на мобильном
+  scrollToId?: string;
 };
 
-// Функция плавного скролла
-const scrollToElement = (id: string) => {
-  const element = document.getElementById(id);
-  if (element) {
-    setTimeout(() => {
+const items: MenuItem[] = [
+  {
+    label: "Документы",
+    href: "/patients",
+    scrollToId: "section",
+  },
+  {
+    label: "Юридические данные",
+    href: "/patients/yuridicheskie-dannye",
+    scrollToId: "section",
+  },
+  {
+    label: "Лицензии",
+    href: "/patients/licenzii",
+    scrollToId: "section",
+  },
+  {
+    label: "Контролирующие органы",
+    href: "/patients/kontroliruyushchie-organi",
+    scrollToId: "section",
+  },
+  {
+    label: "Подписание договора онлайн",
+    href: "/patients/podpisanie-dogovora-onlayn",
+    scrollToId: "section",
+  },
+  {
+    label: "Карта парковок",
+    href: "/patients/karta-parkovok",
+    scrollToId: "section",
+  },
+  {
+    label: "Обслуживание по ДМС",
+    href: "/patients/obsluzhivanie-po-dms",
+    scrollToId: "section",
+  },
+  {
+    label: "Документы на налоговый вычет",
+    href: "/patients/dokumenty-na-nalogovyy-vychet",
+    scrollToId: "section",
+  },
+  {
+    label: "Отзывы",
+    href: "/patients/otzyvy",
+    scrollToId: "section",
+  },
+];
+
+const scrollToElement = (id: string, onSuccess?: () => void) => {
+  let attempts = 0;
+
+  const run = () => {
+    const element = document.getElementById(id);
+    if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
-    }, 50);
-  }
+      onSuccess?.();
+      return;
+    }
+
+    attempts += 1;
+    if (attempts < 25) setTimeout(run, 50);
+  };
+
+  run();
 };
 
 export default function SideBarMenu() {
@@ -73,17 +93,31 @@ export default function SideBarMenu() {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
+  useEffect(() => {
+    if (!isMobileRef.current) return;
+    if (!pathname) return;
+
+    const pendingScrollToId = sessionStorage.getItem(PENDING_SCROLL_TO_ID_KEY);
+    if (!pendingScrollToId) return;
+
+    sessionStorage.removeItem(PENDING_SCROLL_TO_ID_KEY);
+    scrollToElement(pendingScrollToId);
+  }, [pathname]);
+
   const handleLinkClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
     item: MenuItem,
   ) => {
-    // Работаем только на мобильном и только если ссылка на текущую страницу
-    if (isMobileRef.current && pathname === item.href && item.scrollToId) {
-      e.preventDefault(); // Отменяем переход, чтобы не менять URL
+    if (!isMobileRef.current) return;
+    if (!item.scrollToId) return;
 
-      // Скроллим до блока (URL остаётся чистым, без hash)
+    if (pathname === item.href) {
+      e.preventDefault(); // остаёмся на странице, скроллим к контенту
       scrollToElement(item.scrollToId);
+      return;
     }
+
+    sessionStorage.setItem(PENDING_SCROLL_TO_ID_KEY, item.scrollToId);
   };
 
   return (
