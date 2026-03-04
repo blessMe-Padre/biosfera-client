@@ -42,6 +42,8 @@ export async function generateMetadata({
 export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
     // burdukovskaya-natalya-viktorovna
+    // savinov-arkadij-aleksandrovich
+    // siprashvili-darya-andreevna
     let page: PageResponse | null = null;
     const domain = process.env.NEXT_PUBLIC_API_SERVER ?? "";
 
@@ -58,10 +60,6 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
     const imageSrc = data?.main_photo?.url
         ? `${domain}${data?.main_photo?.url}`
         : "/placeholder1.svg";
-
-
-    console.log('slug', slug);
-    console.log('data', data);
 
     return (
         <main>
