@@ -1,5 +1,4 @@
 import Breadcrumbs from "@/app/components/Breadcrumbs/Breadcrumbs";
-import { Doctors } from "@/app/sections";
 
 import styles from "./style.module.scss";
 import { DoctorCard } from "@/app/components";
