@@ -3,6 +3,9 @@ import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
+
+import styles from "./style.module.scss";
 
 import fetchData from "@/app/utils/fetchData";
 
@@ -100,7 +103,9 @@ function SearchResults() {
 
       setLoading(true);
       try {
-        const cats = selectedKey ? [CATEGORIES_BY_KEY[selectedKey]] : CATEGORIES;
+        const cats = selectedKey
+          ? [CATEGORIES_BY_KEY[selectedKey]]
+          : CATEGORIES;
         const entries = await Promise.all(
           cats.map(async (cat) => {
             const res = await fetchData<ApiListResponse<unknown>>(
@@ -153,13 +158,22 @@ function SearchResults() {
           if (items.length === 0) return null;
 
           return (
-            <section key={cat.key}>
+            <section className={styles.section} key={cat.key}>
               <h2>{cat.title}</h2>
-              <ul>
+              <ul className={styles.list}>
                 {items.map((rawItem, index) => {
                   const item = rawItem as never;
                   return (
-                    <li key={cat.getItemKey(item, index)}>
+                    <li
+                      className={styles.item}
+                      key={cat.getItemKey(item, index)}
+                    >
+                      <Image
+                        src="/icons/search-icon.svg"
+                        alt="search-icon"
+                        width={22}
+                        height={22}
+                      />
                       {cat.renderItem(item)}
                     </li>
                   );
