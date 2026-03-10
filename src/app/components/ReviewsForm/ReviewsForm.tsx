@@ -76,7 +76,7 @@ export default function ReviewsForm() {
         active: false,
       };
 
-      const { response, data } = await sendReviewsService(reviewsData);
+      const { response, data } = await sendReviewsService(reviewsData as unknown as FormData);
 
       if (response.ok) {
         setIsSuccess(true);
