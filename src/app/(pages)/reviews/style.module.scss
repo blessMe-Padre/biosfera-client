@@ -1,0 +1,50 @@
+// @include adaptiv-value("font-size", 16, 13);
+// @use "../../mixins" as *;
+@use "@app/mixins" as *;
+
+.title {
+    @include adaptiv-value("font-size", 46, 26);
+    margin-bottom: 30px;
+}
+
+.header_wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.text {
+    max-width: 760px;
+
+    font-family: var(--font-family);
+    font-weight: 600;
+    font-size: 18px;
+    color: #858f9c;
+}
+
+.button {
+    background: var(--button-gradient);
+    color: white;
+    padding: 10px 20px;
+    border: 1px solid var(--button-border);
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 1.125rem;
+
+    &:hover {
+        color: var(--hover);
+        background: white;
+        border: 1px solid var(--hover);
+    }
+
+    @media (max-width: 860px) {
+        font-size: 0.625rem;
+        padding: 5px 10px;
+    }
+
+    @media (max-width: 560px) {
+        display: none;
+    }
+}

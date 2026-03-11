@@ -22,20 +22,20 @@ const url = `${domain}/api/otzyvies`;
 
 export async function sendReviewsService(reviewsData: FormData) {
   try {
-      const response = await fetch(url, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-              data: { ...reviewsData }
-          })
-      });
-      console.log("reviewsData", reviewsData);
-      const data = await response.json();
+    const response = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        data: { ...reviewsData }
+      })
+    });
+    console.log("reviewsData", reviewsData);
+    const data = await response.json();
 
-      return { response, data };
+    return { response, data };
   } catch (error) {
-      console.error("sendReviewsService Error:", error);
-      throw error;
+    console.error("sendReviewsService Error:", error);
+    throw error;
   }
 }
 
@@ -80,6 +80,7 @@ export default function ReviewsForm() {
 
       if (response.ok) {
         setIsSuccess(true);
+        setSending(false);
         reset();
       } else {
         setError("Ошибка запроса, попробуйте позже");
@@ -168,8 +169,8 @@ export default function ReviewsForm() {
           </div>
         </div>
       )}
-        {/* Врач */}
-        {rating <= 3 && (
+      {/* Врач */}
+      {rating <= 3 && (
         <div className={styles.input_wrapper}>
           <input
             placeholder="На приеме у какого врача были*"
@@ -184,7 +185,7 @@ export default function ReviewsForm() {
           </div>
         </div>
       )}
-      
+
       <div className={styles.input_wrapper}>
         <textarea
           placeholder="Опишите впечатления*"
@@ -292,7 +293,7 @@ export default function ReviewsForm() {
       </div>
 
       {isSuccess && (
-        <div className={styles.success}>Ваша заявка успешно отправлена</div>
+        <div className={styles.success}>Ваш отзыв успешно отправлен</div>
       )}
       {error && <div className={styles.send_error}>{error}</div>}
     </form>
