@@ -21,8 +21,8 @@ const StarRating = ({ rating, setRating }) => {
                             width="25"
                             height="24"
                             viewBox="0 0 25 24"
-                            fill={isFilled ? '#FFD700' : 'none'}
-                            stroke={isFilled ? '#FFD700' : 'black'}
+                            fill={isFilled ? '#3170b4' : 'none'}
+                            stroke={isFilled ? '#3170b4' : '#858f9c'}
                             xmlns="http://www.w3.org/2000/svg"
                         >
                             <path
