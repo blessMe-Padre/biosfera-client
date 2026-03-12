@@ -32,7 +32,10 @@ function formatPhoneForDisplay(phone: string): string {
     return `+7 (${match[1]}) ${match[2]}-${match[3]}-${match[4]}`;
   }
 
-  return phone.replace(/\u00A0/g, " ").replace(/\s+/g, " ").trim();
+  return phone
+    .replace(/\u00A0/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 function scheduleToLines(value?: string): string[] {
