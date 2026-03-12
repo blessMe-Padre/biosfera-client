@@ -39,7 +39,15 @@ const FOOTER_NAV = [
       { label: "Терапия", href: "/services/therapy" },
       { label: "Неврология", href: "/services/nevrologiya" },
       { label: "Эндокринология", href: "/services/endokrinologiya" },
-      { label: "Диагностика", href: "/services/diagnostika" },
+      {
+        label: "Функциональная диагностика",
+        href: "/services/therapy/funkcionalnaya-diagnostika",
+      },
+      {
+        label: "Лабораторная диагностика",
+        href: "/services/therapy/laboratornaya-diagnostika",
+      },
+      { label: "Телемедицина", href: "/services/therapy/telemedicina" },
     ],
   },
   {
