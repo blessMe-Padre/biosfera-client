@@ -20,9 +20,12 @@ const FOOTER_NAV = [
   {
     title: "Пациентам",
     links: [
-      { label: "Правовая информация", href: "#" },
-      { label: "Лицензии", href: "#" },
-      { label: "Подписание договора онлайн", href: "#" },
+      { label: "Правовая информация", href: "/patients/yuridicheskie-dannye" },
+      { label: "Лицензии", href: "/patients/licenzii" },
+      {
+        label: "Подписание договора онлайн",
+        href: "/patients/podpisanie-dogovora-onlayn",
+      },
     ],
   },
   {
