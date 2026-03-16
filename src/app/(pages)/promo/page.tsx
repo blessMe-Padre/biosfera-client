@@ -42,6 +42,8 @@ export default async function Promo() {
     return notFound();
   }
 
+  console.log("page.data", page.data);
+
   return (
     <div className="container">
       <Breadcrumbs secondLabel="Акции " />
