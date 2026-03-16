@@ -1,107 +1,180 @@
 "use client";
+import { useEffect } from "react";
+import { useParams } from "next/navigation";
 
-import { useEffect, useMemo } from "react";
+// burdukovskaya-natalya-viktorovna
+// savinov-arkadij-aleksandrovich
+// siprashvili-darya-andreevna
 
-type ProdoctorovFooterWidgetProps = {
-  doctorId: string | number;
-  lpuId: string | number;
-  doctorUrl?: string;
-  doctorName?: string;
-};
+export default function ProdoctorovFooterWidget() {
+  const params = useParams();
+  const slugParam = params?.slug;
+  const slug = Array.isArray(slugParam) ? slugParam[0] : slugParam;
 
-const WIDGET_SRC_BASE = "https://prodoctorov.ru/static/js/widget_footer.js?v06";
-const SCRIPT_MARKER_ATTR = "data-pd-widget-footer";
-
-export default function ProdoctorovFooterWidget({
-  doctorId,
-  lpuId,
-  doctorUrl,
-  doctorName,
-}: ProdoctorovFooterWidgetProps) {
-  const doctorIdStr = String(doctorId ?? "").trim();
-  const lpuIdStr = String(lpuId ?? "").trim();
-
-  const ids = useMemo(() => {
-    const suffix = `d${doctorIdStr}`;
-    return {
-      rootId: `pd_widget_footer${suffix}`,
-      middleId: `pd_widget_footer_content_middle${suffix}`,
-      rightId: `pd_widget_footer_content_right${suffix}`,
-    };
-  }, [doctorIdStr]);
+  const doctorSlug = (() => {
+    switch (slug) {
+      case "burdukovskaya-natalya-viktorovna":
+        return "1";
+      case "savinov-arkadij-aleksandrovich":
+        return "2";
+      case "siprashvili-darya-andreevna":
+        return "3";
+      default:
+        return null;
+    }
+  })();
 
   useEffect(() => {
-    if (!doctorIdStr || !lpuIdStr) return;
-    if (typeof document === "undefined") return;
+    if (!doctorSlug) {
+      return;
+    }
 
-    document.querySelectorAll(`script[${SCRIPT_MARKER_ATTR}]`).forEach((el) => {
-      el.parentNode?.removeChild(el);
-    });
+    const scriptId = "pd_widget_footer_script";
+    document.getElementById(scriptId)?.remove();
 
     const script = document.createElement("script");
+    script.id = scriptId;
+    script.src = "https://prodoctorov.ru/static/js/widget_footer.js?v06";
     script.async = true;
-    script.setAttribute(SCRIPT_MARKER_ATTR, "1");
-
-    // Скрипт у продокторов один и тот же; добавляем query, чтобы при SPA-переходах
-    // он гарантированно исполнялся заново для нового врача.
-    script.src = `${WIDGET_SRC_BASE}&doctor=${encodeURIComponent(
-      doctorIdStr,
-    )}&lpu=${encodeURIComponent(lpuIdStr)}&_=${Date.now()}`;
-
+    script.dataset.doctorSlug = doctorSlug;
     document.body.appendChild(script);
-    return () => {
-      script.parentNode?.removeChild(script);
-    };
-  }, [doctorIdStr, lpuIdStr]);
 
-  if (!doctorIdStr || !lpuIdStr) return null;
+    return () => {
+      script.remove();
+    };
+  }, [doctorSlug]);
+
+  if (!doctorSlug) {
+    return null;
+  }
 
   return (
     <>
-      <div
-        id={ids.rootId}
-        data-filters={`lpu=${lpuIdStr}`}
-        className="pd_widget_footer  pd_widget_gap"
-        data-doctor={doctorIdStr}
-      >
-        <div className="pd_left">
-          {doctorUrl ? (
+      {doctorSlug === "1" && (
+        <div>
+          <div
+            id="pd_widget_footerd166638"
+            data-filters="lpu=112840"
+            className="pd_widget_footer "
+            data-doctor="166638"
+          >
+            <div className="pd_left">
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                className="pd_doctor_name"
+                href="https://prodoctorov.ru/vladivostok/vrach/166638-burdukovskaya/"
+              >
+                Бурдуковская Наталья Викторовна
+              </a>
+            </div>
+            <div className="pd_middle">
+              <div id="pd_widget_footer_content_middled166638"></div>
+            </div>
+            <div className="pd_right">
+              <div id="pd_widget_footer_content_rightd166638"></div>
+            </div>
+          </div>
+          <div className="pd_powered_by">
             <a
               target="_blank"
               rel="noopener noreferrer"
-              className="pd_doctor_name"
-              href={doctorUrl}
+              href="https://prodoctorov.ru/"
             >
-              {doctorName ?? ""}
+              <img
+                className="pd_logo"
+                width="132"
+                src="https://prodoctorov.ru/static/_v1/pd/logos/logo-pd-widget.png"
+                alt="ProDoctor"
+              />
             </a>
-          ) : (
-            <span className="pd_doctor_name">{doctorName ?? ""}</span>
-          )}
+          </div>
         </div>
-        <div className="pd_middle">
-          <div id={ids.middleId}></div>
-        </div>
-        <div className="pd_right">
-          <div id={ids.rightId}></div>
-        </div>
-      </div>
+      )}
 
-      <div className="pd_powered_by">
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://prodoctorov.ru/"
-        >
-          {/* biome-ignore lint: логотип виджета ProDoctorov */}
-          <img
-            className="pd_logo"
-            width="132"
-            src="https://prodoctorov.ru/static/_v1/pd/logos/logo-pd-widget.png"
-            alt="ProDoctor"
-          />
-        </a>
-      </div>
+      {doctorSlug === "2" && (
+        <>
+          <div
+            id="pd_widget_footerd1351198"
+            data-filters="lpu=112840"
+            className="pd_widget_footer "
+            data-doctor="1351198"
+          >
+            <div className="pd_left">
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                className="pd_doctor_name"
+                href="https://prodoctorov.ru/vladivostok/vrach/1351198-savinov/"
+              >
+                Савинов Аркадий Александрович
+              </a>
+            </div>
+            <div className="pd_middle">
+              <div id="pd_widget_footer_content_middled1351198"></div>
+            </div>
+            <div className="pd_right">
+              <div id="pd_widget_footer_content_rightd1351198"></div>
+            </div>
+          </div>
+          <div className="pd_powered_by">
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://prodoctorov.ru/"
+            >
+              <img
+                className="pd_logo"
+                width="132"
+                src="https://prodoctorov.ru/static/_v1/pd/logos/logo-pd-widget.png"
+                alt="ProDoctor"
+              />
+            </a>
+          </div>
+        </>
+      )}
+
+      {doctorSlug === "3" && (
+        <>
+          <div
+            id="pd_widget_footerd1095027"
+            data-filters="lpu=112840"
+            className="pd_widget_footer "
+            data-doctor="1095027"
+          >
+            <div className="pd_left">
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                className="pd_doctor_name"
+                href="https://prodoctorov.ru/vladivostok/vrach/1095027-siprashvili/"
+              >
+                Сипрашвили Дарья Андреевна
+              </a>
+            </div>
+            <div className="pd_middle">
+              <div id="pd_widget_footer_content_middled1095027"></div>
+            </div>
+            <div className="pd_right">
+              <div id="pd_widget_footer_content_rightd1095027"></div>
+            </div>
+          </div>
+          <div className="pd_powered_by">
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://prodoctorov.ru/"
+            >
+              <img
+                className="pd_logo"
+                width="132"
+                src="https://prodoctorov.ru/static/_v1/pd/logos/logo-pd-widget.png"
+                alt="ProDoctor"
+              />
+            </a>
+          </div>
+        </>
+      )}
     </>
   );
 }
-

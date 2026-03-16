@@ -6,7 +6,7 @@ import { ContentRenderer } from "@/app/components";
 import Breadcrumbs from "@/app/components/Breadcrumbs/Breadcrumbs";
 import type { ContentItem } from "@/app/components/ContentRenderer/ContentRenderer";
 import styles from "./style.module.scss";
-import Script from "next/script";
+import ProdoctorovFooterWidget from "@/app/components/ProdoctorovFooterWidget/ProdoctorovFooterWidget";
 
 type DoctorItem = {
   main_photo?: { url?: string };
@@ -157,44 +157,9 @@ export default async function Page({
                 </h2>
                 <ContentRenderer content={data?.skills ?? []} />
               </div>
-              <div
-                id="pd_widget_footerd166638"
-                data-filters="lpu=112840"
-                className="pd_widget_footer "
-                data-doctor="166638"
-              >
-                <div className="pd_left">
-                  <a
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="pd_doctor_name"
-                    href="https://prodoctorov.ru/vladivostok/vrach/166638-burdukovskaya/"
-                  >
-                    Бурдуковская Наталья Викторовна
-                  </a>
-                </div>
-                <div className="pd_middle">
-                  <div id="pd_widget_footer_content_middled166638"></div>
-                </div>
-                <div className="pd_right">
-                  <div id="pd_widget_footer_content_rightd166638"></div>
-                </div>
-              </div>
-              <div className="pd_powered_by">
-                <a
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href="https://prodoctorov.ru/"
-                >
-                  <img
-                    className="pd_logo"
-                    width="132"
-                    src="https://prodoctorov.ru/static/_v1/pd/logos/logo-pd-widget.png"
-                    alt="ProDoctor"
-                  />
-                </a>
-              </div>
-              <Script src="https://prodoctorov.ru/static/js/widget_footer.js?v06"></Script>
+
+              <ProdoctorovFooterWidget />
+
               <div className={styles.content_item}>
                 <h2 className={`${styles.title} text-gradient`}>Образование</h2>
                 <ContentRenderer content={data?.education ?? []} />
