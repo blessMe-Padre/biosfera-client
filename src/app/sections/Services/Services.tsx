@@ -1,54 +1,7 @@
-"use client";
-
-import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { AnimateElement } from "@/app/components";
 import fetchData from "@/app/utils/fetchData";
 import styles from "./style.module.scss";
-
-const servicesList = [
-  {
-    image: "/images/services-1.webp",
-    title: "Терапия",
-    link: "/services/therapy",
-  },
-  {
-    image: "/images/services-2.webp",
-    title: "Неврология",
-    link: "/services/nevrologiya",
-  },
-  {
-    image: "/images/services-3.webp",
-    title: "Эндокринология",
-    link: "/services/endokrinologiya",
-  },
-  {
-    image: "/images/services-4.webp",
-    title: "Функциональная диагностика",
-    link: "/services/therapy/funkcionalnaya-diagnostika",
-  },
-  {
-    image: "/images/services-4.webp",
-    title: "Лабораторная диагностика",
-    link: "/services/therapy/laboratornaya-diagnostika",
-  },
-  {
-    image: "/images/services-4.webp",
-    title: "Телемедицина",
-    link: "/services/therapy/telemedicina",
-  },
-  {
-    image: "/images/services-4.webp",
-    title: "Ультразвуковая диагностика",
-    link: "/services/therapy/ultrazvukovaya-diagnostika",
-  },
-  {
-    image: "/images/services-4.webp",
-    title: "Блокады",
-    link: "/services/therapy/blokady",
-  },
-];
 
 const apiUrl = `api/stranicza-uslugi?populate[list][populate]=*`;
 
@@ -65,34 +18,24 @@ type ServicesItem = {
   order?: number;
 };
 
-export default function Services({ className }: { className?: string }) {
-  const [services, setServices] = useState<ServicesItem[]>([]);
-  console.log("services", services);
-
-  useEffect(() => {
-    const loadServices = async () => {
-      const response = await fetchData<ServicesResponse>(apiUrl);
-      setServices(response?.data?.list ?? []);
-    };
-    loadServices();
-  }, []);
+export default async function Services({ className }: { className?: string }) {
+  const response = await fetchData<ServicesResponse>(apiUrl);
+  const services = response?.data?.list ?? [];
 
   return (
     <section className={`${styles.services} ${className}`} id="services">
       <div className="container">
         <div className={styles.services_wrapper}>
           <div className={styles.services__header}>
-            <AnimateElement>
-              <h2 className={styles.services__title}>
-                <span className="text-gradient">Медицинские услуги,</span>{" "}
-                которые соответствуют вашим потребностям
-              </h2>
-            </AnimateElement>
-            <AnimateElement element="p" animationName="fadeUp">
+            <h2 className={styles.services__title}>
+              <span className="text-gradient">Медицинские услуги,</span> которые
+              соответствуют вашим потребностям
+            </h2>
+            <p>
               Мы сосредоточены на результатах и вашем комфорте, предоставляя
               широкий спектр медицинских услуг, основанных на&nbsp;передовых
               технологиях
-            </AnimateElement>
+            </p>
           </div>
 
           <ul className={styles.services_list}>
