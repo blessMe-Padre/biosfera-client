@@ -13,7 +13,7 @@ import type {  SliderItemType} from "@/app/types";
 import Accordion from "@/app/components/Accordion/Accordion";
 import Gallery from "@/app/sections/Gallery/Gallery";
 import { Owner, About } from "@/app/sections";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 
 
 
@@ -33,6 +33,49 @@ export default function ContentPage({ data }: { data: any }) {
   const licenses = data?.licenses;
 
   const { about_section, about_image_l, about_image_s } = data;
+
+  useEffect(() => {
+    let timerId: number | null = null;
+
+    const tryScrollToForm = () => {
+      if (timerId) {
+        window.clearInterval(timerId);
+        timerId = null;
+      }
+
+      if (window.location.hash !== "#biosphera-form") return;
+
+      const scrollOnce = () => {
+        const el = document.getElementById("biosphera-form");
+        if (!el) return false;
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+        return true;
+      };
+
+      if (scrollOnce()) return;
+
+      let tries = 0;
+      const maxTries = 20;
+      const intervalMs = 100;
+
+      timerId = window.setInterval(() => {
+        tries += 1;
+
+        if (scrollOnce() || tries >= maxTries) {
+          if (timerId) window.clearInterval(timerId);
+          timerId = null;
+        }
+      }, intervalMs);
+    };
+
+    tryScrollToForm();
+    window.addEventListener("hashchange", tryScrollToForm);
+
+    return () => {
+      window.removeEventListener("hashchange", tryScrollToForm);
+      if (timerId) window.clearInterval(timerId);
+    };
+  }, []);
 
   const openMedflexRoundWidget = useCallback(() => {
     const clickWidgetButton = () => {

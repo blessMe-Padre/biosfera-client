@@ -1,12 +1,22 @@
 "use client";
 
 import Image from "next/image";
-import { usePopupStore } from "@/app/store/popupStore";
+import { useRouter } from "next/navigation";
 import { AnimateElement } from "@/app/components";
 import styles from "./style.module.scss";
 
 export default function Owner() {
-  const { togglePopupState } = usePopupStore();
+  const router = useRouter();
+
+  const scrollToForm = () => {
+    const formElement = document.getElementById("biosphera-form");
+    if (!formElement) {
+      router.push("/about#biosphera-form");
+      return;
+    }
+
+    formElement.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
 
   return (
     <section className={styles.owner}>
@@ -70,7 +80,7 @@ export default function Owner() {
             <button
               type="button"
               className={styles.primary_button}
-              onClick={togglePopupState}
+              onClick={scrollToForm}
             >
               Задать вопрос главному врачу
             </button>
