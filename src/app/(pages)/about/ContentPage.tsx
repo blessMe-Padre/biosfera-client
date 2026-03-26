@@ -9,14 +9,14 @@ import {
 } from "@/app/components";
 import { usePopupStore } from "@/app/store/popupStore";
 import styles from "./style.module.scss";
-import type {
-  CostItemType,
-  SliderItemType,
-  IncludesItemType,
-} from "@/app/types";
+import type {  SliderItemType} from "@/app/types";
 import Accordion from "@/app/components/Accordion/Accordion";
 import Gallery from "@/app/sections/Gallery/Gallery";
 import { Owner, About } from "@/app/sections";
+import { useCallback } from "react";
+
+
+
 
 export interface SliderProps {
   items: SliderItemType[];
@@ -33,6 +33,49 @@ export default function ContentPage({ data }: { data: any }) {
   const licenses = data?.licenses;
 
   const { about_section, about_image_l, about_image_s } = data;
+
+  const openMedflexRoundWidget = useCallback(() => {
+    const clickWidgetButton = () => {
+      const button = document.querySelector(
+        ".medflex-round-widget__button",
+      ) as HTMLElement | null;
+      if (!button) return false;
+      button.click();
+      return true;
+    };
+
+    if (clickWidgetButton()) return;
+
+    let tries = 0;
+    const maxTries = 20;
+    const intervalMs = 100;
+
+    const timerId = window.setInterval(() => {
+      tries += 1;
+
+      if (clickWidgetButton()) {
+        window.clearInterval(timerId);
+        return;
+      }
+
+      if (tries >= maxTries) {
+        window.clearInterval(timerId);
+
+        const dataEl = document.getElementById("medflexRoundWidgetData");
+        const src = dataEl?.dataset?.src;
+        if (!src) return;
+
+        try {
+          const url = new URL(src);
+          url.searchParams.delete("isRoundWidget");
+          url.searchParams.set("source", "3");
+          window.open(url.toString(), "_blank", "noopener,noreferrer");
+        } catch {
+          window.open(src, "_blank", "noopener,noreferrer");
+        }
+      }
+    }, intervalMs);
+  }, []);
 
   return (
     <>
@@ -75,7 +118,8 @@ export default function ContentPage({ data }: { data: any }) {
             <AnimateElement animationDelay={100}>
               <button
                 className={styles.hero_button}
-                onClick={togglePopupState}
+                // onClick={togglePopupState}
+                onClick={openMedflexRoundWidget}
                 type="button"
               >
                 Записаться на прием
@@ -110,7 +154,7 @@ export default function ContentPage({ data }: { data: any }) {
         </div>
       </section>
 
-      <section className={`${styles.price} ${styles.section}`}>
+      <section className={`${styles.price} ${styles.section}`} id="biosphera-form">
         <div className="container">
           <PriceForm />
         </div>
