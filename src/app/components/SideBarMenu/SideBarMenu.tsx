@@ -20,6 +20,11 @@ const items: MenuItem[] = [
     scrollToId: "section",
   },
   {
+    label: "Оформление больничного листа",
+    href: "/patients/oformlenie-lista",
+    scrollToId: "section",
+  },
+  {
     label: "Отзывы",
     href: "/reviews",
   },

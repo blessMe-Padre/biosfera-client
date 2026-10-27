@@ -238,7 +238,7 @@ export default function ContentPage({ data }: { data: any }) {
         </div>
       </section>
 
-      <section className={`${styles.seo_block} ${styles.section}`}>
+      {/* <section className={`${styles.seo_block} ${styles.section}`}>
         <div className="container">
           <header className={styles.seo_block__header}>
             <h2 className={styles.secton_title}>
@@ -247,7 +247,7 @@ export default function ContentPage({ data }: { data: any }) {
           </header>
           <ContentRenderer content={seo_block?.content ?? []} />
         </div>
-      </section>
+      </section> */}
     </>
   );
 }
