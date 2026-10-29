@@ -16,6 +16,7 @@ import type {
 import Accordion from "@/app/components/Accordion/Accordion";
 import Gallery from "@/app/sections/Gallery/Gallery";
 import { useCallback } from "react";
+import type { ContentItem } from "@/app/components/ContentRenderer/ContentRenderer";
 
 export interface SliderProps {
   items: SliderItemType[];
@@ -25,6 +26,13 @@ export interface RecomendationsItemType {
   id: number;
   title: string;
 }
+
+interface InfoBlockItem {
+  id: number;
+  title?: string;
+  content?: ContentItem[];
+}
+
 export default function ContentPage({ data }: { data: any }) {
   const { togglePopupState } = usePopupStore();
   const hero = data?.data?.[0];
@@ -33,10 +41,17 @@ export default function ContentPage({ data }: { data: any }) {
   const includes_list = data?.data?.[0]?.items;
   const recomendations = data?.data?.[0]?.section;
   const faq = data?.data?.[0]?.faq;
-  const seo_block = data?.data?.[0]?.seo_block;
+  // const seo_block = data?.data?.[0]?.seo_block;
   const gallery = data?.data?.[0]?.gallery;
-
   const showGallery = data?.data?.[0]?.show_gallery;
+
+  const infoBlockList: InfoBlockItem[] | undefined =
+    data?.data?.[0]?.InfoBlockList;
+  const infoBlocks =
+    infoBlockList?.filter(
+      (item): item is InfoBlockItem & { content: ContentItem[] } =>
+        Boolean(item.content?.length),
+    ) ?? [];
 
   const openMedflexRoundWidget = useCallback(() => {
     const clickWidgetButton = () => {
@@ -250,6 +265,23 @@ export default function ContentPage({ data }: { data: any }) {
           <Accordion list={faq?.list ?? []} />
         </div>
       </section>
+
+      {infoBlocks.length > 0 && (
+        <section className={`${styles.section} ${styles.info_section}`}>
+          <ul>
+            {infoBlocks.map((item) => (
+              <li className={styles.info_section__item} key={item.id}>
+                <div className="container">
+                  {item.title ? (
+                    <h2 className={styles.info_section__title}>{item.title}</h2>
+                  ) : null}
+                  <ContentRenderer content={item.content} />
+                </div>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       {/* <section className={`${styles.seo_block} ${styles.section}`}>
         <div className="container">

@@ -49,7 +49,9 @@ export default async function ServicesPage({
     `&populate[how][populate]=*` +
     `&populate[faq][populate]=*` +
     `&populate[seo_block][populate]=*` +
-    `&populate[hero_background][populate]=*`;
+    `&populate[hero_background][populate]=*` +
+    `&populate[InfoBlockList][populate]=*` +
+    `&populate[][populate]=*`;
 
   const page = await fetchData<ServicesPageResponse>(url);
 

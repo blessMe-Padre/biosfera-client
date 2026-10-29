@@ -383,3 +383,29 @@
         padding-top: 0;
     }
 }
+
+
+.info_section__item {
+    position: relative;
+    max-width: 1740px;
+    margin: 0 auto;
+    padding: 70px 0 100px;
+    background-image: url(/bg/services_bg.webp);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 20px;
+    margin-bottom: 30px;
+}
+
+.info_section__title {
+    @include adaptiv-value("font-size", 46, 26);
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: 30px;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
