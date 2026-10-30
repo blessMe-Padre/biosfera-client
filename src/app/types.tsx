@@ -32,3 +32,16 @@ export interface NewsItemType {
   content?: string[];
   isRecomended?: boolean;
 }
+
+export interface ArticleItemType {
+  id: number;
+  documentId: string;
+  title?: string;
+  slug: string;
+  label?: string;
+  image?: { url?: string };
+  publishedAt?: string;
+  content?: string[];
+  cover?: { url?: string };
+  poster?: { url?: string };
+}
