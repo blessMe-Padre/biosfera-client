@@ -44,4 +44,15 @@ export interface ArticleItemType {
   content?: string[];
   cover?: { url?: string };
   poster?: { url?: string };
+  Seo?: {
+    metaTitle?: string;
+    metaDescription?: string;
+  };
+  vrachi?: {
+    name?: string;
+    slug?: string;
+    experience?: string;
+    specialization?: string;
+    small_photo?: { url?: string };
+  };
 }
