@@ -1,59 +1,49 @@
 import fetchData from "@/app/utils/fetchData";
-import fetchMedflexData from "@/app/utils/fetchMedflexData";
 import formatDate from "@/app/utils/formatDate";
 
 import styles from "../style.module.scss";
 import Breadcrumbs from "@/app/components/Breadcrumbs/Breadcrumbs";
-import type { NewsItemType } from "@/app/types";
-import CostItemMed from "@/app/components/CostItemMed/CostItemMed";
+import type { ArticleItemType } from "@/app/types";
 import { notFound } from "next/navigation";
-import { ContentRenderer, NewsCard } from "@/app/components";
+import { ArticlesCard, ContentRenderer } from "@/app/components";
 import type { ContentItem } from "@/app/components/ContentRenderer/ContentRenderer";
 import Image from "next/image";
 import { Doctors } from "@/app/sections";
 
-interface ApiResponse {
-  data: NewsItemType;
+interface ApiListResponse {
+  data?: ArticleItemType[];
 }
 
-interface ApiListResponse<T> {
-  data?: T[];
-}
-
-type MedflexService = {
-  id: number | string;
-  name: string;
-  price?: number | string;
-};
-
-interface MedflexPricesResponse {
-  data?: {
-    services?: MedflexService[];
-  };
+function articleBySlugUrl(slug: string) {
+  return `/api/articles?filters[slug][$eq]=${encodeURIComponent(slug)}&populate=*`;
 }
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ slug: string }>;
 }) {
-  const { id } = await params;
-  const page = await fetchData<ApiResponse>(`/api/novostis/${id}?populate=*`);
+  const { slug } = await params;
+  const page = await fetchData<ApiListResponse>(articleBySlugUrl(slug));
+  const article = page?.data?.[0];
+  const imagePath = article?.poster?.url ?? article?.cover?.url;
 
   return {
-    title: `Биосфера ДВ | ${page?.data?.title}`,
-    description: page?.data?.description,
+    title: `Биосфера ДВ | ${article?.title ?? "Статья"}`,
+    description: article?.title,
     openGraph: {
-      title: `Биосфера ДВ | ${page?.data?.title}`,
-      description: page?.data?.description,
-      images: [
-        {
-          url: `${process.env.NEXT_PUBLIC_API_SERVER}${page?.data?.image?.url}`,
-          width: 600,
-          height: 300,
-          alt: page?.data?.title,
-        },
-      ],
+      title: `Биосфера ДВ | ${article?.title ?? "Статья"}`,
+      description: article?.title,
+      images: imagePath
+        ? [
+            {
+              url: `${process.env.NEXT_PUBLIC_API_SERVER}${imagePath}`,
+              width: 600,
+              height: 300,
+              alt: article?.title,
+            },
+          ]
+        : [],
     },
   };
 }
@@ -61,47 +51,45 @@ export async function generateMetadata({
 export default async function Page({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ slug: string }>;
 }) {
-  const { id } = await params;
-  let page: ApiResponse | null = null;
+  const { slug } = await params;
+  let page: ApiListResponse | null = null;
 
   try {
-    page = await fetchData<ApiResponse>(`/api/novostis/${id}?populate=*`);
+    page = await fetchData<ApiListResponse>(articleBySlugUrl(slug));
   } catch {
     return notFound();
   }
 
-  if (!page?.data) {
+  const article = page?.data?.[0];
+
+  if (!article) {
     return notFound();
   }
 
-  // тут получаем цены услуг из медифлекса по клинике (lpu_id)
-  // https://api.medflex.ru/services/prices/?lpu_id=**********
-
-  // const prices = await fetchMedflexData<MedflexPricesResponse>(
-  //   `/services/prices/?lpu_id=${process.env.NEXT_PUBLIC_CLINIC_ID}`,
-  // );
-  // const services = prices.data?.services ?? [];
-
-  // Запрос на получение всех новостей отфильтрованных по isRecommended = true
-  const recommendedNews = await fetchData<ApiListResponse<NewsItemType>>(
-    `/api/novostis?filters[isRecomended][$eq]=true&populate=*`,
-  );
-  const recommendedNewsData = recommendedNews.data ?? [];
+  let relatedArticles: ArticleItemType[] = [];
+  let relatedFailed = false;
+  try {
+    const related = await fetchData<ApiListResponse>(
+      `/api/articles?filters[slug][$ne]=${encodeURIComponent(slug)}&populate=*`,
+    );
+    relatedArticles = related.data ?? [];
+  } catch {
+    relatedFailed = true;
+  }
 
   const domain = process.env.NEXT_PUBLIC_API_SERVER ?? "";
-  const imageSrc = page?.data?.image?.url
-    ? `${domain}${page?.data?.image?.url}`
-    : "/placeholder1.svg";
+  const imagePath = article.poster?.url ?? article.cover?.url;
+  const imageSrc = imagePath ? `${domain}${imagePath}` : "/placeholder1.svg";
 
   return (
     <>
       <div className="container">
         <Breadcrumbs
-          secondLink="/news"
-          secondLabel="Новости"
-          thirdLabel={page?.data?.title}
+          secondLink="/articles"
+          secondLabel="Статьи"
+          thirdLabel={article.title}
         />
         <article className={styles.article}>
           <div className="relative">
@@ -109,7 +97,7 @@ export default async function Page({
               <Image
                 className="dsv-image"
                 src={imageSrc}
-                alt="News"
+                alt={article.title ?? "Статья"}
                 width={500}
                 height={500}
                 loading="lazy"
@@ -121,49 +109,34 @@ export default async function Page({
 
           <div className={styles.article__info}>
             <div className={styles.article__date}>
-              {formatDate(page?.data?.publishedAt)}
+              {formatDate(article.publishedAt)}
             </div>
-            <h1 className={styles.article__title}>{page?.data?.title}</h1>
+            <h1 className={styles.article__title}>{article.title}</h1>
             <ContentRenderer
-              content={page?.data?.content as unknown as ContentItem[]}
+              content={article.content as unknown as ContentItem[]}
             />
           </div>
         </article>
       </div>
 
-      {/* <section className={`${styles.costs} ${styles.section}`}>
-        <div className="container">
-          <header className={styles.costs__header}>
-            <h2 className={styles.costs__title}>
-              <span className="text-gradient">Услуги медицинского центра </span>
-              «Биосфера ДВ»
-            </h2>
-          </header>
-
-          <ul className={styles.costs__list}>
-            {services.map((item) => (
-              <CostItemMed key={item.id} data={item} />
-            ))}
-          </ul>
-        </div>
-      </section> */}
-
       <Doctors />
 
-      <section className={`${styles.news} ${styles.section}`}>
-        <div className="container">
-          <h2 className={styles.costs__title}>
-            Вам может быть <span className="text-gradient">интересно</span>
-          </h2>
-          <div className={styles.list}>
-            {recommendedNewsData && recommendedNewsData.length > 0
-              ? recommendedNewsData.map((item: NewsItemType) => (
-                  <NewsCard key={item.id} data={item} />
-                ))
-              : "Не удалось загрузить новости"}
+      {relatedArticles.length > 0 || relatedFailed ? (
+        <section className={`${styles.news} ${styles.section}`}>
+          <div className="container">
+            <h2 className={styles.costs__title}>
+              Вам может быть <span className="text-gradient">интересно</span>
+            </h2>
+            <div className={styles.list}>
+              {relatedArticles.length > 0
+                ? relatedArticles.map((item) => (
+                    <ArticlesCard key={item.id} data={item} />
+                  ))
+                : "Не удалось загрузить статьи"}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      ) : null}
     </>
   );
 }

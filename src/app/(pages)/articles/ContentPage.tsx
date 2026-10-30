@@ -5,6 +5,7 @@ import type { ArticleItemType } from "@/app/types";
 import styles from "./style.module.scss";
 
 export default function ContentPage({ data }: { data: ArticleItemType[] }) {
+  console.log(data);
   return (
     <section className={styles.news}>
       <h2 className={styles.news__title}>
