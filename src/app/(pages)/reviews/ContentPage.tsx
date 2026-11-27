@@ -14,6 +14,7 @@ export type ReviewsItem = {
   review_text?: string;
   rating?: number;
   date?: string;
+  platform?: string;
   publishedAt?: string;
 };
 
@@ -44,7 +45,7 @@ export default function ContentPage() {
   const domain = process.env.NEXT_PUBLIC_DOMAIN ?? "";
 
   // для пагинации
-  const PAGE_SIZE: number = 2; // количество отзывов на странице
+  const PAGE_SIZE: number = 4; // количество отзывов на странице
   const [page, setPage] = useState<number>(1);
   const handleLoadMore = () => {
     setPage((prev) => prev + 1);
@@ -118,14 +119,20 @@ export default function ContentPage() {
                   />
                   <div>
                     <div className={styles.name}>
-                      {item?.name}, <span>{item?.age}</span>
+                      {item?.name}
+                      <span>{item.age ? `, ${item.age}` : ""}</span>
                     </div>
                     <p className={styles.reviews_text}>{item?.review_text}</p>
                   </div>
                   <footer className={styles.reviews_item__footer}>
-                    <span className={styles.reviews_item__date}>
-                      {formatDate(item.publishedAt)}
-                    </span>
+                    <div className={styles.reviews_item__date_wrapper}>
+                      <p className={styles.reviews_item__date}>{item?.date}</p>
+                      <p className={styles.reviews_item__platform}>
+                        {item?.platform}
+                      </p>
+                    </div>
+
+                    <span className={styles.reviews_item__platform}></span>
                     <StarRating setRating={setRating} rating={item?.rating} />
                   </footer>
                 </li>

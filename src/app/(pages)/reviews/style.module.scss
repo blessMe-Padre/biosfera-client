@@ -108,4 +108,20 @@
     display: flex;
     justify-content: space-between;
     gap: 20px;
+
+    @media (max-width: 560px) {
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+}
+.reviews_item__date {
+    margin-bottom: 10px;
+    
+    @media (max-width: 560px) {
+    margin-bottom: 0;
+    }
+}
+.reviews_item__platform {
+    font-size: 12px;
 }
