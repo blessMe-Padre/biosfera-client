@@ -1,12 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Image from "next/image";
-import { ReviewsPopup, StarRating, LoadingText } from "@/app/components";
+import Script from "next/script";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { LoadingText, ReviewsPopup, StarRating } from "@/app/components";
 import fetchData from "@/app/utils/fetchData";
 import styles from "./style.module.scss";
-import formatDate from "@/app/utils/formatDate";
-import Script from "next/script";
 
 export type ReviewsItem = {
   name?: string;
@@ -34,9 +33,72 @@ export type ReviewsResponse = {
   };
 };
 
+function ReviewText({ text }: { text?: string }) {
+  const [expanded, setExpanded] = useState(false);
+  const [overflow, setOverflow] = useState(false);
+  const textRef = useRef<HTMLParagraphElement>(null);
+
+  useLayoutEffect(() => {
+    const el = textRef.current;
+    if (!el || !text) return;
+
+    const measure = () => {
+      if (expanded) return;
+
+      const computed = getComputedStyle(el);
+      const probe = document.createElement("p");
+      probe.textContent = text;
+      probe.style.cssText = [
+        "position:absolute",
+        "visibility:hidden",
+        "pointer-events:none",
+        `width:${el.clientWidth}px`,
+        `font:${computed.font}`,
+        `line-height:${computed.lineHeight}`,
+        `letter-spacing:${computed.letterSpacing}`,
+        `word-break:${computed.wordBreak}`,
+        `white-space:${computed.whiteSpace}`,
+      ].join(";");
+      document.body.appendChild(probe);
+      const lineHeight = parseFloat(computed.lineHeight) || 0;
+      const limit = lineHeight * 10;
+      setOverflow(probe.scrollHeight > limit + 1);
+      probe.remove();
+    };
+
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [text, expanded]);
+
+  if (!text) return null;
+
+  return (
+    <>
+      <p
+        ref={textRef}
+        className={`${styles.reviews_text}${expanded ? ` ${styles.reviews_text_expanded}` : ""}`}
+      >
+        {text}
+      </p>
+      {overflow && (
+        <button
+          type="button"
+          className={styles.reviews_more}
+          aria-expanded={expanded}
+          onClick={() => setExpanded((prev) => !prev)}
+        >
+          {expanded ? "Свернуть" : "Читать полностью"}
+        </button>
+      )}
+    </>
+  );
+}
+
 export default function ContentPage() {
   const [active, setActive] = useState<boolean>(false);
-  const [rating, setRating] = useState<number>(5);
+  const [, setRating] = useState<number>(5);
 
   const [reviews, setReviews] = useState<ReviewsItem[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -74,7 +136,7 @@ export default function ContentPage() {
     };
 
     loadData();
-  }, [page]);
+  }, [page, domain]);
 
   return (
     <>
@@ -122,7 +184,7 @@ export default function ContentPage() {
                       {item?.name}
                       <span>{item.age ? `, ${item.age}` : ""}</span>
                     </div>
-                    <p className={styles.reviews_text}>{item?.review_text}</p>
+                    <ReviewText text={item?.review_text} />
                   </div>
                   <footer className={styles.reviews_item__footer}>
                     <div className={styles.reviews_item__date_wrapper}>
@@ -139,7 +201,11 @@ export default function ContentPage() {
               ))}
           </ul>
           {hasMore && (
-            <button onClick={handleLoadMore} className={styles.button}>
+            <button
+              type="button"
+              onClick={handleLoadMore}
+              className={styles.button}
+            >
               {isLoading ? "загрузка..." : "загрузить еще"}
             </button>
           )}

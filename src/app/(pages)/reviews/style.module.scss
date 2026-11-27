@@ -102,6 +102,34 @@
 
 .reviews_text {
     @include adaptiv-value("font-size", 18, 14);
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 10;
+    line-clamp: 10;
+    overflow: hidden;
+}
+
+.reviews_text_expanded {
+    display: block;
+    -webkit-line-clamp: unset;
+    line-clamp: unset;
+    overflow: visible;
+}
+
+.reviews_more {
+    margin-top: 12px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--hover);
+    @include adaptiv-value("font-size", 16, 13);
+
+    &:hover {
+        text-decoration: underline;
+    }
 }
 
 .reviews_item__footer {
